@@ -4,6 +4,7 @@ import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
 public class Main {
+    private static GlobalKeyListenerExample keyListener = new GlobalKeyListenerExample();
     public static void main(String[] args) {
         System.out.println("Hello world!");
         try {
@@ -14,6 +15,10 @@ public class Main {
             System.exit(1);
         }
 
-        GlobalScreen.addNativeKeyListener(new GlobalKeyListenerExample());
+        GlobalScreen.addNativeKeyListener(keyListener);
+        
+        while (!keyListener.getKeys()[1]) { 
+            System.out.println("test test est test");
+        }
     }
 }

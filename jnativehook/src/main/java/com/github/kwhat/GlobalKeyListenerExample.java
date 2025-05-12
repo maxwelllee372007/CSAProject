@@ -19,6 +19,10 @@ public class GlobalKeyListenerExample implements NativeKeyListener {
         System.out.println("Key Released: " +(e.getKeyCode()));
         keyBoard.removeKey(e.getKeyCode());
     }
+    
+    public boolean[] getKeys() {
+        return keyBoard.getKeys();
+    }
 
     @Override
     public void nativeKeyTyped(NativeKeyEvent e) {
