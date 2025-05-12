@@ -5,7 +5,7 @@ import org.jnativehook.NativeHookException;
 
 public class Main {
     private static KeyListener keyListener = new KeyListener();
-    private static double[] startingPos = {0.0, 0.0};
+    private static double[] startingPos = {0.0, 0.0}; // meters
     private static Player player = new Player(startingPos);
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Hello world!");
