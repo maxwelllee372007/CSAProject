@@ -11,14 +11,16 @@ public class GlobalKeyListenerExample implements NativeKeyListener {
         keyBoard = new KeyboardTracker();
     }
     public void nativeKeyPressed(NativeKeyEvent e) {
-        System.out.println("Key Pressed: " + NativeKeyEvent.getKeyText(e.getKeyCode()));
+        System.out.println("Key Pressed: " + (e.getKeyCode()));
         keyBoard.pressKey(e.getKeyCode());
     }
 
     public void nativeKeyReleased(NativeKeyEvent e) {
+        System.out.println("Key Released: " +(e.getKeyCode()));
         keyBoard.removeKey(e.getKeyCode());
     }
 
+    @Override
     public void nativeKeyTyped(NativeKeyEvent e) {
     }
 
