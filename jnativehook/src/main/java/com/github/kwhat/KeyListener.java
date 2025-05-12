@@ -1,6 +1,4 @@
 package com.github.kwhat;
-import org.jnativehook.GlobalScreen;
-import org.jnativehook.NativeHookException;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 
@@ -17,7 +15,7 @@ public class KeyListener implements NativeKeyListener {
     }
 
     public void nativeKeyReleased(NativeKeyEvent e) {
-        System.out.println("Key Released: " +(e.getKeyCode()));
+        System.out.println("Key Released: " + (e.getKeyCode()));
         keyBoard.removeKey(e.getKeyCode());
     }
     

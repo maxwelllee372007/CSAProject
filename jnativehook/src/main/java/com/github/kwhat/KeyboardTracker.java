@@ -1,9 +1,9 @@
 package com.github.kwhat;
 
 public class KeyboardTracker {
-    private boolean[] keyBoard = new boolean[1000000];
+    private boolean[] keyBoard = new boolean[100000];
     public KeyboardTracker() {
-        keyBoard = new boolean[1000000];
+        keyBoard = new boolean[100000];
     }
 
     public void pressKey(int keyCode) {
