@@ -5,7 +5,7 @@ import org.jnativehook.NativeHookException;
 
 public class Main {
     private static GlobalKeyListenerExample keyListener = new GlobalKeyListenerExample();
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         System.out.println("Hello world!");
         try {
             GlobalScreen.registerNativeHook();
@@ -19,6 +19,7 @@ public class Main {
         
         while (!keyListener.getKeys()[1]) { 
             System.out.println("test test est test");
+            Thread.sleep(100);
         }
     }
 }
