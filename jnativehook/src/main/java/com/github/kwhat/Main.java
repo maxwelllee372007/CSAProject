@@ -4,7 +4,7 @@ import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
 public class Main {
-    private static GlobalKeyListenerExample keyListener = new GlobalKeyListenerExample();
+    private static KeyListener keyListener = new KeyListener();
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Hello world!");
         try {

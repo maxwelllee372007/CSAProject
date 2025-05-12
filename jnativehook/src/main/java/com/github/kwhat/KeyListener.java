@@ -4,9 +4,9 @@ import org.jnativehook.NativeHookException;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 
-public class GlobalKeyListenerExample implements NativeKeyListener {
+public class KeyListener implements NativeKeyListener {
     private KeyboardTracker keyBoard;
-    public GlobalKeyListenerExample() {
+    public KeyListener() {
         super();
         keyBoard = new KeyboardTracker();
     }
