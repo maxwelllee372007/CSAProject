@@ -10,6 +10,7 @@ public class KeyListener implements NativeKeyListener {
         super();
         keyBoard = new KeyboardTracker();
     }
+    
     public void nativeKeyPressed(NativeKeyEvent e) {
         System.out.println("Key Pressed: " + (e.getKeyCode()));
         keyBoard.pressKey(e.getKeyCode());
