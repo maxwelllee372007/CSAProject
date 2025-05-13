@@ -35,7 +35,7 @@ public class Obstacles {
         double[] startingPos = player.getPos();
         int i = 0;
         while (isCollided(player) && i < 1000) {
-            double[] increment = {0, 0};
+            double[] increment = {0.0, 0.0};
             switch (i % 4) {
                 case 0:
                     increment[0] = i * Constants.collisionResolutionIncrement;
@@ -53,12 +53,15 @@ public class Obstacles {
                     break;
             }
             double[] newPos = {startingPos[0] + increment[0], startingPos[1] + increment[1]};
+            i++;
             if (!isCollided(newPos, player.getRadius())) {
                 player.movePlayer(increment);
+                startingPos = player.getPos();
+                i = 0;
             }
         }
         if (i == 1000) {
-            System.out.println("collision resolution overrun");
+            System.out.println("collision resolution loop overrun");
         }
         return player.getPos();
     }

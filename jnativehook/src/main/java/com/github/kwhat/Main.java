@@ -1,10 +1,13 @@
 package com.github.kwhat;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
+import com.github.kwhat.obstacles.Box;
+import com.github.kwhat.obstacles.InteractibleMachine;
 import com.github.kwhat.obstacles.Obstacles;
 
 public class Main {
@@ -13,6 +16,7 @@ public class Main {
     private static KeyListener keyListener = new KeyListener();
     private static Player player = new Player(Constants.playerStartingPos, Constants.playerRadius);
     private static Obstacles obstacles = new Obstacles();
+    private static ArrayList<InteractibleMachine> machines = Constants.machines;
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Hello world!");
         try {
@@ -25,6 +29,8 @@ public class Main {
 
         GlobalScreen.addNativeKeyListener(keyListener);
         
+        generateObstacles();
+        int i = 0;
         while (!keyListener.getKeys()[1]) { // MAIN LOOP
             System.out.println("run main loop");
 
@@ -35,7 +41,7 @@ public class Main {
             System.out.println("Player Position: (" + df.format(player.getPos()[0]) + ", " + df.format(player.getPos()[1]) + ")");
 
             // detect and resolve player collisions
-            obstacles.resolveCollisions(player);
+            obstacles.resolveCollisions(player); // moves player back to nearest allowable location
             
 
             // interact with nearby entities
@@ -43,9 +49,19 @@ public class Main {
 
             // display GUI
 
+
+            // global sleep
             Thread.sleep((int)(Constants.loopTime * 1000.0)); 
+            System.out.println("loop iteration " + i++);
         }
 
         System.out.println("game exited or finished");
+    }
+
+    public static void generateObstacles() {
+        obstacles.addObstacle(Constants.outerBoundary);
+        for (InteractibleMachine machine : machines) {
+            obstacles.addObstacle(machine.getCollisionBox());
+        }
     }
 }

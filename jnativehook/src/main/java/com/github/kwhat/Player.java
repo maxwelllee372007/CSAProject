@@ -31,4 +31,8 @@ public class Player {
         return radius;
     }
 
+    public String getRace() {
+        return "black";
+    }
+
 }

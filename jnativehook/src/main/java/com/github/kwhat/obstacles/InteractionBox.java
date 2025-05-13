@@ -1,5 +1,7 @@
 package com.github.kwhat.obstacles;
 
+import com.github.kwhat.Player;
+
 public class InteractionBox extends Box{
     public InteractionBox(double[] centerPos, double width, double height) {
         super(centerPos, width, height);
@@ -10,9 +12,12 @@ public class InteractionBox extends Box{
 
     @Override
     public boolean isCollided(double[] playerCenter, double playerRadius) {
-        return super.isCollided(playerCenter, 0);
+        return super.isCollided(playerCenter, playerRadius);
     }
-    public boolean isCollided(double[] playerCenter) {
-        return super.isCollided(playerCenter, 0);
+    // public boolean isCollided(double[] playerCenter) {
+    //     return isCollided(playerCenter, 0);
+    // }
+    public boolean isCollided(Player player) {
+        return isCollided(player.getPos(), player.getRadius());
     }
 }

@@ -1,13 +1,15 @@
 package com.github.kwhat.obstacles;
 
+import com.github.kwhat.Player;
+
 public class Box {
     private double[] centerPos = new double[2];
     private double width; // X width
     private double height; // Y height
     public Box(double[] centerPos, double width, double height) {
         this.centerPos = centerPos;
-        this.width = width;
-        this.height = height;
+        this.width = Math.abs(width);
+        this.height = Math.abs(height);
     }
     public Box(double[] cornerOne, double[] cornerTwo) {
         this.centerPos[0] = (cornerOne[0] + cornerTwo[0]) * 0.5;
@@ -24,6 +26,9 @@ public class Box {
         boolean yInBoundsTop = playerCenter[1] - playerRadius < centerPos[1] + (height * 0.5); 
         boolean yInBounds = yInBoundsBottom && yInBoundsTop; 
         return xInBounds && yInBounds;
+    }
+    public boolean isCollided(Player player) {
+        return isCollided(player.getPos(), player.getRadius());
     }
 
 }
