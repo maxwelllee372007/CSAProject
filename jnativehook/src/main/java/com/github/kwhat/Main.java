@@ -5,12 +5,14 @@ import java.text.DecimalFormat;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
+import com.github.kwhat.obstacles.Obstacles;
+
 public class Main {
     private static DecimalFormat df = new DecimalFormat("#.###");
 
     private static KeyListener keyListener = new KeyListener();
-    private static double[] startingPos = {0.0, 0.0}; // meters
-    private static Player player = new Player(startingPos);
+    private static Player player = new Player(Constants.playerStartingPos, Constants.playerRadius);
+    private static Obstacles obstacles = new Obstacles();
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Hello world!");
         try {
@@ -32,6 +34,10 @@ public class Main {
             player.movePlayer(playerMovementValue);
             System.out.println("Player Position: (" + df.format(player.getPos()[0]) + ", " + df.format(player.getPos()[1]) + ")");
 
+            // detect and resolve player collisions
+            obstacles.resolveCollisions(player);
+            
+
             // interact with nearby entities
 
 
@@ -39,5 +45,7 @@ public class Main {
 
             Thread.sleep((int)(Constants.loopTime * 1000.0)); 
         }
+
+        System.out.println("game exited or finished");
     }
 }

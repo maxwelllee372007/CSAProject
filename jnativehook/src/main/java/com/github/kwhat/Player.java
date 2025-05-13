@@ -2,10 +2,16 @@ package com.github.kwhat;
 
 public class Player {
     private double[] pos = new double[2]; 
+    private double radius = Constants.playerRadius;
     
     public Player(double[] startingPos) {
         pos[0] = startingPos[0];
         pos[1] = startingPos[1];
+    }
+    public Player(double[] startingPos, double radius) {
+        pos[0] = startingPos[0];
+        pos[1] = startingPos[1];
+        this.radius = radius;
     }
 
     public double[] movePlayer(double[] movement) {
@@ -13,13 +19,16 @@ public class Player {
         pos[1] += movement[1];
         return pos;
     }
-    public void resetPlayer(double[] position) {
+    public void teleportPlayer(double[] position) {
         pos[0] = position[0];
         pos[1] = position[1];
     }
 
     public double[] getPos() {
         return pos;
+    }
+    public double getRadius() {
+        return radius;
     }
 
 }
