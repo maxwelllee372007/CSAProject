@@ -7,11 +7,11 @@ import com.github.kwhat.Player;
 
 public class Obstacles {
     private ArrayList<Box> boxes = new ArrayList<>(); 
-    private ArrayList<Antibox> antiBoxes = new ArrayList<>(); 
+    private ArrayList<Boundary> antiBoxes = new ArrayList<>(); 
     public void addObstacle(Box box) {
         boxes.add(box);
     }
-    public void addObstacle(Antibox antiBox) {
+    public void addObstacle(Boundary antiBox) {
         antiBoxes.add(antiBox);
     }
     public boolean isCollided(double[] playerCenter, double playerRadius) {
@@ -20,7 +20,7 @@ public class Obstacles {
                 return true;
             }
         }
-        for (Antibox antiBox : antiBoxes) {
+        for (Boundary antiBox : antiBoxes) {
             if (antiBox.isCollided(playerCenter, playerRadius)) {
                 return true;
             }

@@ -2,17 +2,17 @@ package com.github.kwhat.obstacles;
 
 import com.github.kwhat.Player;
 
-public class Antibox extends Box{
+public class Boundary extends Box{
     // private double[] centerPos = new double[2];
     // private double width; // X width
     // private double height; // Y height
-    public Antibox(double[] centerPos, double width, double height) {
+    public Boundary(double[] centerPos, double width, double height) {
         super(centerPos, width, height);
         // this.centerPos = centerPos;
         // this.width = width;
         // this.height = height;
     }
-    public Antibox(double[] cornerOne, double[] cornerTwo) {
+    public Boundary(double[] cornerOne, double[] cornerTwo) {
         super(cornerOne, cornerTwo);
         // this.centerPos[0] = (cornerOne[0] + cornerTwo[0]) * 0.5;
         // this.centerPos[1] = (cornerOne[1] + cornerTwo[1]) * 0.5;

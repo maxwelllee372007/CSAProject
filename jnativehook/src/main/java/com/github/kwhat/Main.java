@@ -7,7 +7,7 @@ import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
 import com.github.kwhat.obstacles.Box;
-import com.github.kwhat.obstacles.InteractibleMachine;
+import com.github.kwhat.obstacles.Machine;
 import com.github.kwhat.obstacles.Obstacles;
 
 public class Main {
@@ -16,7 +16,7 @@ public class Main {
     private static KeyListener keyListener = new KeyListener();
     private static Player player = new Player(Constants.playerStartingPos, Constants.playerRadius);
     private static Obstacles obstacles = new Obstacles();
-    private static ArrayList<InteractibleMachine> machines = Constants.machines;
+    private static ArrayList<Machine> machines = Constants.machines;
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Hello world!");
         try {
@@ -60,7 +60,7 @@ public class Main {
 
     public static void generateObstacles() {
         obstacles.addObstacle(Constants.outerBoundary);
-        for (InteractibleMachine machine : machines) {
+        for (Machine machine : machines) {
             obstacles.addObstacle(machine.getCollisionBox());
         }
     }

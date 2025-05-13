@@ -2,10 +2,10 @@ package com.github.kwhat.obstacles;
 
 import com.github.kwhat.Player;
 
-public class InteractibleMachine {
+public class Machine {
     private Box hitBox;
     private InteractionBox interactionBox;
-    public InteractibleMachine(Box hitBox, InteractionBox interactionBox) {
+    public Machine(Box hitBox, InteractionBox interactionBox) {
         this.hitBox = hitBox;
         this.interactionBox = interactionBox;
     }

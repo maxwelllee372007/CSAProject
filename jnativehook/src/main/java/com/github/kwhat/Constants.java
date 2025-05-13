@@ -2,9 +2,9 @@ package com.github.kwhat;
 
 import java.util.ArrayList;
 
-import com.github.kwhat.obstacles.Antibox;
+import com.github.kwhat.obstacles.Boundary;
 import com.github.kwhat.obstacles.Box;
-import com.github.kwhat.obstacles.InteractibleMachine;
+import com.github.kwhat.obstacles.Machine;
 import com.github.kwhat.obstacles.InteractionBox;
 
 public class Constants {
@@ -21,12 +21,12 @@ public class Constants {
     private static final double[] boundaryCenter = {0.0, 0.0};
     private static final double boundaryWidth = 2.0;
     private static final double boundaryHeight = 2.0;
-    public static final Antibox outerBoundary = new Antibox(boundaryCenter, boundaryWidth, boundaryHeight);
+    public static final Boundary outerBoundary = new Boundary(boundaryCenter, boundaryWidth, boundaryHeight);
 
 
     // machines
     private static final double interactibleBuffer = 0.05; // minimum distance from machine to interact
-    public static final ArrayList<InteractibleMachine> machines = new ArrayList<>();
+    public static final ArrayList<Machine> machines = new ArrayList<>();
 
     // machine 1
     private static final double[] machine1Center = {-0.3, -0.3};
@@ -36,7 +36,7 @@ public class Constants {
     private static final double machine1InteractibleHeight = machine1Height + interactibleBuffer;
     private static final Box machine1HitBox = new Box(machine1Center, machine1Width, machine1Height);
     private static final InteractionBox machine1InteractionBox = new InteractionBox(machine1Center, machine1InteractibleWidth, machine1InteractibleHeight);
-    private static final InteractibleMachine machine1 = new InteractibleMachine(machine1HitBox, machine1InteractionBox);
+    private static final Machine machine1 = new Machine(machine1HitBox, machine1InteractionBox);
     static {
         machines.add(machine1);
     }
@@ -49,7 +49,7 @@ public class Constants {
     private static final double machine2InteractibleHeight = machine2Height + interactibleBuffer;
     private static final Box machine2HitBox = new Box(machine2Center, machine2Width, machine2Height);
     private static final InteractionBox machine2InteractionBox = new InteractionBox(machine2Center, machine2InteractibleWidth, machine2InteractibleHeight);
-    private static final InteractibleMachine machine2 = new InteractibleMachine(machine2HitBox, machine2InteractionBox);
+    private static final Machine machine2 = new Machine(machine2HitBox, machine2InteractionBox);
     static {
         machines.add(machine2);
     }
