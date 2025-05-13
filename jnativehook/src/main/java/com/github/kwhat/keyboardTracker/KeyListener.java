@@ -1,12 +1,12 @@
-package com.github.kwhat;
+package com.github.kwhat.keyboardTracker;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 
 public class KeyListener implements NativeKeyListener {
-    private KeyboardTracker keyBoard;
+    private Keyboard keyBoard;
     public KeyListener() {
         super();
-        keyBoard = new KeyboardTracker();
+        keyBoard = new Keyboard();
     }
     
     public void nativeKeyPressed(NativeKeyEvent e) {

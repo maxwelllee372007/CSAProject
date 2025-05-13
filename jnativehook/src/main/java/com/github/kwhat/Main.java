@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
-import com.github.kwhat.obstacles.Box;
-import com.github.kwhat.obstacles.Machine;
+import com.github.kwhat.Constants.KeyBindings;
+import com.github.kwhat.Constants.Machines;
+import com.github.kwhat.interactibleMachines.Machine;
+import com.github.kwhat.keyboardTracker.KeyListener;
 import com.github.kwhat.obstacles.Obstacles;
 
 public class Main {
@@ -16,7 +18,7 @@ public class Main {
     private static KeyListener keyListener = new KeyListener();
     private static Player player = new Player(Constants.playerStartingPos, Constants.playerRadius);
     private static Obstacles obstacles = new Obstacles();
-    private static ArrayList<Machine> machines = Constants.machines;
+    private static ArrayList<Machine> machines = Machines.machines;
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Hello world!");
         try {
@@ -36,7 +38,7 @@ public class Main {
 
             // move player based on key presses
             double movementIncrement = Constants.loopTime * Constants.playerSpeed;
-            double[] playerMovementValue = {((keyListener.getKeys()[Constants.playerMovementKeys[0]] ? movementIncrement : 0) + (keyListener.getKeys()[Constants.playerMovementKeys[1]] ? -movementIncrement : 0)), ((keyListener.getKeys()[Constants.playerMovementKeys[2]] ? movementIncrement : 0) + (keyListener.getKeys()[Constants.playerMovementKeys[3]] ? -movementIncrement : 0))};
+            double[] playerMovementValue = {((keyListener.getKeys()[KeyBindings.playerMovementKeys[0]] ? movementIncrement : 0) + (keyListener.getKeys()[KeyBindings.playerMovementKeys[1]] ? -movementIncrement : 0)), ((keyListener.getKeys()[KeyBindings.playerMovementKeys[2]] ? movementIncrement : 0) + (keyListener.getKeys()[KeyBindings.playerMovementKeys[3]] ? -movementIncrement : 0))};
             player.movePlayer(playerMovementValue);
             System.out.println("Player Position: (" + df.format(player.getPos()[0]) + ", " + df.format(player.getPos()[1]) + ")");
 
@@ -45,7 +47,14 @@ public class Main {
             
 
             // interact with nearby entities
-
+            if (keyListener.getKeys()[KeyBindings.interactKey]) {
+                for (Machine machine : machines) {
+                    if (machine.getInteractible(player)) {
+                        machine.interact();
+                    }
+                }
+            }
+                
 
             // display GUI
 

@@ -1,8 +1,8 @@
-package com.github.kwhat;
+package com.github.kwhat.keyboardTracker;
 
-public class KeyboardTracker {
+public class Keyboard {
     private boolean[] keyBoard = new boolean[100000];
-    public KeyboardTracker() {
+    public Keyboard() {
         keyBoard = new boolean[100000];
     }
 

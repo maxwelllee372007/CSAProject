@@ -1,6 +1,8 @@
-package com.github.kwhat.obstacles;
+package com.github.kwhat.interactibleMachines;
 
 import com.github.kwhat.Player;
+import com.github.kwhat.obstacles.Box;
+import com.github.kwhat.obstacles.InteractionBox;
 
 public class Machine {
     private Box hitBox;
@@ -14,5 +16,8 @@ public class Machine {
     }
     public Box getCollisionBox() {
         return hitBox;
+    }
+    public void interact() {
+        // TODO: add
     }
 }
