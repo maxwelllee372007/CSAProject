@@ -13,7 +13,7 @@ public class Constants {
     public static final int[] playerMovementKeys = {57421, 57419, 57416, 57424}; // right, left, up, down arrow keys
 
     public static final double[] playerStartingPos = {0.0, 0.0}; // meters
-    public static final double playerRadius = 0.15; // meters
+    public static final double playerRadius = 0.1; // meters
 
     public static final double collisionResolutionIncrement = 0.001; // meters
 
@@ -29,9 +29,9 @@ public class Constants {
     public static final ArrayList<Machine> machines = new ArrayList<>();
 
     // machine 1
-    private static final double[] machine1Center = {-0.3, -0.3};
-    private static final double machine1Width = 0.3;
-    private static final double machine1Height = 0.3;
+    private static final double[] machine1Center = {-0.5, -0.6};
+    private static final double machine1Width = 0.5;
+    private static final double machine1Height = 0.5;
     private static final double machine1InteractibleWidth = machine1Width + interactibleBuffer;
     private static final double machine1InteractibleHeight = machine1Height + interactibleBuffer;
     private static final Box machine1HitBox = new Box(machine1Center, machine1Width, machine1Height);
@@ -42,9 +42,9 @@ public class Constants {
     }
 
     // machine 2
-    private static final double[] machine2Center = {0.0, 0.3};
-    private static final double machine2Width = 0.3;
-    private static final double machine2Height = 0.3;
+    private static final double[] machine2Center = {0.0, 0.25};
+    private static final double machine2Width = 0.5;
+    private static final double machine2Height = 0.5;
     private static final double machine2InteractibleWidth = machine2Width + interactibleBuffer;
     private static final double machine2InteractibleHeight = machine2Height + interactibleBuffer;
     private static final Box machine2HitBox = new Box(machine2Center, machine2Width, machine2Height);
