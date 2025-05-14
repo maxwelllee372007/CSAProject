@@ -19,7 +19,7 @@ public class Constants {
     public static final double[] playerStartingPos = {0.0, 0.0}; // X, Y starting position of player; in meters
     public static final double playerRadius = 0.1; // radial width of player's hitbox and interaction box; in meters
 
-    public static final double collisionResolutionIncrement = 0.001; // increment that program will use to attempt to "unstuck" player from wall; in meters
+    public static final double collisionResolutionIncrement = 0.002; // increment that program will use to attempt to "unstuck" player from wall; in meters
 
     // outer boundary
     private static final double[] boundaryCenter = {0.0, 0.0};

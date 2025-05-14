@@ -36,7 +36,7 @@ public class Obstacles {
         int i = 0;
         while (isCollided(player) && i < 1000) {
             double[] increment = {0.0, 0.0};
-            switch (i % 4) {
+            switch (i % 8) {
                 case 0:
                     increment[0] = i * Constants.collisionResolutionIncrement;
                     break;
@@ -48,6 +48,22 @@ public class Obstacles {
                     break;
                 case 3: 
                     increment[1] = -i * Constants.collisionResolutionIncrement;
+                    break;
+                case 4:
+                    increment[0] = i * Constants.collisionResolutionIncrement / Math.sqrt(2);
+                    increment[1] = i * Constants.collisionResolutionIncrement / Math.sqrt(2);
+                    break;
+                case 5:
+                    increment[0] = -i * Constants.collisionResolutionIncrement / Math.sqrt(2);
+                    increment[1] = i * Constants.collisionResolutionIncrement / Math.sqrt(2);
+                    break;
+                case 6: 
+                    increment[0] = -i * Constants.collisionResolutionIncrement / Math.sqrt(2);
+                    increment[1] = -i * Constants.collisionResolutionIncrement / Math.sqrt(2);
+                    break;
+                case 7: 
+                    increment[0] = i * Constants.collisionResolutionIncrement / Math.sqrt(2);
+                    increment[1] = -i * Constants.collisionResolutionIncrement / Math.sqrt(2);
                     break;
                 default:
                     break;

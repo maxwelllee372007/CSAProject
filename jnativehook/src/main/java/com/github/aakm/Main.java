@@ -69,7 +69,7 @@ public class Main {
             System.out.println("loop iteration " + i++);
         }
 
-        System.out.println("game exited or finished in " + (System.currentTimeMillis() - absoluteStartTime) / 1000.0 + " seconds");
+        System.out.println("game exited or finished in " + (System.currentTimeMillis() - absoluteStartTime) / 1000.0 + " seconds and " + i + " iterations");
         System.out.println("absolute end time: " + System.currentTimeMillis());
     }
 
