@@ -13,7 +13,7 @@ import com.github.aakm.keyboardTracker.KeyListener;
 import com.github.aakm.obstacles.Obstacles;
 
 public class Main {
-    private static DecimalFormat df = new DecimalFormat("#.###");
+    public static DecimalFormat df = new DecimalFormat("#.###");
 
     private static KeyListener keyListener = new KeyListener();
     private static Player player = new Player(Constants.playerStartingPos, Constants.playerRadius);
@@ -42,13 +42,16 @@ public class Main {
         System.out.println("absolute start time: " + absoluteStartTime);
         while (!keyListener.getKeys()[1]) { // MAIN LOOP
             double startTime = System.currentTimeMillis();
-            System.out.println("run main loop" + i);
+            // System.out.println("run main loop" + i);
 
             // move player based on key presses
             double movementIncrement = Constants.loopTime * Constants.playerSpeed;
             double[] playerMovementValue = {((keyListener.getKeys()[KeyBindings.playerMovementKeys[0]] ? movementIncrement : 0) + (keyListener.getKeys()[KeyBindings.playerMovementKeys[1]] ? -movementIncrement : 0)), ((keyListener.getKeys()[KeyBindings.playerMovementKeys[2]] ? movementIncrement : 0) + (keyListener.getKeys()[KeyBindings.playerMovementKeys[3]] ? -movementIncrement : 0))};
-            player.movePlayer(playerMovementValue);
-            System.out.println("Player Position: (" + df.format(player.getPos()[0]) + ", " + df.format(player.getPos()[1]) + ")");
+            if (playerMovementValue[0] != 0 || playerMovementValue[1] != 0) {
+                player.movePlayer(playerMovementValue);
+                System.out.println("Player moved: (" + df.format(playerMovementValue[0]) + ", " + df.format(playerMovementValue[1]) + ")");
+                System.out.println("Player Position: (" + df.format(player.getPos()[0]) + ", " + df.format(player.getPos()[1]) + ")");
+            }
 
             // detect and resolve player collisions
             obstacles.resolveCollisions(player); // moves player back to nearest allowable location

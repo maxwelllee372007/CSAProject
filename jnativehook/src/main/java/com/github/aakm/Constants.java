@@ -13,13 +13,13 @@ public class Constants {
         public static final int[] playerMovementKeys = {57421, 57419, 57416, 57424}; // right, left, up, down arrow keys
         public static final int interactKey = 57; // spacebar
 
-        public static final int confirmKey = 58; // enter key
-        public static final int deleteKey = 59; // backspace key
-        
+        public static final int confirmKey = 28; // enter key
+        public static final int deleteKey = 14; // backspace key
+
         // roulette machine
-        public static final int redKey = 49; // 1 key
-        public static final int blackKey = 50; // 2 key
-        public static final int greenKey = 51; // 3 key
+        public static final int redKey = 2; // 1 key
+        public static final int blackKey = 3; // 2 key
+        public static final int greenKey = 4; // 3 key
     }
     public static final double playerStartingBalance = 100.0; // starting balance of player; in dollars
 

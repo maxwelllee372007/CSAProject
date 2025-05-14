@@ -2,6 +2,10 @@ package com.github.aakm.interactibleMachines;
 
 import java.security.Key;
 
+import javax.swing.text.JTextComponent.KeyBinding;
+
+import org.jnativehook.keyboard.NativeKeyEvent;
+
 import com.github.aakm.Player;
 import com.github.aakm.Constants.KeyBindings;
 import com.github.aakm.keyboardTracker.KeyListener;
@@ -22,19 +26,26 @@ public class Roulette extends Machine{
 
     @Override
     public void interact(Player player, KeyListener keyListener) {
-        // TODO: add
-        System.out.println("interacting with roulette");
+        // TODO: add interrupt functionality
         welcomePlayer(keyListener);
         collectBets(player, keyListener);
         chooseSelection(player, keyListener);
         spinWheel();
-        concludeGame();
-        
+        concludeGame(player);
     }
     private void welcomePlayer(KeyListener keyListener) {
         System.out.println("Welcome to the roulette table!");
-        System.out.println("Press 'spacebar' to begin."); // todo: add keybinding autodetect to syso
+        System.out.println("Press '" + NativeKeyEvent.getKeyText(KeyBindings.interactKey) + "' to begin."); 
+        while (keyListener.getKeys()[KeyBindings.interactKey]) {
+            System.out.println("waiting for player to release interact key");
+            try {
+                Thread.sleep(250);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         while (!keyListener.getKeys()[KeyBindings.interactKey]) {
+            System.out.println("waiting for player to press interact key");
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
@@ -42,46 +53,29 @@ public class Roulette extends Machine{
             }
         }
     }
-    private void chooseSelection(Player player, KeyListener keyListener) {
-        System.out.println("Choose a selection: ");
-        System.out.println("1. Red");
-        System.out.println("2. Black");
-        System.out.println("3. Green");
-        int selection = -1;
-        while (!keyListener.getKeys()[KeyBindings.interactKey]) {
-            if (keyListener.getKeys()[KeyBindings.redKey]) {
-                selection = 1;
-            } else if (keyListener.getKeys()[KeyBindings.blackKey]) {
-                selection = 2;
-            } else if (keyListener.getKeys()[KeyBindings.greenKey]) {
-                selection = 3;
-            }
-            displaySelection(selection);
-            if (selection != -1) {
-                break;
-            }
-        }
-    }
-    private void displaySelection(int selection) {
-        switch (selection) {
-            case 1:
-                System.out.println("Selecting Red.");
-                break;
-            case 2:
-                System.out.println("Selecting Black.");
-                break;
-            case 3:
-                System.out.println("Selecting Green.");
-                break;
-            default:
-                System.out.println("Invalid selection. Please try again.");
-        }
-    }
     private void collectBets(Player player, KeyListener keyListener) {
         double betAmount = 0.0;
-        while (!keyListener.getKeys()[KeyBindings.interactKey]) {
-            displayBetAmount(betAmount);
-            betAmount = keyListener.getNumericalInput(KeyBindings.confirmKey, KeyBindings.deleteKey);
+        boolean[] previousKeys = keyListener.getKeys();
+        displayBetAmount(betAmount);
+        // while (keyListener.getKeys()[KeyBindings.confirmKey]) {}
+        while (!keyListener.getKeys()[KeyBindings.confirmKey]) {
+            // System.out.println("waiting for player to press confirm key");
+            for (int i = 2; i <= 11; i++) {
+                if (keyListener.getKeys()[i]) {
+                    betAmount = betAmount * 10 + (i%10 - 1);
+                    displayBetAmount(betAmount);
+                }
+            }
+            if (keyListener.getKeys()[KeyBindings.deleteKey]) {
+                betAmount = Math.floor(betAmount / 10);
+                displayBetAmount(betAmount);
+            }
+            previousKeys = keyListener.getKeys();
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         confirmBetAmount(betAmount);
         player.adjustBalance(-betAmount);
@@ -94,13 +88,56 @@ public class Roulette extends Machine{
         System.out.println("Selected bet amount: " + betAmount);
         // TODO: add GUI display of bet amount
     }
+    private void chooseSelection(Player player, KeyListener keyListener) {
+        System.out.println("Choose a selection: ");
+        System.out.println(NativeKeyEvent.getKeyText(KeyBindings.redKey) + ": Red");
+        System.out.println(NativeKeyEvent.getKeyText(KeyBindings.blackKey) + ": Black");
+        System.out.println(NativeKeyEvent.getKeyText(KeyBindings.greenKey) + ": Green");
+        int selection = -1;
+        while (keyListener.getKeys()[KeyBindings.confirmKey]) {}
+        while (!keyListener.getKeys()[KeyBindings.confirmKey] || selection == -1) {
+            if (keyListener.getKeys()[KeyBindings.redKey]) {
+                selection = 1;
+                displaySelection(selection);
+            } else if (keyListener.getKeys()[KeyBindings.blackKey]) {
+                selection = 2;
+                displaySelection(selection);
+            } else if (keyListener.getKeys()[KeyBindings.greenKey]) {
+                selection = 3;
+                displaySelection(selection);
+            }
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private void displaySelection(int selection) {
+        switch (selection) {
+            case 1:
+                System.out.println("Selecting Red.");
+                System.out.println("Press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to confirm your selection.");
+                break;
+            case 2:
+                System.out.println("Selecting Black.");
+                System.out.println("Press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to confirm your selection.");
+                break;
+            case 3:
+                System.out.println("Selecting Green.");
+                System.out.println("Press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to confirm your selection.");
+                break;
+            default:
+                System.out.println("No color selected.");
+        }
+    }
     private void spinWheel() { 
         double waitTime = Math.random() * 1000.0 + 2000.0; // random wait time between 2 and 3 seconds
         double startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() - startTime < waitTime) {
             displayWheelSpinner();
             try {
-                Thread.sleep(1);
+                Thread.sleep(250);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -110,13 +147,13 @@ public class Roulette extends Machine{
         // TODO: add display wheel spinner
         System.out.println("Spinning the wheel...");
     }
-    private void concludeGame() {
+    private void concludeGame(Player player) {
         System.out.println("The wheel has stopped spinning.");
-        
+        displayBalance(player.getBalance());
 
     }
-    private void displayBalance(Player player) {
-        System.out.println("Your balance is: " + player.getBalance());
+    private void displayBalance(double balance) {
+        System.out.println("Your balance is: " + balance);
     }
 }
  
