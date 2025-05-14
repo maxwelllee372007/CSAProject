@@ -33,7 +33,10 @@ public class Main {
         
         generateObstacles();
         int i = 0;
+        double absoluteStartTime = System.currentTimeMillis();
+        System.out.println("absolute start time: " + absoluteStartTime);
         while (!keyListener.getKeys()[1]) { // MAIN LOOP
+            double startTime = System.currentTimeMillis();
             System.out.println("run main loop");
 
             // move player based on key presses
@@ -60,11 +63,14 @@ public class Main {
 
 
             // global sleep
-            Thread.sleep((int)(Constants.loopTime * 1000.0)); 
+            while (System.currentTimeMillis() - startTime < Constants.loopTime * 1000.0) {
+                // do nothing
+            }
             System.out.println("loop iteration " + i++);
         }
 
-        System.out.println("game exited or finished");
+        System.out.println("game exited or finished in " + (System.currentTimeMillis() - absoluteStartTime) / 1000.0 + " seconds");
+        System.out.println("absolute end time: " + System.currentTimeMillis());
     }
 
     public static void generateObstacles() {
