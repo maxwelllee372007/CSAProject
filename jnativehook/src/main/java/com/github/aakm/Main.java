@@ -22,6 +22,11 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Hello world!");
         try {
+            // Suppress JNativeHook logging
+            java.util.logging.Logger logger = java.util.logging.Logger.getLogger(org.jnativehook.GlobalScreen.class.getPackage().getName());
+            logger.setLevel(java.util.logging.Level.OFF);
+            logger.setUseParentHandlers(false);
+
             GlobalScreen.registerNativeHook();
         } catch (NativeHookException ex) {
             System.err.println("There was a problem registering the native hook.");
