@@ -37,7 +37,7 @@ public class Main {
         System.out.println("absolute start time: " + absoluteStartTime);
         while (!keyListener.getKeys()[1]) { // MAIN LOOP
             double startTime = System.currentTimeMillis();
-            System.out.println("run main loop");
+            System.out.println("run main loop" + i);
 
             // move player based on key presses
             double movementIncrement = Constants.loopTime * Constants.playerSpeed;
@@ -53,8 +53,9 @@ public class Main {
             if (keyListener.getKeys()[KeyBindings.interactKey]) {
                 for (Machine machine : machines) {
                     if (machine.getInteractible(player)) {
-                        machine.interact();
-                    }
+                        machine.interact(player, keyListener);
+                        break; // only interact with one machine at a time
+                        }
                 }
             }
                 
@@ -66,11 +67,17 @@ public class Main {
             while (System.currentTimeMillis() - startTime < Constants.loopTime * 1000.0) {
                 // do nothing
             }
-            System.out.println("loop iteration " + i++);
+            i++;
         }
 
         System.out.println("game exited or finished in " + (System.currentTimeMillis() - absoluteStartTime) / 1000.0 + " seconds and " + i + " iterations");
+        System.out.println("absolute start time: " + System.currentTimeMillis());
         System.out.println("absolute end time: " + System.currentTimeMillis());
+        try {
+            GlobalScreen.unregisterNativeHook();
+        } catch (NativeHookException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void generateObstacles() {

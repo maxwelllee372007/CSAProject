@@ -27,6 +27,28 @@ public class KeyListener implements NativeKeyListener {
     public void nativeKeyTyped(NativeKeyEvent e) {
     }
 
+    public double getNumericalInput(int confirmKey, int deleteKey) {
+        double input = 0.0;
+        while (!getKeys()[confirmKey]) { // TODO: double check if has correct functionality
+            StringBuilder inputString = new StringBuilder(); 
+            for (int i = 0; i < getKeys().length; i++) {
+                if (getKeys()[i]) {
+                    inputString.append(NativeKeyEvent.getKeyText(i));
+                }
+            }
+            try {
+                input = Double.parseDouble(inputString.toString());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+                continue;
+            }
+            if (getKeys()[deleteKey]) {
+                inputString.deleteCharAt(inputString.length() - 1);
+            }
+        }
+        return input;
+    }
+
     // public static void main(String[] args) {
     //     try {
     //         GlobalScreen.registerNativeHook();

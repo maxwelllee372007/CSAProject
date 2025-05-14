@@ -3,6 +3,7 @@ package com.github.aakm;
 public class Player {
     private double[] pos = new double[2]; 
     private double radius = Constants.playerRadius;
+    private double balance = Constants.playerStartingBalance;
     
     public Player(double[] startingPos) {
         pos[0] = startingPos[0];
@@ -33,6 +34,14 @@ public class Player {
 
     public String getRace() {
         return "black";
+    }
+
+    public double adjustBalance(double amount) {   
+        return balance += amount;
+    }
+
+    public double getBalance() {
+        return balance;
     }
 
 }
