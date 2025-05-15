@@ -74,7 +74,7 @@ public class Main {
                 
 
             // display GUI
-
+            // game.movePlayer(player.getPos());
 
             // global sleep
             while (System.currentTimeMillis() - startTime < Constants.loopTime * 1000.0) {
