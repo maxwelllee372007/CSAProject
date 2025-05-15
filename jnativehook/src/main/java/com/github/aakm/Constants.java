@@ -18,6 +18,7 @@ public class Constants {
         public static final int deleteKey = 14; // backspace key
 
         public static final int escapeKey = 1; // escape key
+        public static final int controlKey = 29; // ctrl key
 
         // roulette machine
         public static final int redKey = 2; // 1 key

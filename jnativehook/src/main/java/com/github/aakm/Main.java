@@ -45,7 +45,7 @@ public class Main {
         int i = 0;
         double absoluteStartTime = System.currentTimeMillis();
         System.out.println("absolute start time: " + absoluteStartTime);
-        while (!keyListener.getKeys()[1]) { // MAIN LOOP
+        while (!(keyListener.getKeys()[KeyBindings.escapeKey] && keyListener.getKeys()[KeyBindings.controlKey])) { // MAIN LOOP is exited by pressing control + escape
             double startTime = System.currentTimeMillis();
             // System.out.println("run main loop" + i);
 
@@ -54,7 +54,7 @@ public class Main {
             double[] playerMovementValue = {((keyListener.getKeys()[KeyBindings.playerMovementKeys[0]] ? movementIncrement : 0) + (keyListener.getKeys()[KeyBindings.playerMovementKeys[1]] ? -movementIncrement : 0)), ((keyListener.getKeys()[KeyBindings.playerMovementKeys[2]] ? movementIncrement : 0) + (keyListener.getKeys()[KeyBindings.playerMovementKeys[3]] ? -movementIncrement : 0))};
             if (playerMovementValue[0] != 0 || playerMovementValue[1] != 0) {
                 player.movePlayer(playerMovementValue);
-                System.out.println("Player moved: (" + df.format(playerMovementValue[0]) + ", " + df.format(playerMovementValue[1]) + ")");
+                // System.out.println("Player moved: (" + df.format(playerMovementValue[0]) + ", " + df.format(playerMovementValue[1]) + ")");
                 System.out.println("Player Position: (" + df.format(player.getPos()[0]) + ", " + df.format(player.getPos()[1]) + ")");
             }
 
@@ -91,6 +91,7 @@ public class Main {
         } catch (NativeHookException e) {
             e.printStackTrace();
         }
+        return;
     }
 
     public static void generateObstacles() {
