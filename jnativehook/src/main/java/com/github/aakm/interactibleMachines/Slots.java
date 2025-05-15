@@ -12,6 +12,7 @@ import com.github.aakm.obstacles.Box;
 import com.github.aakm.obstacles.InteractionBox;
 
 public class Slots extends Machine{
+    private int[] displayFrames = {0, 0, 0};
 
     public Slots(Box hitBox, InteractionBox interactionBox) {
         super(hitBox, interactionBox);
@@ -36,16 +37,17 @@ public class Slots extends Machine{
             System.out.println("Player has escaped the game.");
             return;
         }
-        spinWheel();
+        playSlots(keyListener, player);
         if (keyListener.getKeys()[KeyBindings.escapeKey]) {
             System.out.println("Player has escaped the game.");
             return;
         }
-        concludeGame(player);
+        concludeGame(player, keyListener);
     }
     private void welcomePlayer(KeyListener keyListener) {
         System.out.println("Welcome to the slots machine!");
         System.out.println("Press '" + NativeKeyEvent.getKeyText(KeyBindings.interactKey) + "' to begin."); 
+        while (keyListener.getKeys()[KeyBindings.interactKey]) {}
         while (!keyListener.getKeys()[KeyBindings.interactKey]) {
             // System.out.println("waiting for player to press interact key");
             try {
@@ -58,6 +60,10 @@ public class Slots extends Machine{
     private void collectBets(Player player, KeyListener keyListener) {
         double betAmount = 1.0;
         confirmBetAmount(betAmount, keyListener);
+        if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+            System.out.println("Player has escaped the game.");
+            return;
+        }
         player.adjustBalance(-betAmount);
     }
     private void confirmBetAmount(double betAmount, KeyListener keyListener) {
@@ -69,29 +75,121 @@ public class Slots extends Machine{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+                System.out.println("Player has escaped the game.");
+                return;
+            }
         }
         // TODO: add GUI display of bet amount
     }
-    private void spinWheel() { 
-        double waitTime = Math.random() * 1000.0 + 2000.0; // random wait time between 2 and 3 seconds
+    private void playSlots(KeyListener keyListener, Player player) { 
+        double waitTimeLeft = Math.random() * 1000.0 + 2000.0; // random wait time between 2 and 3 seconds
+        double waitTimeMiddle = Math.random() * 1000.0 + waitTimeLeft; 
+        double waitTimeRight = Math.random() * 1000.0 + waitTimeMiddle; 
+        double totalTime = waitTimeRight + 1000.0; // total time to spin the wheel
         double startTime = System.currentTimeMillis();
-        while (System.currentTimeMillis() - startTime < waitTime) {
-            displayWheelSpinner();
+        int[] results = {(int)(Math.random() * 4), (int)(Math.random() * 4), (int)(Math.random() * 4)}; // 0, 0, 0 is win; identical is also win; values are 0-3, inclusive
+        while (System.currentTimeMillis() - startTime < totalTime) {
+
+            if (System.currentTimeMillis() - startTime < waitTimeLeft) {
+                spinLeft();
+                spinMiddle();
+                spinRight();
+            } else if (System.currentTimeMillis() - startTime < waitTimeMiddle) {
+                displayLeft(results);
+                spinMiddle();
+                spinRight();
+            } else if (System.currentTimeMillis() - startTime < waitTimeRight) {
+                displayLeft(results);
+                displayMiddle(results);
+                spinRight();
+            } else if (System.currentTimeMillis() - startTime < totalTime) {
+                displayLeft(results);
+                displayMiddle(results);
+                displayRight(results);
+            } else {
+                System.out.println("slots timing error");
+            }
+            
+            if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+                System.out.println("Player has escaped the game.");
+                return;
+            }
+
             try {
-                Thread.sleep(250);
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            
+        }
+        System.out.println("Game has ended");
+        if (results[0] == results[1] && results[1] == results[2]) {
+            System.out.println("You win!");
+            player.adjustBalance(3.0);
+        } else if (results[0] == results[1] || results[1] == results[2] || results[0] == results[2]) {
+            System.out.println("You win!");
+            player.adjustBalance(2.0);
+        } else {
+            System.out.println("You lose!");
+        }
+        displayBalance(player.getBalance());
+    }
+    private void spinLeft() {
+        // TODO: add display wheel spinner
+        System.out.println("Spinning the left wheel at display frame " + displayFrames[0] + "...");
+        if (displayFrames[0] == 3) {
+            displayFrames[0] = 0;
+        } else {
+            displayFrames[0]++;
+        }
+    }
+    private void displayLeft(int[] results) {
+        // TODO: add display wheel spinner
+        System.out.println("left is " + results[0]);
+    }
+    private void spinMiddle() {
+        // TODO: add display wheel spinner
+        System.out.println("Spinning the middle wheel at display frame " + displayFrames[1] + "...");
+        if (displayFrames[1] == 3) {
+            displayFrames[1] = 0;
+        } else {
+            displayFrames[1]++;
+        }    
+    }
+    private void displayMiddle(int[] results) {
+        // TODO: add display wheel spinner
+        System.out.println("middle is " + results[1]);
+    }
+    private void spinRight() {
+        // TODO: add display wheel spinner
+        System.out.println("Spinning the right wheel at display frame " + displayFrames[2] + "...");
+        if (displayFrames[2] == 3) {
+            displayFrames[2] = 0;
+        } else {
+            displayFrames[2]++;
+        }    
+    }
+    private void displayRight(int[] results) {
+        // TODO: add display wheel spinner
+        System.out.println("right is " + results[2]);
+    }
+    private void concludeGame(Player player, KeyListener keyListener) {
+       
+        System.out.println("play again? (press '" + NativeKeyEvent.getKeyText(KeyBindings.interactKey) + "' to play again)");
+        while (keyListener.getKeys()[KeyBindings.interactKey]) {
+            
+            if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+                System.out.println("Player has escaped the game.");
+                return;
+            }
+            // System.out.println("waiting for player to press interact key");
+            try {
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-    }
-    private void displayWheelSpinner() {
-        // TODO: add display wheel spinner
-        System.out.println("Spinning the wheel...");
-    }
-    private void concludeGame(Player player) {
-        System.out.println("The wheel has stopped spinning.");
-        displayBalance(player.getBalance());
-
     }
     private void displayBalance(double balance) {
         System.out.println("Your balance is: " + balance);
