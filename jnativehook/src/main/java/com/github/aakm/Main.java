@@ -12,6 +12,13 @@ import com.github.aakm.interactibleMachines.Machine;
 import com.github.aakm.keyboardTracker.KeyListener;
 import com.github.aakm.obstacles.Obstacles;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.Image;
+import java.awt.Point;
+
 public class Main {
     private static DecimalFormat df = new DecimalFormat("#.###");
 
