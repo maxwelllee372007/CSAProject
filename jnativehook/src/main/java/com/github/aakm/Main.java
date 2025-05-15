@@ -13,7 +13,7 @@ import com.github.aakm.keyboardTracker.KeyListener;
 import com.github.aakm.obstacles.Obstacles;
 
 public class Main {
-    private static DecimalFormat df = new DecimalFormat("#.###");
+    public static DecimalFormat df = new DecimalFormat("#.###");
 
     private static KeyListener keyListener = new KeyListener();
     private static Player player = new Player(Constants.playerStartingPos, Constants.playerRadius);
@@ -22,6 +22,11 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Hello world!");
         try {
+            // Suppress JNativeHook logging
+            java.util.logging.Logger logger = java.util.logging.Logger.getLogger(org.jnativehook.GlobalScreen.class.getPackage().getName());
+            logger.setLevel(java.util.logging.Level.OFF);
+            logger.setUseParentHandlers(false);
+
             GlobalScreen.registerNativeHook();
         } catch (NativeHookException ex) {
             System.err.println("There was a problem registering the native hook.");
@@ -33,14 +38,20 @@ public class Main {
         
         generateObstacles();
         int i = 0;
+        double absoluteStartTime = System.currentTimeMillis();
+        System.out.println("absolute start time: " + absoluteStartTime);
         while (!keyListener.getKeys()[1]) { // MAIN LOOP
-            System.out.println("run main loop");
+            double startTime = System.currentTimeMillis();
+            // System.out.println("run main loop" + i);
 
             // move player based on key presses
             double movementIncrement = Constants.loopTime * Constants.playerSpeed;
             double[] playerMovementValue = {((keyListener.getKeys()[KeyBindings.playerMovementKeys[0]] ? movementIncrement : 0) + (keyListener.getKeys()[KeyBindings.playerMovementKeys[1]] ? -movementIncrement : 0)), ((keyListener.getKeys()[KeyBindings.playerMovementKeys[2]] ? movementIncrement : 0) + (keyListener.getKeys()[KeyBindings.playerMovementKeys[3]] ? -movementIncrement : 0))};
-            player.movePlayer(playerMovementValue);
-            System.out.println("Player Position: (" + df.format(player.getPos()[0]) + ", " + df.format(player.getPos()[1]) + ")");
+            if (playerMovementValue[0] != 0 || playerMovementValue[1] != 0) {
+                player.movePlayer(playerMovementValue);
+                System.out.println("Player moved: (" + df.format(playerMovementValue[0]) + ", " + df.format(playerMovementValue[1]) + ")");
+                System.out.println("Player Position: (" + df.format(player.getPos()[0]) + ", " + df.format(player.getPos()[1]) + ")");
+            }
 
             // detect and resolve player collisions
             obstacles.resolveCollisions(player); // moves player back to nearest allowable location
@@ -50,8 +61,9 @@ public class Main {
             if (keyListener.getKeys()[KeyBindings.interactKey]) {
                 for (Machine machine : machines) {
                     if (machine.getInteractible(player)) {
-                        machine.interact();
-                    }
+                        machine.interact(player, keyListener);
+                        break; // only interact with one machine at a time
+                        }
                 }
             }
                 
@@ -60,11 +72,20 @@ public class Main {
 
 
             // global sleep
-            Thread.sleep((int)(Constants.loopTime * 1000.0)); 
-            System.out.println("loop iteration " + i++);
+            while (System.currentTimeMillis() - startTime < Constants.loopTime * 1000.0) {
+                // do nothing
+            }
+            i++;
         }
 
-        System.out.println("game exited or finished");
+        System.out.println("game exited or finished in " + (System.currentTimeMillis() - absoluteStartTime) / 1000.0 + " seconds and " + i + " iterations");
+        System.out.println("absolute start time: " + System.currentTimeMillis());
+        System.out.println("absolute end time: " + System.currentTimeMillis());
+        try {
+            GlobalScreen.unregisterNativeHook();
+        } catch (NativeHookException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void generateObstacles() {

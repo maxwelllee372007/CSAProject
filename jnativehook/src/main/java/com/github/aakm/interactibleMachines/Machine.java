@@ -1,6 +1,7 @@
 package com.github.aakm.interactibleMachines;
 
 import com.github.aakm.Player;
+import com.github.aakm.keyboardTracker.KeyListener;
 import com.github.aakm.obstacles.Box;
 import com.github.aakm.obstacles.InteractionBox;
 
@@ -17,7 +18,7 @@ public class Machine {
     public Box getCollisionBox() {
         return hitBox;
     }
-    public void interact() {
-        // TODO: add
+    public void interact(Player player, KeyListener keyListener) {
+        // TODO: add generic machine interaction behavior
     }
 }
