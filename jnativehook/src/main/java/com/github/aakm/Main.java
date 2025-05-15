@@ -73,4 +73,5 @@ public class Main {
             obstacles.addObstacle(machine.getCollisionBox());
         }
     }
+    
 }
