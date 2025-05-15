@@ -28,21 +28,24 @@ public class Slots extends Machine{
     public void interact(Player player, KeyListener keyListener) {
         // TODO: add interrupt functionality
         welcomePlayer(keyListener);
-        if (keyListener.getKeys()[KeyBindings.escapeKey]) {
-            System.out.println("Player has escaped the game.");
-            return;
+        while (keyListener.getKeys()[KeyBindings.interactKey] || keyListener.getKeys()[KeyBindings.confirmKey]) {
+            if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+                System.out.println("Player has escaped the game.");
+                return;
+            }
+            collectBets(player, keyListener);
+            if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+                System.out.println("Player has escaped the game.");
+                return;
+            }
+            playSlots(keyListener, player);
+            if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+                System.out.println("Player has escaped the game.");
+                return;
+            }
+            concludeGame(player, keyListener);
         }
-        collectBets(player, keyListener);
-        if (keyListener.getKeys()[KeyBindings.escapeKey]) {
-            System.out.println("Player has escaped the game.");
-            return;
-        }
-        playSlots(keyListener, player);
-        if (keyListener.getKeys()[KeyBindings.escapeKey]) {
-            System.out.println("Player has escaped the game.");
-            return;
-        }
-        concludeGame(player, keyListener);
+        System.out.println("exited slots game");
     }
     private void welcomePlayer(KeyListener keyListener) {
         System.out.println("Welcome to the slots machine!");
@@ -84,11 +87,11 @@ public class Slots extends Machine{
         player.adjustBalance(-betAmount);
     }
     private void confirmBetAmount(double betAmount, KeyListener keyListener) {
-        System.out.println("slots costs " + super.dollarsdf.format(betAmount) + " dollars to play" + " (press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to confirm)");
+        System.out.println("Slots costs $" + dollarsdf.format(betAmount) + " to play" + " (press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to pay)");
         while (!keyListener.getKeys()[KeyBindings.confirmKey]) {
             // System.out.println("waiting for player to press confirm key");
             try {
-                Thread.sleep(100);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -103,9 +106,9 @@ public class Slots extends Machine{
         double waitTimeLeft = Math.random() * 1000.0 + 2000.0; // random wait time between 2 and 3 seconds
         double waitTimeMiddle = Math.random() * 1000.0 + waitTimeLeft; 
         double waitTimeRight = Math.random() * 1000.0 + waitTimeMiddle; 
-        double totalTime = waitTimeRight + 1000.0; // total time to spin the wheel
+        double totalTime = waitTimeRight + 700.0; // total time to spin the wheel
         double startTime = System.currentTimeMillis();
-        int[] results = {(int)(Math.random() * 4), (int)(Math.random() * 4), (int)(Math.random() * 4)}; // 0, 0, 0 is win; identical is also win; values are 0-3, inclusive
+        int[] results = {(int)(Math.random() * 6), (int)(Math.random() * 6), (int)(Math.random() * 6)}; // 0, 0, 0 is win; identical is also win; values are 0-5, inclusive
         while (System.currentTimeMillis() - startTime < totalTime) {
 
             if (System.currentTimeMillis() - startTime < waitTimeLeft) {
@@ -134,18 +137,21 @@ public class Slots extends Machine{
             }
 
             try {
-                Thread.sleep(20);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             
         }
         System.out.println("Game has ended");
-        if (results[0] == results[1] && results[1] == results[2]) {
-            System.out.println("You win!");
+        if (results[0] == 0 && results[1] == 0 && results[2] == 0) {
+            System.out.println("Jackpot! +$" + dollarsdf.format(10.0));
+            player.adjustBalance(10.0);
+        } else if (results[0] == results[1] && results[1] == results[2]) {
+            System.out.println("You win! +$" + dollarsdf.format(3.0));
             player.adjustBalance(3.0);
         } else if (results[0] == results[1] || results[1] == results[2] || results[0] == results[2]) {
-            System.out.println("You win!");
+            System.out.println("You win! +$" + dollarsdf.format(2.0));
             player.adjustBalance(2.0);
         } else {
             System.out.println("You lose!");
@@ -192,9 +198,9 @@ public class Slots extends Machine{
         System.out.println("right is " + results[2]);
     }
     private void concludeGame(Player player, KeyListener keyListener) {
-       
-        System.out.println("play again? (press '" + NativeKeyEvent.getKeyText(KeyBindings.interactKey) + "' to play again)");
-        while (!keyListener.getKeys()[KeyBindings.interactKey]) {
+        double startTime = System.currentTimeMillis();
+        System.out.println("play again? (press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to play again)" + " (press '" + NativeKeyEvent.getKeyText(KeyBindings.escapeKey) + "' to exit)");
+        while (!keyListener.getKeys()[KeyBindings.confirmKey] && System.currentTimeMillis() - startTime < 5000) {
             
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
                 System.out.println("Player has escaped the game.");
@@ -209,7 +215,7 @@ public class Slots extends Machine{
         }
     }
     private void displayBalance(double balance) {
-        System.out.println("Your balance is: " + balance);
+        System.out.println("Your balance is: $" + dollarsdf.format(balance));
     }
 }
  

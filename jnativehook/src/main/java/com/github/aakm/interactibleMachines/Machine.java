@@ -12,6 +12,8 @@ public class Machine {
     private Box hitBox;
     private InteractionBox interactionBox;
     public Machine(Box hitBox, InteractionBox interactionBox) {
+        dollarsdf.setDecimalSeparatorAlwaysShown(true);
+        dollarsdf.setMinimumFractionDigits(2);
         this.hitBox = hitBox;
         this.interactionBox = interactionBox;
     }
