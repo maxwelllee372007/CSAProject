@@ -3,7 +3,8 @@ package com.github.aakm;
 import java.util.ArrayList;
 
 import com.github.aakm.interactibleMachines.Machine;
-import com.github.aakm.interactibleMachines.Roulette;
+import com.github.aakm.interactibleMachines.MachineSkeleton;
+import com.github.aakm.interactibleMachines.Slots;
 import com.github.aakm.obstacles.Boundary;
 import com.github.aakm.obstacles.Box;
 import com.github.aakm.obstacles.InteractionBox;
@@ -15,6 +16,8 @@ public class Constants {
 
         public static final int confirmKey = 28; // enter key
         public static final int deleteKey = 14; // backspace key
+
+        public static final int escapeKey = 1; // escape key
 
         // roulette machine
         public static final int redKey = 2; // 1 key
@@ -50,22 +53,22 @@ public class Constants {
         private static final double rouletteInteractibleHeight = rouletteHeight + interactibleBuffer;
         private static final Box rouletteHitBox = new Box(rouletteCenter, rouletteWidth, rouletteHeight);
         private static final InteractionBox rouletteInteractionBox = new InteractionBox(rouletteCenter, rouletteInteractibleWidth, rouletteInteractibleHeight);
-        private static final Roulette roulette = new Roulette(rouletteHitBox, rouletteInteractionBox);
+        private static final MachineSkeleton roulette = new MachineSkeleton(rouletteHitBox, rouletteInteractionBox);
         static {
             machines.add(roulette);
         }
 
-        // machine 2
-        private static final double[] machine2Center = {0.0, 0.25};
-        private static final double machine2Width = 0.5;
-        private static final double machine2Height = 0.5;
-        private static final double machine2InteractibleWidth = machine2Width + interactibleBuffer;
-        private static final double machine2InteractibleHeight = machine2Height + interactibleBuffer;
-        private static final Box machine2HitBox = new Box(machine2Center, machine2Width, machine2Height);
-        private static final InteractionBox machine2InteractionBox = new InteractionBox(machine2Center, machine2InteractibleWidth, machine2InteractibleHeight);
-        private static final Machine machine2 = new Machine(machine2HitBox, machine2InteractionBox);
+        // machine 2: slots
+        private static final double[] slotsCenter = {0.0, 0.25};
+        private static final double slotsWidth = 0.5;
+        private static final double slotsHeight = 0.5;
+        private static final double slotsInteractibleWidth = slotsWidth + interactibleBuffer;
+        private static final double slotsInteractibleHeight = slotsHeight + interactibleBuffer;
+        private static final Box slotsHitBox = new Box(slotsCenter, slotsWidth, slotsHeight);
+        private static final InteractionBox slotsInteractionBox = new InteractionBox(slotsCenter, slotsInteractibleWidth, slotsInteractibleHeight);
+        private static final Slots slots = new Slots(slotsHitBox, slotsInteractionBox);
         static {
-            machines.add(machine2);
+            machines.add(slots);
         }
     }
 
