@@ -47,13 +47,30 @@ public class Slots extends Machine{
     private void welcomePlayer(KeyListener keyListener) {
         System.out.println("Welcome to the slots machine!");
         System.out.println("Press '" + NativeKeyEvent.getKeyText(KeyBindings.interactKey) + "' to begin."); 
-        while (keyListener.getKeys()[KeyBindings.interactKey]) {}
+        while (keyListener.getKeys()[KeyBindings.interactKey]) {
+            // System.out.println("waiting for player to release interact key");
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            
+            if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+                System.out.println("Player has escaped the game.");
+                return;
+            }
+        }
         while (!keyListener.getKeys()[KeyBindings.interactKey]) {
             // System.out.println("waiting for player to press interact key");
             try {
-                Thread.sleep(100);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+            
+            if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+                System.out.println("Player has escaped the game.");
+                return;
             }
         }
     }
@@ -177,7 +194,7 @@ public class Slots extends Machine{
     private void concludeGame(Player player, KeyListener keyListener) {
        
         System.out.println("play again? (press '" + NativeKeyEvent.getKeyText(KeyBindings.interactKey) + "' to play again)");
-        while (keyListener.getKeys()[KeyBindings.interactKey]) {
+        while (!keyListener.getKeys()[KeyBindings.interactKey]) {
             
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
                 System.out.println("Player has escaped the game.");

@@ -45,7 +45,7 @@ public class Main {
         int i = 0;
         double absoluteStartTime = System.currentTimeMillis();
         System.out.println("absolute start time: " + absoluteStartTime);
-        while (!keyListener.getKeys()[1]) { // MAIN LOOP
+        while (!(keyListener.getKeys()[KeyBindings.escapeKey] && keyListener.getKeys()[KeyBindings.controlKey])) { // MAIN LOOP is exited by pressing control + escape
             double startTime = System.currentTimeMillis();
             // System.out.println("run main loop" + i);
 
@@ -91,6 +91,7 @@ public class Main {
         } catch (NativeHookException e) {
             e.printStackTrace();
         }
+        return;
     }
 
     public static void generateObstacles() {
