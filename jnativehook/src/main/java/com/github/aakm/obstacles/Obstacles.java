@@ -35,23 +35,9 @@ public class Obstacles {
         double[] startingPos = player.getPos();
         int i = 0;
         while (isCollided(player) && i < 1000) {
-            double[] increment = {0.0, 0.0};
-            switch (i % 4) {
-                case 0:
-                    increment[0] = i * Constants.collisionResolutionIncrement;
-                    break;
-                case 1:
-                    increment[1] = i * Constants.collisionResolutionIncrement;
-                    break;
-                case 2: 
-                    increment[0] = -i * Constants.collisionResolutionIncrement;
-                    break;
-                case 3: 
-                    increment[1] = -i * Constants.collisionResolutionIncrement;
-                    break;
-                default:
-                    break;
-            }
+            double angle = (i % 8) * (Math.PI / 4); // 8 directions, 45 degrees apart
+            double distance = i/8 * Constants.collisionResolutionIncrement;
+            double[] increment = {distance * Math.cos(angle), distance * Math.sin(angle)};
             double[] newPos = {startingPos[0] + increment[0], startingPos[1] + increment[1]};
             i++;
             if (!isCollided(newPos, player.getRadius())) {
