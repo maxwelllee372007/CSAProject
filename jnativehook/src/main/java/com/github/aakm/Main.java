@@ -56,7 +56,8 @@ public class Main {
                 player.movePlayer(playerMovementValue);
                 // System.out.println("Player moved: (" + df.format(playerMovementValue[0]) + ", " + df.format(playerMovementValue[1]) + ")");
                 System.out.println("Player Position: (" + df.format(player.getPos()[0]) + ", " + df.format(player.getPos()[1]) + ")");
-                System.out.println("GUIPose:(" + game.getPlayerGUIPos()[0]+","+ game.getPlayerGUIPos()[1] + ")");             
+                System.out.println("GUIPose:(" + game.getPlayerGUIPos()[0]+","+ game.getPlayerGUIPos()[1] + ")");   
+                game.movePlayer(player.getPos());          
             }
 
             // detect and resolve player collisions
@@ -75,7 +76,6 @@ public class Main {
                 
 
             // display GUI
-            game.movePlayer(player.getPos());
 
             // global sleep
             while (System.currentTimeMillis() - startTime < Constants.loopTime * 1000.0) {

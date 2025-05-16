@@ -18,6 +18,7 @@ public class Constants {
     
     
     public static final String playerImagePath = imageFolder + "playerClear.png";
+    public static final String playerImagePathStep = imageFolder + "playerClearStep.png";
     public static final String backgroundImagePath = imageFolder + "betterBG.png";
 
     public class KeyBindings {
@@ -39,6 +40,7 @@ public class Constants {
 
     public static final double loopTime = 0.01; // Loop time; in seconds
     public static final double playerSpeed = 1.0; // speed of the player's movement; in meters per second
+    public static final double playerStepFrequency = 0.4; // amount of time to animate a full cycle of player stepping; in seconds
 
     public static final double[] playerStartingPos = {0.0, 0.0}; // X, Y starting position of player; in meters
     public static final double playerRadius = 0.1; // radial width of player's hitbox and interaction box; in meters

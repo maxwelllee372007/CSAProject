@@ -29,7 +29,7 @@ public class GameGUI extends JComponent{
     private JLabel player = new JLabel();
     private JLabel bg = new JLabel();
 
-    private Icon pIcon;
+    private Icon pIcon, pIconStep;
     private Icon bgIcon;
 
 
@@ -50,6 +50,7 @@ public class GameGUI extends JComponent{
 
         //get pictures
         pIcon = new ImageIcon(Constants.playerImagePath);
+        pIconStep = new ImageIcon(Constants.playerImagePathStep);
         bgIcon = new ImageIcon(Constants.backgroundImagePath);
 
         //hud
@@ -96,6 +97,7 @@ public class GameGUI extends JComponent{
     public void movePlayer(double[] pos){
         int[] newPos = convertToGUIPixels(pos);
         player.setBounds(newPos[0] - pw/2,newPos[1] - ph/2,pw,ph);
+        player.setIcon((System.currentTimeMillis() / 1000.0) % (Constants.playerStepFrequency) < Constants.playerStepFrequency * 0.5 ? pIcon : pIconStep);
         p.repaint();
     }
     /**
