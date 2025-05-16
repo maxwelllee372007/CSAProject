@@ -29,7 +29,8 @@ public class GameGUI extends JComponent{
     private JLabel player = new JLabel();
     private JLabel bg = new JLabel();
 
-    private Icon pIcon, pIconStep;
+    private boolean facingLeft = false;
+    private Icon pIcon, pIconStep, pIconLeft, pIconStepLeft;
     private Icon bgIcon;
 
 
@@ -51,6 +52,8 @@ public class GameGUI extends JComponent{
         //get pictures
         pIcon = new ImageIcon(Constants.playerImagePath);
         pIconStep = new ImageIcon(Constants.playerImagePathStep);
+        pIconLeft = new ImageIcon(Constants.playerImagePathLeft);
+        pIconStepLeft = new ImageIcon(Constants.playerImagePathStepLeft);
         bgIcon = new ImageIcon(Constants.backgroundImagePath);
 
         //hud
@@ -60,7 +63,7 @@ public class GameGUI extends JComponent{
         player.setOpaque(false);
         player.setBackground(Color.red);
         player.setIcon(pIcon);
-        player.setBounds(pos[0],pos[1],pw,ph);
+        player.setBounds(pos[0]-pw/2,pos[1]-ph/2,pw,ph);
         p.add(player);
 
         for (int i = 0; i < Constants.Machines.machineIcons.size(); i++){
@@ -94,10 +97,19 @@ public class GameGUI extends JComponent{
     public int[] getPlayerGUIPos(){
         return pos;
     }
-    public void movePlayer(double[] pos){
+    public void movePlayer(double[] pos, double xMovement){
         int[] newPos = convertToGUIPixels(pos);
         player.setBounds(newPos[0] - pw/2,newPos[1] - ph/2,pw,ph);
-        player.setIcon((System.currentTimeMillis() / 1000.0) % (Constants.playerStepFrequency) < Constants.playerStepFrequency * 0.5 ? pIcon : pIconStep);
+        if (xMovement < 0){
+            facingLeft = true;
+        } else if (xMovement > 0){
+            facingLeft = false;
+        }
+        if (facingLeft){
+            player.setIcon((System.currentTimeMillis() / 1000.0) % (Constants.playerStepFrequency) < Constants.playerStepFrequency * 0.5 ? pIconLeft : pIconStepLeft);
+        } else {
+            player.setIcon((System.currentTimeMillis() / 1000.0) % (Constants.playerStepFrequency) < Constants.playerStepFrequency * 0.5 ? pIcon : pIconStep);
+        }
         p.repaint();
     }
     /**

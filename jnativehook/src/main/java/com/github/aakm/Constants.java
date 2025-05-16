@@ -19,6 +19,8 @@ public class Constants {
     
     public static final String playerImagePath = imageFolder + "playerClear.png";
     public static final String playerImagePathStep = imageFolder + "playerClearStep.png";
+    public static final String playerImagePathLeft = imageFolder + "playerClearLeft.png";
+    public static final String playerImagePathStepLeft = imageFolder + "playerClearStepLeft.png";
     public static final String backgroundImagePath = imageFolder + "betterBG.png";
 
     public class KeyBindings {
@@ -39,7 +41,7 @@ public class Constants {
     public static final double playerStartingBalance = 100.0; // starting balance of player; in dollars
 
     public static final double loopTime = 0.01; // Loop time; in seconds
-    public static final double playerSpeed = 1.0; // speed of the player's movement; in meters per second
+    public static final double playerSpeed = 0.8; // speed of the player's movement; in meters per second
     public static final double playerStepFrequency = 0.4; // amount of time to animate a full cycle of player stepping; in seconds
 
     public static final double[] playerStartingPos = {0.0, 0.0}; // X, Y starting position of player; in meters
