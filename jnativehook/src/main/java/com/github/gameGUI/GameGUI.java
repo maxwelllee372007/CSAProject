@@ -5,13 +5,13 @@ import java.security.cert.LDAPCertStoreParameters;
 import javax.swing.*;
 
 public class GameGUI extends JComponent{
-    private static int WIDTH = 1000;
-    private static int HEIGHT = 1000;
+    private static int WIDTH = 800;
+    private static int HEIGHT = 800;
 
-    int px = 500;
-    int py = 500;
-    int pw = 50;
-    int ph = 50;
+    int px = 400;
+    int py = 400;
+    int pw = 100;
+    int ph = 100;
     
 
     private Point playerLoc;
@@ -19,6 +19,9 @@ public class GameGUI extends JComponent{
     private JFrame frame;
 
     private JLayeredPane p = new JLayeredPane();
+
+    private JLabel player = new JLabel();
+    private JLabel bg = new JLabel();
 
     private Icon pIcon;
     private Icon bgIcon;
@@ -43,11 +46,11 @@ public class GameGUI extends JComponent{
         //get pictures
         pIcon = new ImageIcon("C:\\Users\\Arush\\Documents\\CSAProject\\jnativehook\\src\\main\\java\\com\\github\\gameGUI\\testFile.png");
         bgIcon = new ImageIcon("C:\\Users\\Arush\\Documents\\CSAProject\\jnativehook\\src\\main\\java\\com\\github\\gameGUI\\testBG.jpg");
+
         //hud
 
 
         //player
-        JLabel player = new JLabel();
         player.setOpaque(false);
         player.setBackground(Color.red);
         player.setIcon(pIcon);
@@ -55,9 +58,8 @@ public class GameGUI extends JComponent{
         p.add(player);
 
         //bg
-        JLabel bg = new JLabel();
         bg.setOpaque(true);
-        bg.setBackground(Color.blue);
+        bg.setBackground(Color.gray);
         bg.setIcon(bgIcon);
         bg.setBounds(0,0,WIDTH,HEIGHT);
         p.add(bg);
@@ -68,9 +70,14 @@ public class GameGUI extends JComponent{
     public int[] getGUISize(){
         return new int[]{WIDTH,HEIGHT};
     }
-    // public void movePlayer(double[] pos){
-    //     super.paintComponent(g);
-    //     panel.drawImage(player, (int)(pos[0]*1000)+500, (int)(pos[1]*1000)+500, null);
-    //     playerLoc.setLocation(px, py);
-    // }
+    public int[] getPlayerGUIPos(){
+        return new int[]{px,py};
+    }
+    public void movePlayer(double[] pos){
+        px = (int)(pos[0]*400 + 400);
+        py = (int)(-pos[1]*400 + 400);
+        player.setBounds(px,py,pw,ph);
+        p.repaint();
+    }
+
 }
