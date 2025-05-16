@@ -14,6 +14,7 @@ import com.github.aakm.obstacles.InteractionBox;
 
 public class Constants {
     public static final String currentDirectory = System.getProperty("user.dir");
+    public static final String imageFolder = currentDirectory + "\\jnativehook\\src\\main\\java\\com\\github\\gameGUI\\images\\";
 
     public class KeyBindings {
         public static final int[] playerMovementKeys = {57421, 57419, 57416, 57424}; // right, left, up, down arrow keys
@@ -33,19 +34,19 @@ public class Constants {
     public static final double playerStartingBalance = 100.0; // starting balance of player; in dollars
 
     public static final double loopTime = 0.01; // Loop time; in seconds
-    public static final double playerSpeed = 3.0; // speed of the player's movement; in meters per second
+    public static final double playerSpeed = 1.0; // speed of the player's movement; in meters per second
 
     public static final double[] playerStartingPos = {0.0, 0.0}; // X, Y starting position of player; in meters
     public static final double playerRadius = 0.1; // radial width of player's hitbox and interaction box; in meters
 
-    public static final double collisionResolutionIncrement = 0.01; // increment that program will use to attempt to "unstuck" player from wall; in meters
+    public static final double collisionResolutionIncrement = 0.001; // increment that program will use to attempt to "unstuck" player from wall; in meters
 
     // outer boundary
     private static final double[] boundaryCenter = {0.0, 0.0};
     private static final double boundaryWidth = 2.0;
     private static final double boundaryHeight = 2.0;
     public static final Boundary outerBoundary = new Boundary(boundaryCenter, boundaryWidth, boundaryHeight);
-
+    public static final int borderThickness = 40; // pixels
 
     public class Machines {
         private static final double interactibleBuffer = 0.05; // minimum distance from machine to interact; in meters
@@ -63,11 +64,11 @@ public class Constants {
         private static final MachineSkeleton roulette = new MachineSkeleton(rouletteHitBox, rouletteInteractionBox);
         static {
             machines.add(roulette);
-            machineIcons.add(new ImageIcon(currentDirectory + "\\jnativehook\\src\\main\\java\\com\\github\\gameGUI\\roulette.png"));
+            machineIcons.add(new ImageIcon(imageFolder + "roulette.png"));
         }
 
         // machine 2: slots
-        private static final double[] slotsCenter = {0.0, 0.25};
+        private static final double[] slotsCenter = {0.0, 0.0};
         private static final double slotsWidth = 0.5;
         private static final double slotsHeight = 0.5;
         private static final double slotsInteractibleWidth = slotsWidth + interactibleBuffer;
@@ -77,7 +78,7 @@ public class Constants {
         private static final Slots slots = new Slots(slotsHitBox, slotsInteractionBox);
         static {
             machines.add(slots);
-            machineIcons.add(new ImageIcon(currentDirectory + "\\jnativehook\\src\\main\\java\\com\\github\\gameGUI\\Goomba.png"));
+            machineIcons.add(new ImageIcon(imageFolder + "slots.png"));
 
         }
     }

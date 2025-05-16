@@ -9,15 +9,18 @@ import com.github.aakm.interactibleMachines.Machine;
 
 public class GameGUI extends JComponent{
     private static int WIDTH = 800;
-    private static int HEIGHT = 800;
+    private static double pixelsToGame = WIDTH/Constants.outerBoundary.getWidth();
+    private static int HEIGHT = scaleToGUIPixels(Constants.outerBoundary.getHeight());
+    static {
+        WIDTH += Constants.borderThickness*2;
+        HEIGHT += Constants.borderThickness*2;
+    }
 
-    int px = 400;
-    int py = 400;
-    int pw = 100;
-    int ph = 100;
+    int[] pos = convertToGUIPixels(Constants.playerStartingPos);
+    int pw = scaleToGUIPixels(Constants.playerRadius * 2);
+    int ph = scaleToGUIPixels(Constants.playerRadius * 2);
     
 
-    private Point playerLoc;
 
     private JFrame frame;
 
@@ -31,15 +34,14 @@ public class GameGUI extends JComponent{
 
 
     public GameGUI(){
-        //player location
-        playerLoc = new Point(px,py);
 
         //game frame
         frame = new JFrame();
         frame.setTitle("Virtual Casino");
-        frame.setSize(WIDTH,HEIGHT);
+        frame.setSize(WIDTH + 16,HEIGHT + 39);// +16 and +39 are the size of the window borders idk why
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(p);
+        frame.setLocationRelativeTo(null);
         frame.setResizable(false);
 
         //Layered Pane
@@ -47,8 +49,8 @@ public class GameGUI extends JComponent{
         p.setBackground(Color.gray);
 
         //get pictures
-        pIcon = new ImageIcon(Constants.currentDirectory + "\\jnativehook\\src\\main\\java\\com\\github\\gameGUI\\goomba-waddle-2.gif");
-        bgIcon = new ImageIcon(Constants.currentDirectory + "\\jnativehook\\src\\main\\java\\com\\github\\gameGUI\\testBG.png");
+        pIcon = new ImageIcon(Constants.imageFolder + "gomm.png");
+        bgIcon = new ImageIcon(Constants.imageFolder + "betterBG.png");
 
         //hud
 
@@ -57,7 +59,7 @@ public class GameGUI extends JComponent{
         player.setOpaque(false);
         player.setBackground(Color.red);
         player.setIcon(pIcon);
-        player.setBounds(px,py,pw,ph);
+        player.setBounds(pos[0],pos[1],pw,ph);
         p.add(player);
 
         for (int i = 0; i < Constants.Machines.machineIcons.size(); i++){
@@ -68,7 +70,7 @@ public class GameGUI extends JComponent{
             com.github.aakm.obstacles.Box machineBox = Constants.Machines.machines.get(i).getCollisionBox();
             double[] topLeftCorner = {
                 machineBox.getCenterPos()[0] - machineBox.getWidth()/2,
-                machineBox.getCenterPos()[1] - machineBox.getHeight()/2
+                machineBox.getCenterPos()[1] + machineBox.getHeight()/2
             };
             int[] topLeft = convertToGUIPixels(topLeftCorner);
             machineLabel.setBounds(topLeft[0],topLeft[1],scaleToGUIPixels(machineBox.getWidth()),scaleToGUIPixels(machineBox.getHeight()));
@@ -89,31 +91,30 @@ public class GameGUI extends JComponent{
         return new int[]{WIDTH,HEIGHT};
     }
     public int[] getPlayerGUIPos(){
-        return new int[]{px,py};
+        return pos;
     }
     public void movePlayer(double[] pos){
-        px = (int)(pos[0]*400 + 400);
-        py = (int)(-pos[1]*400 + 400);
-        player.setBounds(px,py,pw,ph);
+        int[] newPos = convertToGUIPixels(pos);
+        player.setBounds(newPos[0] - pw/2,newPos[1] - ph/2,pw,ph);
         p.repaint();
     }
     /**
      * only scales a scalar value
-     * @param pos
+     * @param size
      * @return
      */
-    public int scaleToGUIPixels(double pos){
-        return (int)(pos*400);
+    public static int scaleToGUIPixels(double size){
+        return (int)(size*pixelsToGame);
     }
-    public int[] convertToGUIPixels(double[] pos){
-        int x = (int)(pos[0]*400 + 400);
-        int y = (int)(-pos[1]*400 + 400);
+    public static int[] convertToGUIPixels(double[] pos){
+        int x = (int)(pos[0]*pixelsToGame + WIDTH/2);
+        int y = (int)(-pos[1]*pixelsToGame + HEIGHT/2);
         return new int[]{x,y};
     }
-    public double[] convertToGamePos(int[] pos){
-        double x = (pos[0] - 400)/400;
-        double y = -(pos[1] - 400)/400;
-        return new double[]{x,y};
-    }
+    // public static double[] convertToGamePos(int[] pos){
+    //     double x = (pos[0] - WIDTH/2)/pixelsToGame;
+    //     double y = -(pos[1] - HEIGHT/2)/pixelsToGame;
+    //     return new double[]{x,y};
+    // }
 
 }
