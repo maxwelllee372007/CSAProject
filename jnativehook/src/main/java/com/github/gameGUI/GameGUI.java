@@ -1,22 +1,6 @@
 package com.github.gameGUI;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.Rectangle;
-import java.awt.Image;
-import java.awt.Point;
-
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import java.io.File;
-import javax.imageio.ImageIO;
+import java.awt.*;
+import javax.swing.*;
 
 public class GameGUI extends JComponent{
     private static int WIDTH = 1000;
@@ -25,15 +9,12 @@ public class GameGUI extends JComponent{
     int px = 500;
     int py = 500;
     
-    private ImageIcon bgImage;
-    private ImageIcon playerImage;
 
     private Point playerLoc;
 
     private JFrame frame;
 
-    private JLabel bg;
-    private JLabel player;
+    private Panel bg = new Panel();
 
     public GameGUI(){
         //player location
@@ -45,32 +26,16 @@ public class GameGUI extends JComponent{
         frame.setSize(WIDTH,HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(this);
-        frame.setVisible(true);
+
         frame.setResizable(false);
 
-        //import files
-        try {
-            playerImage = new ImageIcon("testFile.png");
-        } catch (Exception e) {
-            System.out.println("Could not find file for player sprite");
-        }
-        try {
-            bgImage = new ImageIcon();
-        } catch (Exception e) {
-            System.out.println("Could not find file for player sprite");
-        }
-
-        //panel
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout());
-        frame.add(panel, BorderLayout.CENTER);
-
         //bg
-        panel.add(bg);
-        bg.setIcon(bgImage);
+        frame.setContentPane(bg);
 
-
-
+        frame.setVisible(true);
+    }
+    public int[] getGUISize(){
+        return new int[]{WIDTH,HEIGHT};
     }
     // public void movePlayer(double[] pos){
     //     super.paintComponent(g);
