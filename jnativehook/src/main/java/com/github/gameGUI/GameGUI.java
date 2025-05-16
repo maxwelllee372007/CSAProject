@@ -5,6 +5,7 @@ import java.security.cert.LDAPCertStoreParameters;
 import javax.swing.*;
 
 import com.github.aakm.Constants;
+import com.github.aakm.interactibleMachines.Machine;
 
 public class GameGUI extends JComponent{
     private static int WIDTH = 800;
@@ -46,7 +47,7 @@ public class GameGUI extends JComponent{
         p.setBackground(Color.gray);
 
         //get pictures
-        pIcon = new ImageIcon(Constants.currentDirectory + "\\jnativehook\\src\\main\\java\\com\\github\\gameGUI\\gomm.png");
+        pIcon = new ImageIcon(Constants.currentDirectory + "\\jnativehook\\src\\main\\java\\com\\github\\gameGUI\\goomba-waddle-2.gif");
         bgIcon = new ImageIcon(Constants.currentDirectory + "\\jnativehook\\src\\main\\java\\com\\github\\gameGUI\\testBG.png");
 
         //hud
@@ -58,6 +59,21 @@ public class GameGUI extends JComponent{
         player.setIcon(pIcon);
         player.setBounds(px,py,pw,ph);
         p.add(player);
+
+        for (int i = 0; i < Constants.Machines.machineIcons.size(); i++){
+            JLabel machineLabel = new JLabel();
+            machineLabel.setOpaque(false);
+            machineLabel.setBackground(Color.blue);
+            machineLabel.setIcon(Constants.Machines.machineIcons.get(i));
+            com.github.aakm.obstacles.Box machineBox = Constants.Machines.machines.get(i).getCollisionBox();
+            double[] topLeftCorner = {
+                machineBox.getCenterPos()[0] - machineBox.getWidth()/2,
+                machineBox.getCenterPos()[1] - machineBox.getHeight()/2
+            };
+            int[] topLeft = convertToGUIPixels(topLeftCorner);
+            machineLabel.setBounds(topLeft[0],topLeft[1],scaleToGUIPixels(machineBox.getWidth()),scaleToGUIPixels(machineBox.getHeight()));
+            p.add(machineLabel);
+        }
 
         //bg
         bg.setOpaque(true);
@@ -80,6 +96,24 @@ public class GameGUI extends JComponent{
         py = (int)(-pos[1]*400 + 400);
         player.setBounds(px,py,pw,ph);
         p.repaint();
+    }
+    /**
+     * only scales a scalar value
+     * @param pos
+     * @return
+     */
+    public int scaleToGUIPixels(double pos){
+        return (int)(pos*400);
+    }
+    public int[] convertToGUIPixels(double[] pos){
+        int x = (int)(pos[0]*400 + 400);
+        int y = (int)(-pos[1]*400 + 400);
+        return new int[]{x,y};
+    }
+    public double[] convertToGamePos(int[] pos){
+        double x = (pos[0] - 400)/400;
+        double y = -(pos[1] - 400)/400;
+        return new double[]{x,y};
     }
 
 }

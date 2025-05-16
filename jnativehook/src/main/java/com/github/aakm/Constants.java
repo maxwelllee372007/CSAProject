@@ -2,6 +2,9 @@ package com.github.aakm;
 
 import java.util.ArrayList;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 import com.github.aakm.interactibleMachines.Machine;
 import com.github.aakm.interactibleMachines.MachineSkeleton;
 import com.github.aakm.interactibleMachines.Slots;
@@ -47,6 +50,7 @@ public class Constants {
     public class Machines {
         private static final double interactibleBuffer = 0.05; // minimum distance from machine to interact; in meters
         public static final ArrayList<Machine> machines = new ArrayList<>();
+        public static final ArrayList<Icon> machineIcons = new ArrayList<>();
 
         // machine 1: roulette
         private static final double[] rouletteCenter = {-0.5, -0.6};
@@ -59,6 +63,7 @@ public class Constants {
         private static final MachineSkeleton roulette = new MachineSkeleton(rouletteHitBox, rouletteInteractionBox);
         static {
             machines.add(roulette);
+            machineIcons.add(new ImageIcon(currentDirectory + "\\jnativehook\\src\\main\\java\\com\\github\\gameGUI\\roulette.png"));
         }
 
         // machine 2: slots
@@ -72,6 +77,8 @@ public class Constants {
         private static final Slots slots = new Slots(slotsHitBox, slotsInteractionBox);
         static {
             machines.add(slots);
+            machineIcons.add(new ImageIcon(currentDirectory + "\\jnativehook\\src\\main\\java\\com\\github\\gameGUI\\Goomba.png"));
+
         }
     }
 

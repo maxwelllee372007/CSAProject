@@ -30,5 +30,14 @@ public class Box {
     public boolean isCollided(Player player) {
         return isCollided(player.getPos(), player.getRadius());
     }
+    public double[] getCenterPos() {
+        return centerPos;
+    }
+    public double getWidth() {
+        return width;
+    }
+    public double getHeight() {
+        return height;
+    }
 
 }
