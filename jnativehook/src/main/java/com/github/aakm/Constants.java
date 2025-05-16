@@ -38,6 +38,12 @@ public class Constants {
         public static final int blackKey = 3; // 2 key
         public static final int greenKey = 4; // 3 key
     }
+
+    public class InteractPrompt {
+        public static final String interactPromptImagePath = imageFolder + "interactPrompt.png";
+        public static final int[] interactPromptPos = {430, 760}; // X, Y position of interact prompt; in pixels
+        public static final int[] interactPromptSize = {300, 50}; // width, height of interact prompt; in pixels
+    }
     public static final double playerStartingBalance = 100.0; // starting balance of player; in dollars
 
     public static final double loopTime = 0.01; // Loop time; in seconds

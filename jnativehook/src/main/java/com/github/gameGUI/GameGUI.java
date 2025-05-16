@@ -28,10 +28,10 @@ public class GameGUI extends JComponent{
 
     private JLabel player = new JLabel();
     private JLabel bg = new JLabel();
+    private JLabel interactPrompt = new JLabel();
 
     private boolean facingLeft = false;
-    private Icon pIcon, pIconStep, pIconLeft, pIconStepLeft;
-    private Icon bgIcon;
+    private Icon pIcon, pIconStep, pIconLeft, pIconStepLeft, bgIcon, interactIcon;
 
 
     public GameGUI(){
@@ -57,7 +57,12 @@ public class GameGUI extends JComponent{
         bgIcon = new ImageIcon(Constants.backgroundImagePath);
 
         //hud
-
+        interactIcon = new ImageIcon(Constants.InteractPrompt.interactPromptImagePath);
+        interactPrompt.setOpaque(false);
+        interactPrompt.setBackground(Color.red);
+        interactPrompt.setIcon(interactIcon);
+        interactPrompt.setBounds(Constants.InteractPrompt.interactPromptPos[0] - Constants.InteractPrompt.interactPromptSize[0] / 2, Constants.InteractPrompt.interactPromptPos[1] + Constants.InteractPrompt.interactPromptSize[1] / 2, Constants.InteractPrompt.interactPromptSize[0], Constants.InteractPrompt.interactPromptSize[1]);
+        p.add(interactPrompt);
 
         //player
         player.setOpaque(false);
@@ -110,6 +115,14 @@ public class GameGUI extends JComponent{
         } else {
             player.setIcon((System.currentTimeMillis() / 1000.0) % (Constants.playerStepFrequency) < Constants.playerStepFrequency * 0.5 ? pIcon : pIconStep);
         }
+        p.repaint();
+    }
+    public void displayInteractPrompt() {
+        interactPrompt.setVisible(true);
+        p.repaint();
+    }
+    public void removeInteractPrompt() {
+        interactPrompt.setVisible(false);
         p.repaint();
     }
     /**
