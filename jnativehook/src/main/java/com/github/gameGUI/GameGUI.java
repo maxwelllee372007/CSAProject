@@ -4,6 +4,8 @@ import java.security.cert.LDAPCertStoreParameters;
 
 import javax.swing.*;
 
+import com.github.aakm.Constants;
+
 public class GameGUI extends JComponent{
     private static int WIDTH = 800;
     private static int HEIGHT = 800;
@@ -44,8 +46,8 @@ public class GameGUI extends JComponent{
         p.setBackground(Color.gray);
 
         //get pictures
-        pIcon = new ImageIcon("C:\\Users\\Arush\\Documents\\CSAProject\\jnativehook\\src\\main\\java\\com\\github\\gameGUI\\testFile.png");
-        bgIcon = new ImageIcon("C:\\Users\\Arush\\Documents\\CSAProject\\jnativehook\\src\\main\\java\\com\\github\\gameGUI\\testBG.jpg");
+        pIcon = new ImageIcon(Constants.currentDirectory + "\\jnativehook\\src\\main\\java\\com\\github\\gameGUI\\gomm.png");
+        bgIcon = new ImageIcon(Constants.currentDirectory + "\\jnativehook\\src\\main\\java\\com\\github\\gameGUI\\testBG.png");
 
         //hud
 

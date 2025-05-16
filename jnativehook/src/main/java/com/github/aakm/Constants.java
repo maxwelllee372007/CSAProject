@@ -10,6 +10,8 @@ import com.github.aakm.obstacles.Box;
 import com.github.aakm.obstacles.InteractionBox;
 
 public class Constants {
+    public static final String currentDirectory = System.getProperty("user.dir");
+
     public class KeyBindings {
         public static final int[] playerMovementKeys = {57421, 57419, 57416, 57424}; // right, left, up, down arrow keys
         public static final int interactKey = 57; // spacebar
