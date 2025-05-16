@@ -49,8 +49,8 @@ public class GameGUI extends JComponent{
         p.setBackground(Color.gray);
 
         //get pictures
-        pIcon = new ImageIcon(Constants.imageFolder + "gomm.png");
-        bgIcon = new ImageIcon(Constants.imageFolder + "betterBG.png");
+        pIcon = new ImageIcon(Constants.playerImagePath);
+        bgIcon = new ImageIcon(Constants.backgroundImagePath);
 
         //hud
 

@@ -15,6 +15,10 @@ import com.github.aakm.obstacles.InteractionBox;
 public class Constants {
     public static final String currentDirectory = System.getProperty("user.dir");
     public static final String imageFolder = currentDirectory + "\\jnativehook\\src\\main\\java\\com\\github\\gameGUI\\images\\";
+    
+    
+    public static final String playerImagePath = imageFolder + "playerClear.png";
+    public static final String backgroundImagePath = imageFolder + "betterBG.png";
 
     public class KeyBindings {
         public static final int[] playerMovementKeys = {57421, 57419, 57416, 57424}; // right, left, up, down arrow keys
@@ -39,7 +43,7 @@ public class Constants {
     public static final double[] playerStartingPos = {0.0, 0.0}; // X, Y starting position of player; in meters
     public static final double playerRadius = 0.1; // radial width of player's hitbox and interaction box; in meters
 
-    public static final double collisionResolutionIncrement = 0.001; // increment that program will use to attempt to "unstuck" player from wall; in meters
+    public static final double collisionResolutionIncrement = 0.0025; // increment that program will use to attempt to "unstuck" player from wall; in meters
 
     // outer boundary
     private static final double[] boundaryCenter = {0.0, 0.0};
@@ -68,7 +72,7 @@ public class Constants {
         }
 
         // machine 2: slots
-        private static final double[] slotsCenter = {0.0, 0.0};
+        private static final double[] slotsCenter = {0.0, 0.4};
         private static final double slotsWidth = 0.5;
         private static final double slotsHeight = 0.5;
         private static final double slotsInteractibleWidth = slotsWidth + interactibleBuffer;
