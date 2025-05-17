@@ -95,6 +95,7 @@ public class GameGUI extends JComponent{
         px = (int)(pos[0]*400 + 400);
         py = (int)(-pos[1]*400 + 400);
         player.setBounds(px,py,pw,ph);
+        player.setIcon(pIcon);
         p.repaint();
     }
     /**

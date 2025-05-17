@@ -21,9 +21,11 @@ public class Main {
     private static Player player = new Player(Constants.playerStartingPos, Constants.playerRadius);
     private static Obstacles obstacles = new Obstacles();
     private static ArrayList<Machine> machines = Machines.machines;
+
+    private static GameGUI game = new GameGUI();
+
     public static void main(String[] args) throws InterruptedException {
 
-        GameGUI game = new GameGUI();
 
         System.out.println("Hello world!");
         try {
