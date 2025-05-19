@@ -21,9 +21,11 @@ public class Main {
     private static Player player = new Player(Constants.playerStartingPos, Constants.playerRadius);
     private static Obstacles obstacles = new Obstacles();
     private static ArrayList<Machine> machines = Machines.machines;
+
+    private static GameGUI game = new GameGUI();
+
     public static void main(String[] args) throws InterruptedException {
 
-        GameGUI game = new GameGUI();
 
         System.out.println("Hello world!");
         try {
@@ -56,7 +58,7 @@ public class Main {
                 player.movePlayer(playerMovementValue);
                 // System.out.println("Player moved: (" + df.format(playerMovementValue[0]) + ", " + df.format(playerMovementValue[1]) + ")");
                 System.out.println("Player Position: (" + df.format(player.getPos()[0]) + ", " + df.format(player.getPos()[1]) + ")");
-                System.out.println("GUIPose:(" + game.getPlayerGUIPos()[0]+","+ game.getPlayerGUIPos()[1] + ")");             
+                System.out.println("GUIPose:(" + game.getPlayerGUIPos()[0]+","+ game.getPlayerGUIPos()[1] + ")");   
             }
 
             // detect and resolve player collisions
@@ -64,18 +66,13 @@ public class Main {
             
 
             // interact with nearby entities
-            if (keyListener.getKeys()[KeyBindings.interactKey]) {
-                for (Machine machine : machines) {
-                    if (machine.getInteractible(player)) {
-                        machine.interact(player, keyListener);
-                        break; // only interact with one machine at a time
-                        }
-                }
-            }
+            interact(game);
                 
 
             // display GUI
-            game.movePlayer(player.getPos());
+            if (playerMovementValue[0] != 0 || playerMovementValue[1] != 0) {
+                game.movePlayer(player.getPos(), playerMovementValue[0]);   
+            }
 
             // global sleep
             while (System.currentTimeMillis() - startTime < Constants.loopTime * 1000.0) {
@@ -93,6 +90,19 @@ public class Main {
             e.printStackTrace();
         }
         return;
+    }
+    public static void interact(GameGUI game) {
+        game.removeInteractPrompt();
+        for (Machine machine : machines) {
+            if (machine.getInteractible(player)) {
+                if (keyListener.getKeys()[KeyBindings.interactKey]) {
+                    machine.interact(player, keyListener);
+                    return; // only interact with one machine at a time
+                } else {
+                    game.displayInteractPrompt();
+                }
+            }
+        }
     }
 
     public static void generateObstacles() {
