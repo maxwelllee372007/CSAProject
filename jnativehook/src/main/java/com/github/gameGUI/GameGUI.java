@@ -133,6 +133,9 @@ public class GameGUI extends JComponent{
     public static int scaleToGUIPixels(double size){
         return (int)(size*pixelsToGame);
     }
+    public static double scaleToGameMeters(int pixels){
+        return (pixels/pixelsToGame);
+    }
     public static int[] convertToGUIPixels(double[] pos){
         int x = (int)(pos[0]*pixelsToGame + WIDTH/2);
         int y = (int)(-pos[1]*pixelsToGame + HEIGHT/2);
