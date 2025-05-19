@@ -103,32 +103,48 @@ public class Slots extends Machine{
         // TODO: add GUI display of bet amount
     }
     private void playSlots(KeyListener keyListener, Player player) { 
-        double waitTimeLeft = Math.random() * 1000.0 + 2000.0; // random wait time between 2 and 3 seconds
-        double waitTimeMiddle = Math.random() * 500.0 + waitTimeLeft; 
-        double waitTimeRight = Math.random() * 500.0 + 500.0 + waitTimeMiddle; 
-        double totalTime = waitTimeRight + 700.0; // total time to spin the wheel
+        double waitTimeLeft = Math.random() * 500.0 + 1000.0; // random wait time between 2 and 3 seconds
+        double waitTimeMiddle = Math.random() * 250.0 + 1000.0; 
+        double waitTimeRight = Math.random() * 250.0 + 1000.0; 
+        double endDisplayTime = 700.0; // total time to spin the wheel
+        double maxTime = 5000.0; // max time to spin the wheel
         double startTime = System.currentTimeMillis();
+        double startTimeFirst = startTime;
+        double startTimeSecond = startTime;
+        double startTimeThird = startTime;
+        int numSpacePressed = 0;
+        int numSpaceReleased = 0;
         int[] results = {(int)(Math.random() * 6), (int)(Math.random() * 6), (int)(Math.random() * 6)}; // 0, 0, 0 is win; identical is also win; values are 0-5, inclusive
-        while (System.currentTimeMillis() - startTime < totalTime) {
 
-            if (System.currentTimeMillis() - startTime < waitTimeLeft) {
+        
+        while (System.currentTimeMillis() - startTime < maxTime) {
+            if (keyListener.getKeys()[KeyBindings.interactKey]) {
+                numSpacePressed = numSpaceReleased + 1;
+            } else {
+                numSpaceReleased = numSpacePressed;
+            }
+            if (System.currentTimeMillis() - startTime < waitTimeLeft && numSpacePressed < 1) {
                 spinLeft();
                 spinMiddle();
                 spinRight();
-            } else if (System.currentTimeMillis() - startTime < waitTimeMiddle) {
+                startTimeFirst = System.currentTimeMillis();
+            } else if (System.currentTimeMillis() - startTimeFirst < waitTimeMiddle && numSpacePressed < 2) {
                 displayLeft(results);
                 spinMiddle();
                 spinRight();
-            } else if (System.currentTimeMillis() - startTime < waitTimeRight) {
+                startTimeSecond = System.currentTimeMillis();
+            } else if (System.currentTimeMillis() - startTimeSecond < waitTimeRight && numSpacePressed < 3) {
                 displayLeft(results);
                 displayMiddle(results);
                 spinRight();
-            } else if (System.currentTimeMillis() - startTime < totalTime) {
+                startTimeThird = System.currentTimeMillis();
+            } else if (System.currentTimeMillis() - startTimeThird < endDisplayTime) {
                 displayLeft(results);
                 displayMiddle(results);
                 displayRight(results);
             } else {
-                System.out.println("slots timing error");
+                break;
+                // System.out.println("slots timing error");
             }
             
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
@@ -137,7 +153,7 @@ public class Slots extends Machine{
             }
 
             try {
-                Thread.sleep(100);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -208,7 +224,7 @@ public class Slots extends Machine{
             }
             // System.out.println("waiting for player to press interact key");
             try {
-                Thread.sleep(100);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
