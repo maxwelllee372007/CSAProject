@@ -104,8 +104,8 @@ public class Slots extends Machine{
     }
     private void playSlots(KeyListener keyListener, Player player) { 
         double waitTimeLeft = Math.random() * 1000.0 + 2000.0; // random wait time between 2 and 3 seconds
-        double waitTimeMiddle = Math.random() * 1000.0 + waitTimeLeft; 
-        double waitTimeRight = Math.random() * 1000.0 + waitTimeMiddle; 
+        double waitTimeMiddle = Math.random() * 500.0 + waitTimeLeft; 
+        double waitTimeRight = Math.random() * 500.0 + 500.0 + waitTimeMiddle; 
         double totalTime = waitTimeRight + 700.0; // total time to spin the wheel
         double startTime = System.currentTimeMillis();
         int[] results = {(int)(Math.random() * 6), (int)(Math.random() * 6), (int)(Math.random() * 6)}; // 0, 0, 0 is win; identical is also win; values are 0-5, inclusive
