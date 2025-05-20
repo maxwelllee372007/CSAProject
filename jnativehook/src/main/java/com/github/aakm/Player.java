@@ -1,6 +1,7 @@
 package com.github.aakm;
 
-public class Player {
+public class Player 
+{
     private double[] pos = new double[2]; 
     private double radius = Constants.playerRadius;
     private double balance = Constants.playerStartingBalance;

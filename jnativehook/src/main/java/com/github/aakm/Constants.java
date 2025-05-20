@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.github.aakm.interactibleMachines.Machine;
 import com.github.aakm.interactibleMachines.MachineSkeleton;
+import com.github.aakm.interactibleMachines.Roulette;
 import com.github.aakm.interactibleMachines.Slots;
 import com.github.aakm.obstacles.Boundary;
 import com.github.aakm.obstacles.Box;
@@ -56,7 +57,7 @@ public class Constants {
         private static final double rouletteInteractibleHeight = rouletteHeight + interactibleBuffer;
         private static final Box rouletteHitBox = new Box(rouletteCenter, rouletteWidth, rouletteHeight);
         private static final InteractionBox rouletteInteractionBox = new InteractionBox(rouletteCenter, rouletteInteractibleWidth, rouletteInteractibleHeight);
-        private static final MachineSkeleton roulette = new MachineSkeleton(rouletteHitBox, rouletteInteractionBox);
+        private static final Roulette roulette = new Roulette(rouletteHitBox, rouletteInteractionBox);
         static {
             machines.add(roulette);
         }
