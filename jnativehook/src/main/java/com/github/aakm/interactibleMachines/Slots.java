@@ -120,7 +120,7 @@ public class Slots extends Machine{
         double startTimeThird = startTime;
         int numSpacePressed = 0;
         int numSpaceReleased = 0;
-        int[] results = {(int)(Math.random() * 6), (int)(Math.random() * 6), (int)(Math.random() * 6)}; // 0, 0, 0 is win; identical is also win; values are 0-5, inclusive
+        int[] results = {(int)(Math.random() * 3), (int)(Math.random() * 3), (int)(Math.random() * 3)}; // 0, 0, 0 is win; identical is also win; values are 0-5, inclusive
 
         
         while (System.currentTimeMillis() - startTime < maxTime) {
@@ -173,9 +173,9 @@ public class Slots extends Machine{
         } else if (results[0] == results[1] && results[1] == results[2]) {
             System.out.println("You win! +$" + dollarsdf.format(3.0));
             player.adjustBalance(3.0);
-        } else if (results[0] == results[1] || results[1] == results[2] || results[0] == results[2]) {
-            System.out.println("You win! +$" + dollarsdf.format(2.0));
-            player.adjustBalance(2.0);
+        // } else if (results[0] == results[1] || results[1] == results[2] || results[0] == results[2]) {
+        //     System.out.println("You win! +$" + dollarsdf.format(2.0));
+        //     player.adjustBalance(2.0);
         } else {
             System.out.println("You lose!");
         }
@@ -193,6 +193,7 @@ public class Slots extends Machine{
     }
     private void displayLeft(int[] results) {
         // TODO: add display wheel spinner
+        GameGUI.LeftReel.setIcon(GameGUI.reelSpinIcons[results[0]]);
         System.out.println("left is " + results[0]);
     }
     private void spinMiddle() {
@@ -207,6 +208,7 @@ public class Slots extends Machine{
     }
     private void displayMiddle(int[] results) {
         // TODO: add display wheel spinner
+        GameGUI.MidReel.setIcon(GameGUI.reelSpinIcons[results[1]]);
         System.out.println("middle is " + results[1]);
     }
     private void spinRight() {
@@ -221,6 +223,7 @@ public class Slots extends Machine{
     }
     private void displayRight(int[] results) {
         // TODO: add display wheel spinner
+        GameGUI.RightReel.setIcon(GameGUI.reelSpinIcons[results[2]]);
         System.out.println("right is " + results[2]);
     }
     private void concludeGame(Player player, KeyListener keyListener) {

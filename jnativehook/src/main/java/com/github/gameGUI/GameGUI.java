@@ -87,17 +87,17 @@ public class GameGUI extends JComponent{
         slotsGUI.setVisible(isSlots);
 
             //reels
-            LeftReel.setOpaque(true);
+            LeftReel.setOpaque(false);
             LeftReel.setBackground(Color.red);
             LeftReel.setBounds(183,395,110,190);
             slotsGUI.add(LeftReel);
 
-            MidReel.setOpaque(true);
+            MidReel.setOpaque(false);
             MidReel.setBackground(Color.green);
             MidReel.setBounds(323,395,110,190);
             slotsGUI.add(MidReel);
 
-            RightReel.setOpaque(true);
+            RightReel.setOpaque(false);
             RightReel.setBackground(Color.blue);
             RightReel.setBounds(463,395,110,190);
             slotsGUI.add(RightReel);
