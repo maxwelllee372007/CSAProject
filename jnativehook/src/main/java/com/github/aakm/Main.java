@@ -54,6 +54,10 @@ public class Main {
             // move player based on key presses
             double movementIncrement = Constants.loopTime * Constants.playerSpeed;
             double[] playerMovementValue = {((keyListener.getKeys()[KeyBindings.playerMovementKeys[0]] ? movementIncrement : 0) + (keyListener.getKeys()[KeyBindings.playerMovementKeys[1]] ? -movementIncrement : 0)), ((keyListener.getKeys()[KeyBindings.playerMovementKeys[2]] ? movementIncrement : 0) + (keyListener.getKeys()[KeyBindings.playerMovementKeys[3]] ? -movementIncrement : 0))};
+            if (playerMovementValue[0] != 0 && playerMovementValue[1] != 0) {
+                playerMovementValue[0] = Math.sqrt(2) / 2 * playerMovementValue[0];
+                playerMovementValue[1] = Math.sqrt(2) / 2 * playerMovementValue[1];
+            }
             if (playerMovementValue[0] != 0 || playerMovementValue[1] != 0) {
                 player.movePlayer(playerMovementValue);
                 // System.out.println("Player moved: (" + df.format(playerMovementValue[0]) + ", " + df.format(playerMovementValue[1]) + ")");
