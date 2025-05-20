@@ -1,6 +1,6 @@
 package com.github.aakm.interactibleMachines;
 
-
+import javax.swing.*;
 
 import org.jnativehook.keyboard.NativeKeyEvent;
 
@@ -10,6 +10,7 @@ import com.github.aakm.Constants.KeyBindings;
 import com.github.aakm.keyboardTracker.KeyListener;
 import com.github.aakm.obstacles.Box;
 import com.github.aakm.obstacles.InteractionBox;
+import com.github.gameGUI.GameGUI;
 
 public class Slots extends Machine{
     private int[] displayFrames = {0, 0, 0};
@@ -30,16 +31,19 @@ public class Slots extends Machine{
         welcomePlayer(keyListener);
         while (keyListener.getKeys()[KeyBindings.interactKey] || keyListener.getKeys()[KeyBindings.confirmKey]) {
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+                GameGUI.slotsGUI.setVisible(false);
                 System.out.println("Player has escaped the game.");
                 return;
             }
             collectBets(player, keyListener);
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+                GameGUI.slotsGUI.setVisible(false);
                 System.out.println("Player has escaped the game.");
                 return;
             }
             playSlots(keyListener, player);
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+                GameGUI.slotsGUI.setVisible(false);
                 System.out.println("Player has escaped the game.");
                 return;
             }
@@ -49,6 +53,7 @@ public class Slots extends Machine{
     }
     private void welcomePlayer(KeyListener keyListener) {
         System.out.println("Welcome to the slots machine!");
+        GameGUI.slotsGUI.setVisible(true);
         System.out.println("Press '" + NativeKeyEvent.getKeyText(KeyBindings.interactKey) + "' to begin."); 
         while (keyListener.getKeys()[KeyBindings.interactKey]) {
             // System.out.println("waiting for player to release interact key");
@@ -59,6 +64,7 @@ public class Slots extends Machine{
             }
             
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+                GameGUI.slotsGUI.setVisible(false);
                 System.out.println("Player has escaped the game.");
                 return;
             }
@@ -127,6 +133,8 @@ public class Slots extends Machine{
                 spinLeft();
                 spinMiddle();
                 spinRight();
+                GameGUI.LeftReel.repaint();
+            } else if (System.currentTimeMillis() - startTime < waitTimeMiddle) {
                 startTimeFirst = System.currentTimeMillis();
             } else if (System.currentTimeMillis() - startTimeFirst < waitTimeMiddle && numSpacePressed < 2) {
                 displayLeft(results);
@@ -177,7 +185,8 @@ public class Slots extends Machine{
     private void spinLeft() {
         // TODO: add display wheel spinner
         System.out.println("Spinning the left wheel at display frame " + displayFrames[0] + "...");
-        if (displayFrames[0] == 3) {
+        GameGUI.LeftReel.setIcon(GameGUI.reelSpinIcons[displayFrames[0]]);
+        if (displayFrames[0] == 2) {
             displayFrames[0] = 0;
         } else {
             displayFrames[0]++;
@@ -190,7 +199,8 @@ public class Slots extends Machine{
     private void spinMiddle() {
         // TODO: add display wheel spinner
         System.out.println("Spinning the middle wheel at display frame " + displayFrames[1] + "...");
-        if (displayFrames[1] == 3) {
+        GameGUI.MidReel.setIcon(GameGUI.reelSpinIcons[displayFrames[1]]);
+        if (displayFrames[1] == 2) {
             displayFrames[1] = 0;
         } else {
             displayFrames[1]++;
@@ -203,7 +213,8 @@ public class Slots extends Machine{
     private void spinRight() {
         // TODO: add display wheel spinner
         System.out.println("Spinning the right wheel at display frame " + displayFrames[2] + "...");
-        if (displayFrames[2] == 3) {
+        GameGUI.RightReel.setIcon(GameGUI.reelSpinIcons[displayFrames[2]]);
+        if (displayFrames[2] == 2) {
             displayFrames[2] = 0;
         } else {
             displayFrames[2]++;
