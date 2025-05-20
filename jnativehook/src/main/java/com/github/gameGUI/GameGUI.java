@@ -25,13 +25,22 @@ public class GameGUI extends JComponent{
     private JFrame frame;
 
     private JLayeredPane p = new JLayeredPane();
+    public static JLayeredPane slotsGUI = new JLayeredPane();
 
     private JLabel player = new JLabel();
     private JLabel bg = new JLabel();
     private JLabel interactPrompt = new JLabel();
+    public static JLabel LeftReel= new JLabel();
+    public static JLabel MidReel= new JLabel();
+    public static JLabel RightReel= new JLabel();
+
 
     private boolean facingLeft = false;
+    private boolean isSlots = false;
+
     private Icon pIcon, pIconStep, pIconLeft, pIconStepLeft, bgIcon, interactIcon;
+
+    public static Icon[] reelSpinIcons = new Icon[3];
 
 
     public GameGUI(){
@@ -55,6 +64,9 @@ public class GameGUI extends JComponent{
         pIconLeft = new ImageIcon(Constants.playerImagePathLeft);
         pIconStepLeft = new ImageIcon(Constants.playerImagePathStepLeft);
         bgIcon = new ImageIcon(Constants.backgroundImagePath);
+        reelSpinIcons[0] = new ImageIcon(Constants.reelSpin1);
+        reelSpinIcons[1] = new ImageIcon(Constants.reelSpin2);
+        reelSpinIcons[2] = new ImageIcon(Constants.reelSpin3);
 
         //hud
         interactIcon = new ImageIcon(Constants.InteractPrompt.interactPromptImagePath);
@@ -63,6 +75,29 @@ public class GameGUI extends JComponent{
         interactPrompt.setIcon(interactIcon);
         interactPrompt.setBounds(Constants.InteractPrompt.interactPromptPos[0] - Constants.InteractPrompt.interactPromptSize[0] / 2, Constants.InteractPrompt.interactPromptPos[1] + Constants.InteractPrompt.interactPromptSize[1] / 2, Constants.InteractPrompt.interactPromptSize[0], Constants.InteractPrompt.interactPromptSize[1]);
         p.add(interactPrompt);
+
+        //Slots
+        slotsGUI.setBounds(0, 0, WIDTH, HEIGHT);
+        slotsGUI.setOpaque(true);
+        slotsGUI.setBackground(Color.lightGray);
+        p.add(slotsGUI, JLayeredPane.DRAG_LAYER);
+        slotsGUI.setVisible(isSlots);
+
+            //reels
+            LeftReel.setOpaque(true);
+            LeftReel.setBackground(Color.red);
+            LeftReel.setBounds(50,50,200,700);
+            slotsGUI.add(LeftReel);
+
+            MidReel.setOpaque(true);
+            MidReel.setBackground(Color.green);
+            MidReel.setBounds(300,50,200,700);
+            slotsGUI.add(MidReel);
+
+            RightReel.setOpaque(true);
+            RightReel.setBackground(Color.blue);
+            RightReel.setBounds(550,50,200,700);
+            slotsGUI.add(RightReel);
 
         //player
         player.setOpaque(false);
