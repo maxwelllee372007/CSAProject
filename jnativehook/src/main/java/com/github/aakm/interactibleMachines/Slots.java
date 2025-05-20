@@ -193,7 +193,7 @@ public class Slots extends Machine{
     }
     private void displayLeft(int[] results) {
         // TODO: add display wheel spinner
-        GameGUI.LeftReel.setIcon(GameGUI.reelSpinIcons[results[0]]);
+        GameGUI.LeftReel.setIcon(GameGUI.reelEndIcons[results[0]]);
         System.out.println("left is " + results[0]);
     }
     private void spinMiddle() {
@@ -208,7 +208,7 @@ public class Slots extends Machine{
     }
     private void displayMiddle(int[] results) {
         // TODO: add display wheel spinner
-        GameGUI.MidReel.setIcon(GameGUI.reelSpinIcons[results[1]]);
+        GameGUI.MidReel.setIcon(GameGUI.reelEndIcons[results[1]]);
         System.out.println("middle is " + results[1]);
     }
     private void spinRight() {
@@ -223,7 +223,7 @@ public class Slots extends Machine{
     }
     private void displayRight(int[] results) {
         // TODO: add display wheel spinner
-        GameGUI.RightReel.setIcon(GameGUI.reelSpinIcons[results[2]]);
+        GameGUI.RightReel.setIcon(GameGUI.reelEndIcons[results[2]]);
         System.out.println("right is " + results[2]);
     }
     private void concludeGame(Player player, KeyListener keyListener) {

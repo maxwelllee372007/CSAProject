@@ -24,9 +24,12 @@ public class Constants {
     public static final String playerImagePathLeft = imageFolder + "playerClearLeft.png";
     public static final String playerImagePathStepLeft = imageFolder + "playerClearStepLeft.png";
     public static final String backgroundImagePath = imageFolder + "betterBG.png";
-    public static final String reelSpin1 = imageFolder + "reelSpin1.PNG";
-    public static final String reelSpin2 = imageFolder + "reelSpin2.PNG";
-    public static final String reelSpin3 = imageFolder + "reelSpin3.PNG";
+    public static final String reelSpin1 = imageFolder + "reelSpin1.png";
+    public static final String reelSpin2 = imageFolder + "reelSpin2.png";
+    public static final String reelSpin3 = imageFolder + "reelSpin3.png";
+    public static final String reelEnd1 = imageFolder + "reelEnd1.png";
+    public static final String reelEnd2 = imageFolder + "reelEnd2.png";
+    public static final String reelEnd3 = imageFolder + "reelEnd3.png";
 
     public class KeyBindings {
         public static final int[] playerMovementKeys = {57421, 57419, 57416, 57424}; // right, left, up, down arrow keys

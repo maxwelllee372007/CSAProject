@@ -42,6 +42,7 @@ public class GameGUI extends JComponent{
     private Icon pIcon, pIconStep, pIconLeft, pIconStepLeft, bgIcon, interactIcon, backgroundSlotsIcon;
 
     public static Icon[] reelSpinIcons = new Icon[3];
+    public static Icon[] reelEndIcons = new Icon[3];
 
 
     public GameGUI(){
@@ -68,6 +69,9 @@ public class GameGUI extends JComponent{
         reelSpinIcons[0] = new ImageIcon(Constants.reelSpin1);
         reelSpinIcons[1] = new ImageIcon(Constants.reelSpin2);
         reelSpinIcons[2] = new ImageIcon(Constants.reelSpin3);
+        reelEndIcons[0] = new ImageIcon(Constants.reelEnd1);
+        reelEndIcons[1] = new ImageIcon(Constants.reelEnd2);
+        reelEndIcons[2] = new ImageIcon(Constants.reelEnd3);
         backgroundSlotsIcon = new ImageIcon(Constants.Machines.slotsPopUpImagePath);
 
 
