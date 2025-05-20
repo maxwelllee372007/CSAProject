@@ -95,6 +95,7 @@ public class Constants {
         private static final Box slotsHitBox = new Box(slotsCenter, slotsWidth, slotsHeight);
         private static final InteractionBox slotsInteractionBox = new InteractionBox(slotsCenter, slotsInteractibleWidth, slotsInteractibleHeight);
         private static final Slots slots = new Slots(slotsHitBox, slotsInteractionBox);
+        public static final String slotsPopUpImagePath = imageFolder + "slotsBGMini-removebg-preview.png";
         static {
             machines.add(slots);
             machineIcons.add(new ImageIcon(imageFolder + "ChatGPT_Image_May_16__2025__01_19_37_PM.png"));

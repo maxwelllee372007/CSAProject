@@ -133,8 +133,7 @@ public class Slots extends Machine{
                 spinLeft();
                 spinMiddle();
                 spinRight();
-                GameGUI.LeftReel.repaint();
-            } else if (System.currentTimeMillis() - startTime < waitTimeMiddle) {
+                // GameGUI.LeftReel.repaint();
                 startTimeFirst = System.currentTimeMillis();
             } else if (System.currentTimeMillis() - startTimeFirst < waitTimeMiddle && numSpacePressed < 2) {
                 displayLeft(results);
