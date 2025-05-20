@@ -7,10 +7,12 @@ import javax.swing.ImageIcon;
 
 import com.github.aakm.interactibleMachines.Machine;
 import com.github.aakm.interactibleMachines.MachineSkeleton;
+import com.github.aakm.interactibleMachines.Roulette;
 import com.github.aakm.interactibleMachines.Slots;
 import com.github.aakm.obstacles.Boundary;
 import com.github.aakm.obstacles.Box;
 import com.github.aakm.obstacles.InteractionBox;
+import com.github.gameGUI.GameGUI;
 
 public class Constants {
     public static final String currentDirectory = System.getProperty("user.dir");
@@ -78,7 +80,7 @@ public class Constants {
         private static final double rouletteInteractibleHeight = rouletteHeight + interactibleBuffer;
         private static final Box rouletteHitBox = new Box(rouletteCenter, rouletteWidth, rouletteHeight);
         private static final InteractionBox rouletteInteractionBox = new InteractionBox(rouletteCenter, rouletteInteractibleWidth, rouletteInteractibleHeight);
-        private static final MachineSkeleton roulette = new MachineSkeleton(rouletteHitBox, rouletteInteractionBox);
+        private static final Roulette roulette = new Roulette(rouletteHitBox, rouletteInteractionBox);
         static {
             machines.add(roulette);
             machineIcons.add(new ImageIcon(imageFolder + "roulette.png"));
@@ -86,8 +88,8 @@ public class Constants {
 
         // machine 2: slots
         private static final double[] slotsCenter = {0.0, 0.4};
-        private static final double slotsWidth = 0.5;
-        private static final double slotsHeight = 0.5;
+        private static final double slotsWidth = GameGUI.scaleToGameMeters(171);
+        private static final double slotsHeight = GameGUI.scaleToGameMeters(224);
         private static final double slotsInteractibleWidth = slotsWidth + interactibleBuffer;
         private static final double slotsInteractibleHeight = slotsHeight + interactibleBuffer;
         private static final Box slotsHitBox = new Box(slotsCenter, slotsWidth, slotsHeight);
@@ -95,7 +97,7 @@ public class Constants {
         private static final Slots slots = new Slots(slotsHitBox, slotsInteractionBox);
         static {
             machines.add(slots);
-            machineIcons.add(new ImageIcon(imageFolder + "slots.png"));
+            machineIcons.add(new ImageIcon(imageFolder + "ChatGPT_Image_May_16__2025__01_19_37_PM.png"));
 
         }
     }
