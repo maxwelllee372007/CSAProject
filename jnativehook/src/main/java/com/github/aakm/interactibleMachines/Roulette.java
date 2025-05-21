@@ -6,6 +6,7 @@ import com.github.aakm.Player;
 import com.github.aakm.keyboardTracker.KeyListener;
 import com.github.aakm.obstacles.Box;
 import com.github.aakm.obstacles.InteractionBox;
+import com.github.gameGUI.GameGUI;
 
 import java.util.Scanner;
 
@@ -50,6 +51,7 @@ public class Roulette extends Machine
         System.out.println("exited roulette game");
     }
     private void welcomePlayer(KeyListener keyListener) {
+        GameGUI.rouletteGUI.setVisible(true);
         System.out.println("Welcome to the roulette machine!");
         System.out.println("Press '" + NativeKeyEvent.getKeyText(KeyBindings.interactKey) + "' to begin."); 
         while (keyListener.getKeys()[KeyBindings.interactKey]) {

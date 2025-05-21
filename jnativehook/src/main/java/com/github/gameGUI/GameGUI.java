@@ -26,6 +26,7 @@ public class GameGUI extends JComponent{
 
     private JLayeredPane p = new JLayeredPane();
     public static JLayeredPane slotsGUI = new JLayeredPane();
+    public static JLayeredPane rouletteGUI = new JLayeredPane();
 
     private JLabel player = new JLabel();
     private JLabel bg = new JLabel();
@@ -34,12 +35,13 @@ public class GameGUI extends JComponent{
     public static JLabel MidReel= new JLabel();
     public static JLabel RightReel= new JLabel();
     public static JLabel backgroundSlots= new JLabel();
+    public static JLabel backgroundRoulette= new JLabel();
 
 
     private boolean facingLeft = false;
     private boolean isSlots = false;
 
-    private Icon pIcon, pIconStep, pIconLeft, pIconStepLeft, bgIcon, interactIcon, backgroundSlotsIcon;
+    private Icon pIcon, pIconStep, pIconLeft, pIconStepLeft, bgIcon, interactIcon, backgroundSlotsIcon, backgroundRouletteIcon;
 
     public static Icon[] reelSpinIcons = new Icon[3];
     public static Icon[] reelEndIcons = new Icon[3];
@@ -73,6 +75,7 @@ public class GameGUI extends JComponent{
         reelEndIcons[1] = new ImageIcon(Constants.reelEnd2);
         reelEndIcons[2] = new ImageIcon(Constants.reelEnd3);
         backgroundSlotsIcon = new ImageIcon(Constants.Machines.slotsPopUpImagePath);
+        backgroundRouletteIcon = new ImageIcon(Constants.Machines.roulettePopUpImagePath);
 
 
         //hud
@@ -111,6 +114,19 @@ public class GameGUI extends JComponent{
             backgroundSlots.setBounds(0,0,880,880);
             backgroundSlots.setIcon(backgroundSlotsIcon);
             slotsGUI.add(backgroundSlots);
+
+        // Roulette
+        rouletteGUI.setBounds(0, 0, WIDTH, HEIGHT);
+        rouletteGUI.setOpaque(false);
+        rouletteGUI.setBackground(Color.lightGray);
+        p.add(rouletteGUI, JLayeredPane.DRAG_LAYER);
+        rouletteGUI.setVisible(isSlots);
+
+            backgroundRoulette.setOpaque(false);
+            backgroundRoulette.setBackground(Color.blue);
+            backgroundRoulette.setBounds(0,0,880,880);
+            backgroundRoulette.setIcon(backgroundRouletteIcon);
+            rouletteGUI.add(backgroundRoulette);
 
         //player
         player.setOpaque(false);
