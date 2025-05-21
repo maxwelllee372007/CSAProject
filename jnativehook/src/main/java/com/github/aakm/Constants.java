@@ -24,6 +24,12 @@ public class Constants {
     public static final String playerImagePathLeft = imageFolder + "playerClearLeft.png";
     public static final String playerImagePathStepLeft = imageFolder + "playerClearStepLeft.png";
     public static final String backgroundImagePath = imageFolder + "betterBG.png";
+    public static final String reelSpin1 = imageFolder + "reelSpin1.png";
+    public static final String reelSpin2 = imageFolder + "reelSpin2.png";
+    public static final String reelSpin3 = imageFolder + "reelSpin3.png";
+    public static final String reelEnd1 = imageFolder + "reelEnd1.png";
+    public static final String reelEnd2 = imageFolder + "reelEnd2.png";
+    public static final String reelEnd3 = imageFolder + "reelEnd3.png";
 
     public class KeyBindings {
         public static final int[] playerMovementKeys = {57421, 57419, 57416, 57424}; // right, left, up, down arrow keys
@@ -77,7 +83,7 @@ public class Constants {
         private static final double rouletteInteractibleHeight = rouletteHeight + interactibleBuffer;
         private static final Box rouletteHitBox = new Box(rouletteCenter, rouletteWidth, rouletteHeight);
         private static final InteractionBox rouletteInteractionBox = new InteractionBox(rouletteCenter, rouletteInteractibleWidth, rouletteInteractibleHeight);
-        private static final MachineSkeleton roulette = new MachineSkeleton(rouletteHitBox, rouletteInteractionBox);
+        private static final Roulette roulette = new Roulette(rouletteHitBox, rouletteInteractionBox);
         static {
             machines.add(roulette);
             machineIcons.add(new ImageIcon(imageFolder + "roulette.png"));
@@ -92,6 +98,7 @@ public class Constants {
         private static final Box slotsHitBox = new Box(slotsCenter, slotsWidth, slotsHeight);
         private static final InteractionBox slotsInteractionBox = new InteractionBox(slotsCenter, slotsInteractibleWidth, slotsInteractibleHeight);
         private static final Slots slots = new Slots(slotsHitBox, slotsInteractionBox);
+        public static final String slotsPopUpImagePath = imageFolder + "slotsBGMini-removebg-preview.png";
         static {
             machines.add(slots);
             machineIcons.add(new ImageIcon(imageFolder + "ChatGPT_Image_May_16__2025__01_19_37_PM.png"));

@@ -1,6 +1,6 @@
 package com.github.aakm.interactibleMachines;
 
-
+import javax.swing.*;
 
 import org.jnativehook.keyboard.NativeKeyEvent;
 
@@ -10,6 +10,7 @@ import com.github.aakm.Constants.KeyBindings;
 import com.github.aakm.keyboardTracker.KeyListener;
 import com.github.aakm.obstacles.Box;
 import com.github.aakm.obstacles.InteractionBox;
+import com.github.gameGUI.GameGUI;
 
 public class Slots extends Machine{
     private int[] displayFrames = {0, 0, 0};
@@ -30,16 +31,19 @@ public class Slots extends Machine{
         welcomePlayer(keyListener);
         while (keyListener.getKeys()[KeyBindings.interactKey] || keyListener.getKeys()[KeyBindings.confirmKey]) {
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+                GameGUI.slotsGUI.setVisible(false);
                 System.out.println("Player has escaped the game.");
                 return;
             }
             collectBets(player, keyListener);
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+                GameGUI.slotsGUI.setVisible(false);
                 System.out.println("Player has escaped the game.");
                 return;
             }
             playSlots(keyListener, player);
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+                GameGUI.slotsGUI.setVisible(false);
                 System.out.println("Player has escaped the game.");
                 return;
             }
@@ -49,6 +53,7 @@ public class Slots extends Machine{
     }
     private void welcomePlayer(KeyListener keyListener) {
         System.out.println("Welcome to the slots machine!");
+        GameGUI.slotsGUI.setVisible(true);
         System.out.println("Press '" + NativeKeyEvent.getKeyText(KeyBindings.interactKey) + "' to begin."); 
         while (keyListener.getKeys()[KeyBindings.interactKey]) {
             // System.out.println("waiting for player to release interact key");
@@ -59,6 +64,7 @@ public class Slots extends Machine{
             }
             
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+                GameGUI.slotsGUI.setVisible(false);
                 System.out.println("Player has escaped the game.");
                 return;
             }
@@ -114,7 +120,7 @@ public class Slots extends Machine{
         double startTimeThird = startTime;
         int numSpacePressed = 0;
         int numSpaceReleased = 0;
-        int[] results = {(int)(Math.random() * 6), (int)(Math.random() * 6), (int)(Math.random() * 6)}; // 0, 0, 0 is win; identical is also win; values are 0-5, inclusive
+        int[] results = {(int)(Math.random() * 3), (int)(Math.random() * 3), (int)(Math.random() * 3)}; // 0, 0, 0 is win; identical is also win; values are 0-5, inclusive
 
         
         while (System.currentTimeMillis() - startTime < maxTime) {
@@ -127,6 +133,7 @@ public class Slots extends Machine{
                 spinLeft();
                 spinMiddle();
                 spinRight();
+                // GameGUI.LeftReel.repaint();
                 startTimeFirst = System.currentTimeMillis();
             } else if (System.currentTimeMillis() - startTimeFirst < waitTimeMiddle && numSpacePressed < 2) {
                 displayLeft(results);
@@ -166,9 +173,9 @@ public class Slots extends Machine{
         } else if (results[0] == results[1] && results[1] == results[2]) {
             System.out.println("You win! +$" + dollarsdf.format(3.0));
             player.adjustBalance(3.0);
-        } else if (results[0] == results[1] || results[1] == results[2] || results[0] == results[2]) {
-            System.out.println("You win! +$" + dollarsdf.format(2.0));
-            player.adjustBalance(2.0);
+        // } else if (results[0] == results[1] || results[1] == results[2] || results[0] == results[2]) {
+        //     System.out.println("You win! +$" + dollarsdf.format(2.0));
+        //     player.adjustBalance(2.0);
         } else {
             System.out.println("You lose!");
         }
@@ -177,7 +184,8 @@ public class Slots extends Machine{
     private void spinLeft() {
         // TODO: add display wheel spinner
         System.out.println("Spinning the left wheel at display frame " + displayFrames[0] + "...");
-        if (displayFrames[0] == 3) {
+        GameGUI.LeftReel.setIcon(GameGUI.reelSpinIcons[displayFrames[0]]);
+        if (displayFrames[0] == 2) {
             displayFrames[0] = 0;
         } else {
             displayFrames[0]++;
@@ -185,12 +193,14 @@ public class Slots extends Machine{
     }
     private void displayLeft(int[] results) {
         // TODO: add display wheel spinner
+        GameGUI.LeftReel.setIcon(GameGUI.reelEndIcons[results[0]]);
         System.out.println("left is " + results[0]);
     }
     private void spinMiddle() {
         // TODO: add display wheel spinner
         System.out.println("Spinning the middle wheel at display frame " + displayFrames[1] + "...");
-        if (displayFrames[1] == 3) {
+        GameGUI.MidReel.setIcon(GameGUI.reelSpinIcons[displayFrames[1]]);
+        if (displayFrames[1] == 2) {
             displayFrames[1] = 0;
         } else {
             displayFrames[1]++;
@@ -198,12 +208,14 @@ public class Slots extends Machine{
     }
     private void displayMiddle(int[] results) {
         // TODO: add display wheel spinner
+        GameGUI.MidReel.setIcon(GameGUI.reelEndIcons[results[1]]);
         System.out.println("middle is " + results[1]);
     }
     private void spinRight() {
         // TODO: add display wheel spinner
         System.out.println("Spinning the right wheel at display frame " + displayFrames[2] + "...");
-        if (displayFrames[2] == 3) {
+        GameGUI.RightReel.setIcon(GameGUI.reelSpinIcons[displayFrames[2]]);
+        if (displayFrames[2] == 2) {
             displayFrames[2] = 0;
         } else {
             displayFrames[2]++;
@@ -211,12 +223,13 @@ public class Slots extends Machine{
     }
     private void displayRight(int[] results) {
         // TODO: add display wheel spinner
+        GameGUI.RightReel.setIcon(GameGUI.reelEndIcons[results[2]]);
         System.out.println("right is " + results[2]);
     }
     private void concludeGame(Player player, KeyListener keyListener) {
         double startTime = System.currentTimeMillis();
         System.out.println("play again? (press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to play again)" + " (press '" + NativeKeyEvent.getKeyText(KeyBindings.escapeKey) + "' to exit)");
-        while (!keyListener.getKeys()[KeyBindings.confirmKey] && System.currentTimeMillis() - startTime < 5000) {
+        while (!keyListener.getKeys()[KeyBindings.confirmKey]){// && System.currentTimeMillis() - startTime < 5000) {
             
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
                 System.out.println("Player has escaped the game.");

@@ -25,13 +25,24 @@ public class GameGUI extends JComponent{
     private JFrame frame;
 
     private JLayeredPane p = new JLayeredPane();
+    public static JLayeredPane slotsGUI = new JLayeredPane();
 
     private JLabel player = new JLabel();
     private JLabel bg = new JLabel();
     private JLabel interactPrompt = new JLabel();
+    public static JLabel LeftReel= new JLabel();
+    public static JLabel MidReel= new JLabel();
+    public static JLabel RightReel= new JLabel();
+    public static JLabel backgroundSlots= new JLabel();
+
 
     private boolean facingLeft = false;
-    private Icon pIcon, pIconStep, pIconLeft, pIconStepLeft, bgIcon, interactIcon;
+    private boolean isSlots = false;
+
+    private Icon pIcon, pIconStep, pIconLeft, pIconStepLeft, bgIcon, interactIcon, backgroundSlotsIcon;
+
+    public static Icon[] reelSpinIcons = new Icon[3];
+    public static Icon[] reelEndIcons = new Icon[3];
 
 
     public GameGUI(){
@@ -55,6 +66,14 @@ public class GameGUI extends JComponent{
         pIconLeft = new ImageIcon(Constants.playerImagePathLeft);
         pIconStepLeft = new ImageIcon(Constants.playerImagePathStepLeft);
         bgIcon = new ImageIcon(Constants.backgroundImagePath);
+        reelSpinIcons[0] = new ImageIcon(Constants.reelSpin1);
+        reelSpinIcons[1] = new ImageIcon(Constants.reelSpin2);
+        reelSpinIcons[2] = new ImageIcon(Constants.reelSpin3);
+        reelEndIcons[0] = new ImageIcon(Constants.reelEnd1);
+        reelEndIcons[1] = new ImageIcon(Constants.reelEnd2);
+        reelEndIcons[2] = new ImageIcon(Constants.reelEnd3);
+        backgroundSlotsIcon = new ImageIcon(Constants.Machines.slotsPopUpImagePath);
+
 
         //hud
         interactIcon = new ImageIcon(Constants.InteractPrompt.interactPromptImagePath);
@@ -63,6 +82,35 @@ public class GameGUI extends JComponent{
         interactPrompt.setIcon(interactIcon);
         interactPrompt.setBounds(Constants.InteractPrompt.interactPromptPos[0] - Constants.InteractPrompt.interactPromptSize[0] / 2, Constants.InteractPrompt.interactPromptPos[1] + Constants.InteractPrompt.interactPromptSize[1] / 2, Constants.InteractPrompt.interactPromptSize[0], Constants.InteractPrompt.interactPromptSize[1]);
         p.add(interactPrompt);
+
+        //Slots
+        slotsGUI.setBounds(0, 0, WIDTH, HEIGHT);
+        slotsGUI.setOpaque(false);
+        slotsGUI.setBackground(Color.lightGray);
+        p.add(slotsGUI, JLayeredPane.DRAG_LAYER);
+        slotsGUI.setVisible(isSlots);
+
+            //reels
+            LeftReel.setOpaque(false);
+            LeftReel.setBackground(Color.red);
+            LeftReel.setBounds(183,395,110,190);
+            slotsGUI.add(LeftReel);
+
+            MidReel.setOpaque(false);
+            MidReel.setBackground(Color.green);
+            MidReel.setBounds(323,395,110,190);
+            slotsGUI.add(MidReel);
+
+            RightReel.setOpaque(false);
+            RightReel.setBackground(Color.blue);
+            RightReel.setBounds(463,395,110,190);
+            slotsGUI.add(RightReel);
+
+            backgroundSlots.setOpaque(false);
+            backgroundSlots.setBackground(Color.blue);
+            backgroundSlots.setBounds(0,0,880,880);
+            backgroundSlots.setIcon(backgroundSlotsIcon);
+            slotsGUI.add(backgroundSlots);
 
         //player
         player.setOpaque(false);
