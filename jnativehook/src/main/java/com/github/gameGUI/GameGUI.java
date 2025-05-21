@@ -34,6 +34,7 @@ public class GameGUI extends JComponent{
     public static JLabel MidReel= new JLabel();
     public static JLabel RightReel= new JLabel();
     public static JLabel backgroundSlots= new JLabel();
+    public static JLabel[] slotsText = new JLabel[4];
 
 
     private boolean facingLeft = false;
@@ -89,6 +90,13 @@ public class GameGUI extends JComponent{
         slotsGUI.setBackground(Color.lightGray);
         p.add(slotsGUI, JLayeredPane.DRAG_LAYER);
         slotsGUI.setVisible(isSlots);
+
+            //text
+            slotsText[0].setOpaque(false);
+            slotsText[0].setFont(Constants.slotsFont);
+            slotsText[0].setBounds(183,395,110,190);
+            slotsText[0].setText("something");
+            slotsGUI.add(slotsText[0]);
 
             //reels
             LeftReel.setOpaque(false);
