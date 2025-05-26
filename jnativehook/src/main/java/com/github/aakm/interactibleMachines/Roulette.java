@@ -82,12 +82,18 @@ public class Roulette extends Machine
         }
     }
     private RouletteBet collectBets(Player player, KeyListener keyListener) {
-        RouletteBet bet = new RouletteBet(player, keyListener);
-        
+        RouletteBet bet = RouletteBet.Empty();
+        //Bet Evaluator Tests
+        //bet   = RouletteBet.CreateStraightUpBet(12.5, 15);
+        //bet   = RouletteBet.CreateBlackOrRedBet(8.75,true);
+        //bet   = RouletteBet.CreateHighOrLowBet(5.25, true);
+        bet   = RouletteBet.CreateOddOrEvenBet(15.60, true);
+        //bet   = RouletteBet.CreateDozensBet(22.75, RouletteDozens.Middle);
+
         confirmBetAmount(bet, keyListener);
         if (keyListener.getKeys()[KeyBindings.escapeKey]) {
             System.out.println("Player has escaped the game.");
-            return new RouletteBet();
+            return RouletteBet.Empty();
         }
         player.adjustBalance(-bet.GetAmount());
         return bet;
@@ -121,30 +127,20 @@ public class Roulette extends Machine
                 displaySpinningWheeelFinal(player, bet, result);
             } else {
                 System.out.println("slots timing error");
-            }
-            
+            }            
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
                 System.out.println("Player has escaped the game.");
                 return;
             }
-
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
-            
+            }            
         }
         System.out.println("Game has ended");
-        if (true)
-        {
-            System.out.println("Winners! +$" + dollarsdf.format(10.0));            
-            player.adjustBalance(10.0); //different based on bet            
-        }
-        else
-        {
-            System.out.println("You lose!");
-        }
+        RouletteBetEvaluator evaluator  = new RouletteBetEvaluator();
+        evaluator.Evaluate(player, bet, result);
         displayBalance(player.getBalance());
     }
     private void spinWheel() {

@@ -21,13 +21,11 @@ public class RouletteSpinResult
             this.isLow = value < 19;
             this.isValid = true;
         }
-
         catch(Exception ex)
         {
             Logger.getLogger(ex.getMessage());
         }
     }
-
     private void setDozens(Integer value)
     {       
         if(value < 13)
@@ -42,10 +40,9 @@ public class RouletteSpinResult
         }
         this.dozens = RouletteDozens.High;
     }
-
     private void setIsBlack(Integer value)
     {        
-        for(int index = 0; index < 17; index++)
+        for(int index = 0; index < 18; index++)
         {
             if(blackNum[index] == value)
             {
@@ -53,38 +50,32 @@ public class RouletteSpinResult
                 break;                    
             }
         }
-    }
-    
+    }    
     private Boolean isValid = false;
     public Boolean GetIsValid()
     {
         return this.isValid;    
     }
-
     private Integer Value = 0;
     public Integer GetValue()
     {
         return this.Value;    
     }
-
     private Boolean isEven = false;
     public Boolean GetIsEven()
     {
         return this.isEven;    
     }
-
     private Boolean isBlack = false;
     public Boolean GetIsBlack()
     {
         return this.isBlack;    
     }
-
     private Boolean isLow = false;
     public Boolean GetIsLow()
     {
         return this.isLow;    
     }
-
     private RouletteDozens dozens = RouletteDozens.notSet;
     public RouletteDozens GetDozens()
     {
