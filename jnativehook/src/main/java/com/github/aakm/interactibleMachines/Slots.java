@@ -95,7 +95,7 @@ public class Slots extends Machine{
     }
     private void confirmBetAmount(double betAmount, KeyListener keyListener) {
         System.out.println("Slots costs $" + dollarsdf.format(betAmount) + " to play" + " (press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to pay)");
-        GameGUI.slotsText.setText("Slots costs $" + dollarsdf.format(betAmount) + " to play" + " (press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to pay)");
+        GameGUI.slotsText.setText("Slots costs $" + dollarsdf.format(betAmount) + " (press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to pay)");
         while (!keyListener.getKeys()[KeyBindings.confirmKey]) {
             // System.out.println("waiting for player to press confirm key");
             try {

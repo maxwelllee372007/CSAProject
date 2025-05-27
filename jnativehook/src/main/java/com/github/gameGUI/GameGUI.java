@@ -110,9 +110,9 @@ public class GameGUI extends JComponent{
             // HUD balance
             hudBalance.setOpaque(false);
             hudBalance.setBackground(Color.pink);
-            hudBalance.setFont(Constants.slotsFont);
-            hudBalance.setBounds(680, 40, 150, 50);
-            hudBalance.setText("$" + Machine.dollarsdf.format(Constants.playerStartingBalance));
+            hudBalance.setFont(Constants.hudFont);
+            hudBalance.setBounds(480, 40, 350, 50);
+            hudBalance.setText("Balance: $" + Machine.dollarsdf.format(Constants.playerStartingBalance));
             hudBalance.setHorizontalAlignment(SwingConstants.RIGHT);
             p.add(hudBalance);
 
