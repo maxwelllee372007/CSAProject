@@ -107,7 +107,14 @@ public class GameGUI extends JComponent{
                 slotsText.setHorizontalAlignment(SwingConstants.CENTER);
                 slotsText.setVisible(true);
                 slotsGUI.add(slotsText);
-            
+            // HUD balance
+            hudBalance.setOpaque(false);
+            hudBalance.setBackground(Color.pink);
+            hudBalance.setFont(Constants.slotsFont);
+            hudBalance.setBounds(680, 40, 150, 50);
+            hudBalance.setText("$" + Machine.dollarsdf.format(Constants.playerStartingBalance));
+            hudBalance.setHorizontalAlignment(SwingConstants.RIGHT);
+            p.add(hudBalance);
 
             //reels
             LeftReel.setOpaque(false);
