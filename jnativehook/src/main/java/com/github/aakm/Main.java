@@ -55,6 +55,7 @@ public class Main {
             double movementIncrement = Constants.loopTime * Constants.playerSpeed;
             double[] playerMovementValue = {((keyListener.getKeys()[KeyBindings.playerMovementKeys[0]] ? movementIncrement : 0) + (keyListener.getKeys()[KeyBindings.playerMovementKeys[1]] ? -movementIncrement : 0)), ((keyListener.getKeys()[KeyBindings.playerMovementKeys[2]] ? movementIncrement : 0) + (keyListener.getKeys()[KeyBindings.playerMovementKeys[3]] ? -movementIncrement : 0))};
             GameGUI.slotsGUI.setVisible(false);
+            GameGUI.rouletteGUI.setVisible(false);
             if (playerMovementValue[0] != 0 && playerMovementValue[1] != 0) {
                 playerMovementValue[0] = Math.sqrt(2) / 2 * playerMovementValue[0];
                 playerMovementValue[1] = Math.sqrt(2) / 2 * playerMovementValue[1];
@@ -62,8 +63,8 @@ public class Main {
             if (playerMovementValue[0] != 0 || playerMovementValue[1] != 0) {
                 player.movePlayer(playerMovementValue);
                 // System.out.println("Player moved: (" + df.format(playerMovementValue[0]) + ", " + df.format(playerMovementValue[1]) + ")");
-                System.out.println("Player Position: (" + df.format(player.getPos()[0]) + ", " + df.format(player.getPos()[1]) + ")");
-                System.out.println("GUIPose:(" + game.getPlayerGUIPos()[0]+","+ game.getPlayerGUIPos()[1] + ")");   
+                // System.out.println("Player Position: (" + df.format(player.getPos()[0]) + ", " + df.format(player.getPos()[1]) + ")");
+                // System.out.println("GUIPose:(" + game.getPlayerGUIPos()[0]+","+ game.getPlayerGUIPos()[1] + ")");   
             }
 
             // detect and resolve player collisions

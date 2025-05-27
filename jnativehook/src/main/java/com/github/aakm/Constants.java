@@ -92,13 +92,14 @@ public class Constants {
 
         // machine 1: roulette
         private static final double[] rouletteCenter = {-0.5, -0.6};
-        private static final double rouletteWidth = 0.5;
-        private static final double rouletteHeight = 0.5;
+        private static final double rouletteWidth = GameGUI.scaleToGameMeters(200);
+        private static final double rouletteHeight = GameGUI.scaleToGameMeters(91);
         private static final double rouletteInteractibleWidth = rouletteWidth + interactibleBuffer;
         private static final double rouletteInteractibleHeight = rouletteHeight + interactibleBuffer;
         private static final Box rouletteHitBox = new Box(rouletteCenter, rouletteWidth, rouletteHeight);
         private static final InteractionBox rouletteInteractionBox = new InteractionBox(rouletteCenter, rouletteInteractibleWidth, rouletteInteractibleHeight);
         private static final Roulette roulette = new Roulette(rouletteHitBox, rouletteInteractionBox);
+        public static final String roulettePopUpImagePath = imageFolder + "roulettePopUp.png";
         static {
             machines.add(roulette);
             machineIcons.add(new ImageIcon(imageFolder + "roulette.png"));

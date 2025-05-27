@@ -1,66 +1,114 @@
 package com.github.aakm.interactibleMachines;
+import java.util.List;
+
 import com.github.aakm.Player;
 
 public class RouletteBetEvaluator 
 {
-    public RouletteBetEvaluator(){}    
-    public void Evaluate(Player player, RouletteBet bet, RouletteSpinResult result)
+    public RouletteBetEvaluator(){} 
+    public void evaluate(Player player, List<RouletteBet> bets, RouletteSpinResult result)
     {
+        for(RouletteBet bet : bets) {
+            this.evaluate(player, bet, result);            
+        }
+        return;
+    }   
+    public void evaluate(Player player, RouletteBet bet, RouletteSpinResult result)
+    {
+        if(bet.GetBetType() == RouletteBetType.notSet)
+        {
+            return;
+        }
         this.EvaluateStraightUp(player, bet, result); 
         this.EvaluateOddsOrEven(player, bet, result);
-        this.EvaluateHighOrLown(player, bet, result);
+        this.EvaluateHighOrLow(player, bet, result);
         this.EvaluateRedOrBlack(player, bet, result);
         this.EvaluateDozens(player, bet, result);
     }
-
-    private void AdjustBalance(Player player, RouletteBet bet, boolean value)
+    private Double changeInWinnings    = 0.0;
+    public Double GetChangeInWinnings()
     {
-        if(value)
-        {   //you win
-            player.adjustBalance(bet.GetAmount());
-            return;
-        }
-        //you lose
-        player.adjustBalance(-bet.GetAmount());
+        return this.changeInWinnings;
     }
-
     private void EvaluateStraightUp(Player player, RouletteBet bet, RouletteSpinResult result)
     {
         if(bet.GetBetType() != RouletteBetType.StraightUp)
             return;
         
-        boolean value =bet.getValue() == result.GetValue();
-        this.AdjustBalance(player, bet, value);
+        boolean value = bet.getValue() == result.GetValue();
+        if(!value)
+        {
+            System.out.println("Player lost on a Straight Up Bet for Amount:" + bet.GetAmount() + " due to wrong value...");
+            return;
+        }
+        double payoff = bet.GetAmount() * 36; //origonal bet amont plus 35 times for winning
+        this.changeInWinnings = this.changeInWinnings + payoff;
+        player.adjustBalance(payoff);
+        System.out.println("Player has won on a Straight Up Bet with a payout:" + payoff + " as the number hit!");
+        return;
     }
-
     private void EvaluateOddsOrEven(Player player, RouletteBet bet, RouletteSpinResult result)
     {
         if(bet.GetBetType() != RouletteBetType.OddOrEven)
             return;
-        this.AdjustBalance(player, bet, result.GetIsEven());
+        boolean value = (bet.getIsOdd() != result.GetIsEven());
+        if(!value)
+        {
+            System.out.println("Player lost on a Odd or Even Bet for Amount:" + bet.GetAmount() + "...");
+            return;
+        }
+        double payoff = bet.GetAmount() * 2; //origonal bet amont plus 1 more time for winning
+        this.changeInWinnings = this.changeInWinnings + payoff;
+        player.adjustBalance(payoff);
+        System.out.println("Player has won on a Odd or Even Bet with a payout:" + payoff + "....");
+        return;
     }
-
-    private void EvaluateHighOrLown(Player player, RouletteBet bet, RouletteSpinResult result)
+    private void EvaluateHighOrLow(Player player, RouletteBet bet, RouletteSpinResult result)
     {
         if(bet.GetBetType() != RouletteBetType.HighOrLow)
             return;
         boolean value = (bet.getIsHigh() != result.GetIsLow());
-        this.AdjustBalance(player, bet, value);
+        if(!value)
+        {
+            System.out.println("Player lost on a High or Low Bet for Amount:" + bet.GetAmount() + "...");
+            return;
+        }
+        double payoff = bet.GetAmount() * 2; //origonal bet amont plus 1 more time for winning
+        this.changeInWinnings = this.changeInWinnings + payoff;
+        player.adjustBalance(payoff);
+        System.out.println("Player has won on a High or Low Bet with a payout:" + payoff + "...");
+        return;
     }
-
     private void EvaluateRedOrBlack(Player player, RouletteBet bet, RouletteSpinResult result)
     {
         if(bet.GetBetType() != RouletteBetType.RedOrBlack)
             return;
-        boolean value = (bet.getIsBlack() == result.GetIsBlack());
-        this.AdjustBalance(player, bet, value);
+        boolean value = (bet.getIsBlack() == result.GetIsBlack());        
+        if(!value)
+        {
+            System.out.println("Player lost on a Red or Black Bet for Amount:" + bet.GetAmount() + " as you picked the wrong color...");
+            return;
+        }
+        double payoff = bet.GetAmount() * 2; //origonal bet amont plus 1 more time for winning
+        this.changeInWinnings = this.changeInWinnings + payoff;
+        player.adjustBalance(payoff);
+        System.out.println("Player has won on a High or Low Bet with a payout:" + payoff + " as you picked the correct color...");
+        return;
     }
-
     private void EvaluateDozens(Player player, RouletteBet bet, RouletteSpinResult result)
     {
         if(bet.GetBetType() != RouletteBetType.Dozens)
             return;        
         boolean value = (bet.getDozens() == result.GetDozens());
-        this.AdjustBalance(player, bet, value);
+        if(!value)
+        {
+            System.out.println("Player lost on a Dozens Bet for Amount:" + bet.GetAmount() + "...");
+            return;
+        }
+        double payoff = bet.GetAmount() * 3; //origonal bet amont plus 3 more time for winning
+        this.changeInWinnings = this.changeInWinnings + payoff;
+        player.adjustBalance(payoff);
+        System.out.println("Player has won on a Dozens Bet with a payout:" + payoff + "...");
+        return;
     }
 }

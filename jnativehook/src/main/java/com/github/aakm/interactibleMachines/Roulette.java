@@ -6,6 +6,7 @@ import com.github.aakm.Player;
 import com.github.aakm.keyboardTracker.KeyListener;
 import com.github.aakm.obstacles.Box;
 import com.github.aakm.obstacles.InteractionBox;
+import com.github.gameGUI.GameGUI;
 
 import java.util.Scanner;
 
@@ -50,6 +51,7 @@ public class Roulette extends Machine
         System.out.println("exited roulette game");
     }
     private void welcomePlayer(KeyListener keyListener) {
+        GameGUI.rouletteGUI.setVisible(true);
         System.out.println("Welcome to the roulette machine!");
         System.out.println("Press '" + NativeKeyEvent.getKeyText(KeyBindings.interactKey) + "' to begin."); 
         while (keyListener.getKeys()[KeyBindings.interactKey]) {
@@ -80,12 +82,18 @@ public class Roulette extends Machine
         }
     }
     private RouletteBet collectBets(Player player, KeyListener keyListener) {
-        RouletteBet bet = new RouletteBet(player, keyListener);
-        
+        RouletteBet bet = RouletteBet.Empty();
+        //Bet Evaluator Tests
+        //bet   = RouletteBet.CreateStraightUpBet(12.5, 15);
+        //bet   = RouletteBet.CreateBlackOrRedBet(8.75,true);
+        bet   = RouletteBet.CreateHighOrLowBet(5.25, true);
+        //bet   = RouletteBet.CreateOddOrEvenBet(15.60, true);
+        //bet   = RouletteBet.CreateDozensBet(22.75, RouletteDozens.Middle);
+
         confirmBetAmount(bet, keyListener);
         if (keyListener.getKeys()[KeyBindings.escapeKey]) {
             System.out.println("Player has escaped the game.");
-            return new RouletteBet();
+            return RouletteBet.Empty();
         }
         player.adjustBalance(-bet.GetAmount());
         return bet;
@@ -119,30 +127,20 @@ public class Roulette extends Machine
                 displaySpinningWheeelFinal(player, bet, result);
             } else {
                 System.out.println("slots timing error");
-            }
-            
+            }            
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
                 System.out.println("Player has escaped the game.");
                 return;
             }
-
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
-            
+            }            
         }
         System.out.println("Game has ended");
-        if (true)
-        {
-            System.out.println("Winners! +$" + dollarsdf.format(10.0));            
-            player.adjustBalance(10.0); //different based on bet            
-        }
-        else
-        {
-            System.out.println("You lose!");
-        }
+        RouletteBetEvaluator evaluator  = new RouletteBetEvaluator();
+        evaluator.evaluate(player, bet, result);
         displayBalance(player.getBalance());
     }
     private void spinWheel() {
@@ -158,7 +156,7 @@ public class Roulette extends Machine
     private void displaySpinningWheeelFinal(Player player, RouletteBet bet, RouletteSpinResult result) {
         // TODO: add display wheel spinner
         RouletteBetEvaluator evaluator = new RouletteBetEvaluator();
-        evaluator.Evaluate(player, bet, result);
+        evaluator.evaluate(player, bet, result);
         System.out.println("The roulette wheel is " + result);
     }
     private void concludeGame(Player player, KeyListener keyListener) {
