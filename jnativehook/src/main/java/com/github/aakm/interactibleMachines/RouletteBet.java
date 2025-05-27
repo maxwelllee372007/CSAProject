@@ -60,9 +60,9 @@ public class RouletteBet
     public static RouletteBet CreateStraightUpBet(double amount, int value)
     {
         RouletteBet bet = new RouletteBet();        
-        bet.betType     = RouletteBetType.StraightUp;
-        bet.amount      = amount;
-        bet.Value       = value;
+        bet.betType = RouletteBetType.StraightUp;
+        bet.amount = amount;
+        bet.Value = value;
         return bet;
     }
     public static RouletteBet InputHighOrLowBet(Scanner scanner, double amount)
@@ -80,9 +80,9 @@ public class RouletteBet
     public static RouletteBet CreateHighOrLowBet(double amount, boolean isHigh)
     {
         RouletteBet bet = new RouletteBet();        
-        bet.betType     = RouletteBetType.HighOrLow;
-        bet.amount      = amount;
-        bet.isHigh      = isHigh;
+        bet.betType = RouletteBetType.HighOrLow;
+        bet.amount = amount;
+        bet.isHigh = isHigh;
         return bet;
     }
     public static RouletteBet InputOddOrEvenBet(Scanner scanner, double amount)
@@ -99,9 +99,9 @@ public class RouletteBet
     public static RouletteBet CreateOddOrEvenBet(double amount, boolean isOdd)
     {
         RouletteBet bet = new RouletteBet();        
-        bet.betType     = RouletteBetType.OddOrEven;
-        bet.amount      = amount;
-        bet.isOdd      = isOdd;
+        bet.betType = RouletteBetType.OddOrEven;
+        bet.amount = amount;
+        bet.isOdd = isOdd;
         return bet;
     }
     public static RouletteBet InputBlackOrRedBet(Scanner scanner, double amount)
@@ -120,9 +120,9 @@ public class RouletteBet
     public static RouletteBet CreateBlackOrRedBet(double amount, boolean isBlack)
     {
         RouletteBet bet = new RouletteBet();        
-        bet.betType     = RouletteBetType.RedOrBlack;
-        bet.amount      = amount;
-        bet.isBlack     = isBlack;
+        bet.betType = RouletteBetType.RedOrBlack;
+        bet.amount  = amount;
+        bet.isBlack = isBlack;
         return bet;
     }
     public static RouletteBet InputDozensBet(Scanner scanner, double amount)
@@ -141,9 +141,9 @@ public class RouletteBet
     public static RouletteBet CreateDozensBet(double amount, RouletteDozens dozens)
     {
         RouletteBet bet = new RouletteBet();        
-        bet.betType     = RouletteBetType.Dozens;
-        bet.amount      = amount;
-        bet.dozens      = dozens;
+        bet.betType = RouletteBetType.Dozens;
+        bet.amount = amount;
+        bet.dozens = dozens;
         return bet;
     }
     private RouletteBet(){}
