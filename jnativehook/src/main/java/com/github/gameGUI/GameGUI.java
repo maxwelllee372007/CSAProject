@@ -37,6 +37,7 @@ public class GameGUI extends JComponent{
     public static JLabel backgroundSlots= new JLabel();
     public static JLabel backgroundRoulette= new JLabel();
     public static JLabel[] slotsText = new JLabel[4];
+    public static JLabel hudBalance = new JLabel();
     
 
 
@@ -111,6 +112,17 @@ public class GameGUI extends JComponent{
                 slotsText[i].setHorizontalAlignment(SwingConstants.CENTER);
                 slotsGUI.add(slotsText[i]);
             }
+
+            // HUD balance
+            hudBalance.setOpaque(false);
+            hudBalance.setBackground(Color.pink);
+            hudBalance.setFont(Constants.slotsFont);
+            hudBalance.setBounds(680, 40, 150, 50);
+            hudBalance.setText("$" + Machine.dollarsdf.format(Constants.playerStartingBalance));
+            hudBalance.setHorizontalAlignment(SwingConstants.RIGHT);
+            p.add(hudBalance);
+            
+
             
 
             //reels
