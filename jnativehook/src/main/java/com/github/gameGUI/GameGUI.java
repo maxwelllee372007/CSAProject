@@ -35,6 +35,7 @@ public class GameGUI extends JComponent{
     public static JLabel RightReel= new JLabel();
     public static JLabel backgroundSlots= new JLabel();
     public static JLabel[] slotsText = new JLabel[4];
+    
 
 
     private boolean facingLeft = false;
@@ -92,11 +93,22 @@ public class GameGUI extends JComponent{
         slotsGUI.setVisible(isSlots);
 
             //text
-            slotsText[0].setOpaque(false);
-            slotsText[0].setFont(Constants.slotsFont);
-            slotsText[0].setBounds(183,395,110,190);
-            slotsText[0].setText("something");
-            slotsGUI.add(slotsText[0]);
+            slotsText[0] = new JLabel();
+            slotsText[1] = new JLabel();
+            slotsText[2] = new JLabel();
+            slotsText[3] = new JLabel();
+            String[] slotsStrings = {"Press Space to Begin", "Press enter to Spin (-$1.00)", "You Lose!", "You Win!"};
+
+            for (int i = 0; i < 4; i++) {
+                slotsText[i].setOpaque(true);
+                slotsText[i].setBackground(Color.pink);
+                slotsText[i].setFont(Constants.slotsFont);
+                slotsText[i].setBounds(50,50,780,50);
+                slotsText[i].setText(slotsStrings[i]);
+                slotsText[i].setHorizontalAlignment(SwingConstants.CENTER);
+                slotsGUI.add(slotsText[i]);
+            }
+            
 
             //reels
             LeftReel.setOpaque(false);
