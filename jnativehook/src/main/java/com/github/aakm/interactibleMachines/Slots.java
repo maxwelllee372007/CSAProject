@@ -55,6 +55,7 @@ public class Slots extends Machine{
         System.out.println("Welcome to the slots machine!");
         GameGUI.slotsGUI.setVisible(true);
         System.out.println("Press '" + NativeKeyEvent.getKeyText(KeyBindings.interactKey) + "' to begin."); 
+        GameGUI.slotsText.setText("Press '" + NativeKeyEvent.getKeyText(KeyBindings.interactKey) + "' to begin.");
         while (keyListener.getKeys()[KeyBindings.interactKey]) {
             // System.out.println("waiting for player to release interact key");
             try {
@@ -94,6 +95,7 @@ public class Slots extends Machine{
     }
     private void confirmBetAmount(double betAmount, KeyListener keyListener) {
         System.out.println("Slots costs $" + dollarsdf.format(betAmount) + " to play" + " (press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to pay)");
+        GameGUI.slotsText.setText("Slots costs $" + dollarsdf.format(betAmount) + " to play" + " (press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to pay)");
         while (!keyListener.getKeys()[KeyBindings.confirmKey]) {
             // System.out.println("waiting for player to press confirm key");
             try {
@@ -146,6 +148,7 @@ public class Slots extends Machine{
                 spinMiddle();
                 spinRight();
                 // GameGUI.LeftReel.repaint();
+                GameGUI.slotsText.setText("Spinning...");
                 startTimeFirst = System.currentTimeMillis();
             } else if (System.currentTimeMillis() - startTimeFirst < waitTimeMiddle && numSpacePressed < 2) {
                 displayLeft(results);
@@ -181,15 +184,18 @@ public class Slots extends Machine{
         System.out.println("Game has ended");
         if (results[0] == 0 && results[1] == 0 && results[2] == 0) {
             System.out.println("Jackpot! +$" + dollarsdf.format(50.0));
+            GameGUI.slotsText.setText("Jackpot! +$" + dollarsdf.format(50.0) + " Press 'Enter' to play again");
             player.adjustBalance(50.0);
         } else if (results[0] == results[1] && results[1] == results[2]) {
             System.out.println("You win! +$" + dollarsdf.format(3.0));
+            GameGUI.slotsText.setText("You win! +$" + dollarsdf.format(3.0)+ " Press 'Enter' to play again");
             player.adjustBalance(3.0);
         // } else if (results[0] == results[1] || results[1] == results[2] || results[0] == results[2]) {
         //     System.out.println("You win! +$" + dollarsdf.format(2.0));
         //     player.adjustBalance(2.0);
         } else {
             System.out.println("You lose!");
+            GameGUI.slotsText.setText("You lose!"+ " Press 'Enter' to play again");
         }
         displayBalance(player.getBalance());
     }
@@ -241,6 +247,7 @@ public class Slots extends Machine{
     private void concludeGame(Player player, KeyListener keyListener) {
         double startTime = System.currentTimeMillis();
         System.out.println("play again? (press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to play again)" + " (press '" + NativeKeyEvent.getKeyText(KeyBindings.escapeKey) + "' to exit)");
+        // GameGUI.slotsText.setText("play again? (press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to play again)" + " (press '" + NativeKeyEvent.getKeyText(KeyBindings.escapeKey) + "' to exit)");
         while (!keyListener.getKeys()[KeyBindings.confirmKey]){// && System.currentTimeMillis() - startTime < 5000) {
             
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {

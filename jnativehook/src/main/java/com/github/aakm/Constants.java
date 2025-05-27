@@ -44,7 +44,7 @@ public class Constants {
         System.out.println("no font for u");
     }
     }
-    public static final Font slotsFont = pixelFont.deriveFont(24f);
+    public static final Font slotsFont = pixelFont.deriveFont(10f);
 
     public class KeyBindings {
         public static final int[] playerMovementKeys = {57421, 57419, 57416, 57424}; // right, left, up, down arrow keys
