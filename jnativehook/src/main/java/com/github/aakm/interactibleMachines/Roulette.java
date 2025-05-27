@@ -140,7 +140,7 @@ public class Roulette extends Machine
         }
         System.out.println("Game has ended");
         RouletteBetEvaluator evaluator  = new RouletteBetEvaluator();
-        evaluator.Evaluate(player, bet, result);
+        evaluator.evaluate(player, bet, result);
         displayBalance(player.getBalance());
     }
     private void spinWheel() {
@@ -156,7 +156,7 @@ public class Roulette extends Machine
     private void displaySpinningWheeelFinal(Player player, RouletteBet bet, RouletteSpinResult result) {
         // TODO: add display wheel spinner
         RouletteBetEvaluator evaluator = new RouletteBetEvaluator();
-        evaluator.Evaluate(player, bet, result);
+        evaluator.evaluate(player, bet, result);
         System.out.println("The roulette wheel is " + result);
     }
     private void concludeGame(Player player, KeyListener keyListener) {

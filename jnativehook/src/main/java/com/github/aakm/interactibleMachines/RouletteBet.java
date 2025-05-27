@@ -5,6 +5,8 @@ import org.jnativehook.keyboard.NativeKeyEvent;
 import com.github.aakm.Constants.KeyBindings;
 import com.github.aakm.Player;
 import com.github.aakm.keyboardTracker.KeyListener;
+import java.util.Scanner;
+
 
 public class RouletteBet 
 { 
@@ -53,6 +55,8 @@ public class RouletteBet
         bet.dozens      = dozens;
         return bet;
     }
+
+    
     private RouletteBet(){}
     private double amount = 0;
     public double GetAmount()

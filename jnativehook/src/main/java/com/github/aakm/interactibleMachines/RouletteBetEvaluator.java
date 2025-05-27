@@ -6,14 +6,14 @@ import com.github.aakm.Player;
 public class RouletteBetEvaluator 
 {
     public RouletteBetEvaluator(){} 
-    public void Evaluate(Player player, List<RouletteBet> bets, RouletteSpinResult result)
+    public void evaluate(Player player, List<RouletteBet> bets, RouletteSpinResult result)
     {
         for(RouletteBet bet : bets) {
-            this.Evaluate(player, bet, result);            
+            this.evaluate(player, bet, result);            
         }
         return;
     }   
-    public void Evaluate(Player player, RouletteBet bet, RouletteSpinResult result)
+    public void evaluate(Player player, RouletteBet bet, RouletteSpinResult result)
     {
         if(bet.GetBetType() == RouletteBetType.notSet)
         {
@@ -25,10 +25,10 @@ public class RouletteBetEvaluator
         this.EvaluateRedOrBlack(player, bet, result);
         this.EvaluateDozens(player, bet, result);
     }
-    private Double _ChangeInWinnings    = 0.0;
+    private Double changeInWinnings    = 0.0;
     public Double GetChangeInWinnings()
     {
-        return this._ChangeInWinnings;
+        return this.changeInWinnings;
     }
     private void EvaluateStraightUp(Player player, RouletteBet bet, RouletteSpinResult result)
     {
@@ -42,7 +42,7 @@ public class RouletteBetEvaluator
             return;
         }
         double payoff = bet.GetAmount() * 36; //origonal bet amont plus 35 times for winning
-        this._ChangeInWinnings = this._ChangeInWinnings + payoff;
+        this.changeInWinnings = this.changeInWinnings + payoff;
         player.adjustBalance(payoff);
         System.out.println("Player has won on a Straight Up Bet with a payout:" + payoff + " as the number hit!");
         return;
@@ -58,7 +58,7 @@ public class RouletteBetEvaluator
             return;
         }
         double payoff = bet.GetAmount() * 2; //origonal bet amont plus 1 more time for winning
-        this._ChangeInWinnings = this._ChangeInWinnings + payoff;
+        this.changeInWinnings = this.changeInWinnings + payoff;
         player.adjustBalance(payoff);
         System.out.println("Player has won on a Odd or Even Bet with a payout:" + payoff + "....");
         return;
@@ -74,7 +74,7 @@ public class RouletteBetEvaluator
             return;
         }
         double payoff = bet.GetAmount() * 2; //origonal bet amont plus 1 more time for winning
-        this._ChangeInWinnings = this._ChangeInWinnings + payoff;
+        this.changeInWinnings = this.changeInWinnings + payoff;
         player.adjustBalance(payoff);
         System.out.println("Player has won on a High or Low Bet with a payout:" + payoff + "...");
         return;
@@ -90,7 +90,7 @@ public class RouletteBetEvaluator
             return;
         }
         double payoff = bet.GetAmount() * 2; //origonal bet amont plus 1 more time for winning
-        this._ChangeInWinnings = this._ChangeInWinnings + payoff;
+        this.changeInWinnings = this.changeInWinnings + payoff;
         player.adjustBalance(payoff);
         System.out.println("Player has won on a High or Low Bet with a payout:" + payoff + " as you picked the correct color...");
         return;
@@ -106,7 +106,7 @@ public class RouletteBetEvaluator
             return;
         }
         double payoff = bet.GetAmount() * 3; //origonal bet amont plus 3 more time for winning
-        this._ChangeInWinnings = this._ChangeInWinnings + payoff;
+        this.changeInWinnings = this.changeInWinnings + payoff;
         player.adjustBalance(payoff);
         System.out.println("Player has won on a Dozens Bet with a payout:" + payoff + "...");
         return;
