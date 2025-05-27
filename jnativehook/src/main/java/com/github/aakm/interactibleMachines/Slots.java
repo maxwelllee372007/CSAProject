@@ -229,7 +229,7 @@ public class Slots extends Machine{
     private void concludeGame(Player player, KeyListener keyListener) {
         double startTime = System.currentTimeMillis();
         System.out.println("play again? (press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to play again)" + " (press '" + NativeKeyEvent.getKeyText(KeyBindings.escapeKey) + "' to exit)");
-        while (!keyListener.getKeys()[KeyBindings.confirmKey] && System.currentTimeMillis() - startTime < 5000) {
+        while (!keyListener.getKeys()[KeyBindings.confirmKey]){// && System.currentTimeMillis() - startTime < 5000) {
             
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
                 System.out.println("Player has escaped the game.");
