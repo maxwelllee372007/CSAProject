@@ -12,12 +12,12 @@ public class KeyListener implements NativeKeyListener {
     }
     
     public void nativeKeyPressed(NativeKeyEvent e) {
-        System.out.println("Key Pressed: " + (e.getKeyCode()));
+        // System.out.println("Key Pressed: " + (e.getKeyCode()));
         keyBoard.pressKey(e.getKeyCode());
     }
 
     public void nativeKeyReleased(NativeKeyEvent e) {
-        System.out.println("Key Released: " + (e.getKeyCode()));
+        // System.out.println("Key Released: " + (e.getKeyCode()));
         keyBoard.removeKey(e.getKeyCode());
     }
     
