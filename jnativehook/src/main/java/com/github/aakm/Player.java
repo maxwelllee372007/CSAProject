@@ -1,5 +1,8 @@
 package com.github.aakm;
 
+import com.github.aakm.interactibleMachines.Machine;
+import com.github.gameGUI.GameGUI;
+
 public class Player 
 {
     private double[] pos = new double[2]; 
@@ -38,7 +41,9 @@ public class Player
     }
 
     public double adjustBalance(double amount) {   
-        return balance += amount;
+        balance += amount;
+        GameGUI.hudBalance.setText("$" + Machine.dollarsdf.format(balance));
+        return balance;
     }
 
     public double getBalance() {

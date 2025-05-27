@@ -8,7 +8,7 @@ import com.github.aakm.obstacles.Box;
 import com.github.aakm.obstacles.InteractionBox;
 
 public class Machine {
-    public DecimalFormat dollarsdf = new DecimalFormat("#.##");
+    public static DecimalFormat dollarsdf = new DecimalFormat("#.##");
     private Box hitBox;
     private InteractionBox interactionBox;
     public Machine(Box hitBox, InteractionBox interactionBox) {

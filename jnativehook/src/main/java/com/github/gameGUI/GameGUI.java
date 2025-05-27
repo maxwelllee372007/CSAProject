@@ -37,6 +37,7 @@ public class GameGUI extends JComponent{
     public static JLabel backgroundSlots= new JLabel();
     public static JLabel backgroundRoulette= new JLabel();
     public static JLabel slotsText;
+    public static JLabel hudBalance = new JLabel();
     
 
 
