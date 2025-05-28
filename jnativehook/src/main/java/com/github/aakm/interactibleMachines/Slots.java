@@ -26,8 +26,12 @@ public class Slots extends Machine{
     }
 
     @Override
+    /**
+     * Interacts with the machine. This method implements a simple interaction flow for a single slots game.
+     * @param player The player interacting with the machine.
+     * @param keyListener The KeyListener to track key events during interaction.
+     */
     public void interact(Player player, KeyListener keyListener) {
-        // TODO: add interrupt functionality
         welcomePlayer(keyListener);
         while (keyListener.getKeys()[KeyBindings.interactKey] || keyListener.getKeys()[KeyBindings.confirmKey]) {
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
@@ -51,10 +55,15 @@ public class Slots extends Machine{
         }
         System.out.println("exited slots game");
     }
+    /**
+     * Welcomes the player to the machine and waits for them to press the interact key.
+     * @param keyListener The KeyListener to track key events.
+     */
     private void welcomePlayer(KeyListener keyListener) {
         System.out.println("Welcome to the slots machine!");
         GameGUI.slotsGUI.setVisible(true);
         System.out.println("Press '" + NativeKeyEvent.getKeyText(KeyBindings.interactKey) + "' to begin."); 
+        GameGUI.slotsText.setText("Press '" + NativeKeyEvent.getKeyText(KeyBindings.interactKey) + "' to begin.");
         while (keyListener.getKeys()[KeyBindings.interactKey]) {
             // System.out.println("waiting for player to release interact key");
             try {
@@ -83,6 +92,11 @@ public class Slots extends Machine{
             }
         }
     }
+    /**
+     * Collects bets from the player and waits until they confirm their bet.
+     * @param player The player placing the bet.
+     * @param keyListener The KeyListener to track key events during betting.
+     */
     private void collectBets(Player player, KeyListener keyListener) {
         double betAmount = 1.0;
         confirmBetAmount(betAmount, keyListener);
@@ -92,8 +106,14 @@ public class Slots extends Machine{
         }
         player.adjustBalance(-betAmount);
     }
+    /**
+     * Displays the bet amount to the player and waits for them to confirm it.
+     * @param betAmount The amount the player has bet.
+     * @param keyListener The KeyListener to track key events during betting.
+     */
     private void confirmBetAmount(double betAmount, KeyListener keyListener) {
         System.out.println("Slots costs $" + dollarsdf.format(betAmount) + " to play" + " (press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to pay)");
+        GameGUI.slotsText.setText("Slots costs $" + dollarsdf.format(betAmount) + " (press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to pay)");
         while (!keyListener.getKeys()[KeyBindings.confirmKey]) {
             // System.out.println("waiting for player to press confirm key");
             try {
@@ -106,10 +126,10 @@ public class Slots extends Machine{
                 return;
             }
         }
-        // TODO: add GUI display of bet amount
     }
     /** 
-     * returns a rigged number between 0 and 2, inclusive
+     * generates a randomized number for the slots game.
+     * @return a rigged number between 0 and 2, inclusive
      */
     private int getRandomResult() {
         int ret = (int)(Math.random() * 5); 
@@ -120,6 +140,11 @@ public class Slots extends Machine{
         }
         return ret; // returns a random number between 0 and 2, inclusive
     }
+    /**
+     * Plays the slots game by spinning the reels and displaying the results.
+     * @param keyListener The KeyListener to track key events during the game.
+     * @param player The player participating in the slots game.
+     */
     private void playSlots(KeyListener keyListener, Player player) { 
         double waitTimeLeft = Math.random() * 500.0 + 1000.0; // random wait time between 2 and 3 seconds
         double waitTimeMiddle = Math.random() * 250.0 + 1000.0; 
@@ -146,6 +171,7 @@ public class Slots extends Machine{
                 spinMiddle();
                 spinRight();
                 // GameGUI.LeftReel.repaint();
+                GameGUI.slotsText.setText("Spinning...");
                 startTimeFirst = System.currentTimeMillis();
             } else if (System.currentTimeMillis() - startTimeFirst < waitTimeMiddle && numSpacePressed < 2) {
                 displayLeft(results);
@@ -181,20 +207,22 @@ public class Slots extends Machine{
         System.out.println("Game has ended");
         if (results[0] == 0 && results[1] == 0 && results[2] == 0) {
             System.out.println("Jackpot! +$" + dollarsdf.format(50.0));
+            GameGUI.slotsText.setText("Jackpot! +$" + dollarsdf.format(50.0) + " Press 'Enter' to play again");
             player.adjustBalance(50.0);
         } else if (results[0] == results[1] && results[1] == results[2]) {
             System.out.println("You win! +$" + dollarsdf.format(3.0));
+            GameGUI.slotsText.setText("You win! +$" + dollarsdf.format(3.0)+ " Press 'Enter' to play again");
             player.adjustBalance(3.0);
         // } else if (results[0] == results[1] || results[1] == results[2] || results[0] == results[2]) {
         //     System.out.println("You win! +$" + dollarsdf.format(2.0));
         //     player.adjustBalance(2.0);
         } else {
             System.out.println("You lose!");
+            GameGUI.slotsText.setText("You lose!"+ " Press 'Enter' to play again");
         }
         displayBalance(player.getBalance());
     }
     private void spinLeft() {
-        // TODO: add display wheel spinner
         System.out.println("Spinning the left wheel at display frame " + displayFrames[0] + "...");
         GameGUI.LeftReel.setIcon(GameGUI.reelSpinIcons[displayFrames[0]]);
         if (displayFrames[0] == 2) {
@@ -204,12 +232,10 @@ public class Slots extends Machine{
         }
     }
     private void displayLeft(int[] results) {
-        // TODO: add display wheel spinner
         GameGUI.LeftReel.setIcon(GameGUI.reelEndIcons[results[0]]);
         System.out.println("left is " + results[0]);
     }
     private void spinMiddle() {
-        // TODO: add display wheel spinner
         System.out.println("Spinning the middle wheel at display frame " + displayFrames[1] + "...");
         GameGUI.MidReel.setIcon(GameGUI.reelSpinIcons[displayFrames[1]]);
         if (displayFrames[1] == 2) {
@@ -219,12 +245,10 @@ public class Slots extends Machine{
         }    
     }
     private void displayMiddle(int[] results) {
-        // TODO: add display wheel spinner
         GameGUI.MidReel.setIcon(GameGUI.reelEndIcons[results[1]]);
         System.out.println("middle is " + results[1]);
     }
     private void spinRight() {
-        // TODO: add display wheel spinner
         System.out.println("Spinning the right wheel at display frame " + displayFrames[2] + "...");
         GameGUI.RightReel.setIcon(GameGUI.reelSpinIcons[displayFrames[2]]);
         if (displayFrames[2] == 2) {
@@ -234,13 +258,18 @@ public class Slots extends Machine{
         }    
     }
     private void displayRight(int[] results) {
-        // TODO: add display wheel spinner
         GameGUI.RightReel.setIcon(GameGUI.reelEndIcons[results[2]]);
         System.out.println("right is " + results[2]);
     }
+    /**
+     * Concludes the game by asking the player if they want to play again or exit.
+     * @param player The player whose balance is displayed.
+     * @param keyListener The KeyListener to track key events during conclusion.
+     */
     private void concludeGame(Player player, KeyListener keyListener) {
         double startTime = System.currentTimeMillis();
         System.out.println("play again? (press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to play again)" + " (press '" + NativeKeyEvent.getKeyText(KeyBindings.escapeKey) + "' to exit)");
+        // GameGUI.slotsText.setText("play again? (press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to play again)" + " (press '" + NativeKeyEvent.getKeyText(KeyBindings.escapeKey) + "' to exit)");
         while (!keyListener.getKeys()[KeyBindings.confirmKey]){// && System.currentTimeMillis() - startTime < 5000) {
             
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {

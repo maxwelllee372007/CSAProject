@@ -42,7 +42,7 @@ public class Player
 
     public double adjustBalance(double amount) {   
         balance += amount;
-        GameGUI.hudBalance.setText("$" + Machine.dollarsdf.format(balance));
+        GameGUI.hudBalance.setText("Balance: $" + Machine.dollarsdf.format(balance));
         return balance;
     }
 

@@ -36,7 +36,8 @@ public class GameGUI extends JComponent{
     public static JLabel RightReel= new JLabel();
     public static JLabel backgroundSlots= new JLabel();
     public static JLabel backgroundRoulette= new JLabel();
-    public static JLabel[] slotsText = new JLabel[4];
+    public static JLabel slotsText = new JLabel();
+    public static JLabel slotsExitText = new JLabel();
     public static JLabel hudBalance = new JLabel();
     
 
@@ -97,33 +98,33 @@ public class GameGUI extends JComponent{
         slotsGUI.setVisible(isSlots);
 
             //text
-            slotsText[0] = new JLabel();
-            slotsText[1] = new JLabel();
-            slotsText[2] = new JLabel();
-            slotsText[3] = new JLabel();
-            String[] slotsStrings = {"Press Space to Begin", "Press enter to Spin (-$1.00)", "You Lose!", "You Win!"};
+            slotsText.setOpaque(false);
+            slotsText.setBackground(Color.pink);
+            slotsText.setFont(Constants.slotsFont);
+            slotsText.setBounds(0,270,730,50);
+            slotsText.setText("Press Space to Begin");
+            slotsText.setHorizontalAlignment(SwingConstants.CENTER);
+            slotsText.setVisible(true);
+            slotsGUI.add(slotsText);
 
-            for (int i = 0; i < 4; i++) {
-                slotsText[i].setOpaque(true);
-                slotsText[i].setBackground(Color.pink);
-                slotsText[i].setFont(Constants.slotsFont);
-                slotsText[i].setBounds(50,50,780,50);
-                slotsText[i].setText(slotsStrings[i]);
-                slotsText[i].setHorizontalAlignment(SwingConstants.CENTER);
-                slotsGUI.add(slotsText[i]);
-            }
+            //exit text
+            slotsExitText.setOpaque(false);
+            slotsExitText.setBackground(Color.pink);
+            slotsExitText.setFont(Constants.hudFont);
+            slotsExitText.setBounds(0,50,730,50);
+            slotsExitText.setText("Press escape to exit");
+            slotsExitText.setHorizontalAlignment(SwingConstants.CENTER);
+            slotsExitText.setVisible(true);
+            slotsGUI.add(slotsExitText);
 
             // HUD balance
             hudBalance.setOpaque(false);
             hudBalance.setBackground(Color.pink);
-            hudBalance.setFont(Constants.slotsFont);
-            hudBalance.setBounds(680, 40, 150, 50);
-            hudBalance.setText("$" + Machine.dollarsdf.format(Constants.playerStartingBalance));
+            hudBalance.setFont(Constants.hudFont);
+            hudBalance.setBounds(480, 40, 350, 50);
+            hudBalance.setText("Balance: $" + Machine.dollarsdf.format(Constants.playerStartingBalance));
             hudBalance.setHorizontalAlignment(SwingConstants.RIGHT);
             p.add(hudBalance);
-            
-
-            
 
             //reels
             LeftReel.setOpaque(false);
