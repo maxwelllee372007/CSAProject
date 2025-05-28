@@ -19,7 +19,7 @@ public class RouletteBet
         RouletteBet bet = new RouletteBet();
         return bet;
     }
-    public static RouletteBet InputBetFromKeyboard()
+    public static RouletteBet InputBetFromKeyboard() //Has the useer input the the bet type, and bet amount
     {
         Scanner scanner = new Scanner(System.in);
        
@@ -50,7 +50,7 @@ public class RouletteBet
         }
         return new RouletteBet();
     }
-    public static RouletteBet InputStraightUpBet(Scanner scanner, double amount)
+    public static RouletteBet InputStraightUpBet(Scanner scanner, double amount) //The function allows the user to input their number of choice for the Straight Up bet.
     {
         System.out.println("Player has seltected a Straight Up Bet!");
         System.out.println("Please input the value to bet for your Straight Up Wager between 1-36!");
@@ -62,7 +62,7 @@ public class RouletteBet
         }
         return RouletteBet.CreateStraightUpBet(amount, value);
     }
-    public static RouletteBet CreateStraightUpBet(double amount, int value)
+    public static RouletteBet CreateStraightUpBet(double amount, int value) 
     {
         RouletteBet bet = new RouletteBet();        
         bet.betType = RouletteBetType.StraightUp;
@@ -70,7 +70,7 @@ public class RouletteBet
         bet.Value = value;
         return bet;
     }
-    public static RouletteBet InputHighOrLowBet(Scanner scanner, double amount)
+    public static RouletteBet InputHighOrLowBet(Scanner scanner, double amount)  //The function allows the user to input their number of choice for the High or Low bet.
     {
         System.out.println("Player has selected an High or Low Bet!");
         System.out.println("Please input the value to bet for your High or Low Wager with '1' being Low(1-18) and '2' being High(19-36)!");
@@ -90,7 +90,7 @@ public class RouletteBet
         bet.isHigh = isHigh;
         return bet;
     }
-    public static RouletteBet InputOddOrEvenBet(Scanner scanner, double amount)
+    public static RouletteBet InputOddOrEvenBet(Scanner scanner, double amount)  //The function allows the user to input their number of choice for the Odd or Even bet.
     {        
         System.out.println("Player has selected a Odd Or Even Bet!");
         System.out.println("Please input an O for Odds or any other letter for Even!");
@@ -110,7 +110,7 @@ public class RouletteBet
         bet.isOdd = isOdd;
         return bet;
     }
-    public static RouletteBet InputBlackOrRedBet(Scanner scanner, double amount)
+    public static RouletteBet InputBlackOrRedBet(Scanner scanner, double amount)  //The function allows the user to input their letter of choice for the Odd or Even bet.
     {
         System.out.println("Player has selected a colored Bet!");
         System.out.println("Please input an B for Black or any other letter for Red!");
@@ -130,7 +130,7 @@ public class RouletteBet
         bet.isBlack = isBlack;
         return bet;
     }
-    public static RouletteBet InputDozensBet(Scanner scanner, double amount)
+    public static RouletteBet InputDozensBet(Scanner scanner, double amount)  //The function allows the user to input their number of choice for the Dozens bet.
     {
         System.out.println("Player has selected a dozens Bet!");
         System.out.println("Please input the value to bet for your dozens Wager '1' being 1-12, '2' being 13-24, or any other number for 25-36!");
