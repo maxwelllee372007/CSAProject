@@ -1,11 +1,15 @@
 package com.github.gameGUI;
-import java.awt.*;
-import java.security.cert.LDAPCertStoreParameters;
+import java.awt.Color;
 
-import javax.swing.*;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.SwingConstants;
 
 import com.github.aakm.Constants;
-import com.github.aakm.interactibleMachines.Machine;
 
 public class GameGUI extends JComponent{
     private static int WIDTH = 800;
@@ -27,6 +31,7 @@ public class GameGUI extends JComponent{
     private JLayeredPane p = new JLayeredPane();
     public static JLayeredPane slotsGUI = new JLayeredPane();
     public static JLayeredPane rouletteGUI = new JLayeredPane();
+    public static JLayeredPane startScreen = new JLayeredPane();
 
     private JLabel player = new JLabel();
     private JLabel bg = new JLabel();
@@ -36,18 +41,18 @@ public class GameGUI extends JComponent{
     public static JLabel RightReel= new JLabel();
     public static JLabel backgroundSlots= new JLabel();
     public static JLabel backgroundRoulette= new JLabel();
-    public static JLabel slotsText = new JLabel();
-    public static JLabel slotsExitText = new JLabel();
-    public static JLabel rouletteText = new JLabel();
-    public static JLabel rouletteExitText = new JLabel();
+    public static JLabel slotsText;
     public static JLabel hudBalance = new JLabel();
+    public static JLabel welcome = new JLabel();
+    public static JLabel welcomeText = new JLabel();
+
     
 
 
     private boolean facingLeft = false;
     private boolean isSlots = false;
 
-    private Icon pIcon, pIconStep, pIconLeft, pIconStepLeft, bgIcon, interactIcon, backgroundSlotsIcon, backgroundRouletteIcon;
+    private Icon pIcon, pIconStep, pIconLeft, pIconStepLeft, bgIcon, interactIcon, backgroundSlotsIcon, backgroundRouletteIcon, startScreenIcon;
 
     public static Icon[] reelSpinIcons = new Icon[3];
     public static Icon[] reelEndIcons = new Icon[3];
@@ -82,13 +87,35 @@ public class GameGUI extends JComponent{
         reelEndIcons[2] = new ImageIcon(Constants.reelEnd3);
         backgroundSlotsIcon = new ImageIcon(Constants.Machines.slotsPopUpImagePath);
         backgroundRouletteIcon = new ImageIcon(Constants.Machines.roulettePopUpImagePath);
+        startScreenIcon = new ImageIcon(Constants.startScreenImage);
 
+        //Start Screen
+        startScreen.setBounds(0, 0, WIDTH, HEIGHT);
+        startScreen.setOpaque(true);
+        startScreen.setVisible(true);
+        
+        welcomeText.setOpaque(false);
+        welcomeText.setBackground(Color.red);
+        welcomeText.setFont(Constants.hudFont);
+        welcomeText.setBounds(0,0,800,50);
+        welcomeText.setText("Press Space to Begin");
+        welcomeText.setVisible(true);
+        startScreen.add(welcomeText);
 
+        welcome.setOpaque(false);
+        welcome.setBackground(Color.blue);
+        welcome.setBounds(0,0,WIDTH+20,HEIGHT+20);
+        welcome.setIcon(startScreenIcon);
+        welcome.setVisible(true);
+        startScreen.add(welcome);
+
+        p.add(startScreen);
+        
         //hud
         interactIcon = new ImageIcon(Constants.InteractPrompt.interactPromptImagePath);
         interactPrompt.setOpaque(false);
         interactPrompt.setBackground(Color.red);
-        interactPrompt.setIcon(interactIcon);
+        interactPrompt.setIcon(interactIcon);   
         interactPrompt.setBounds(Constants.InteractPrompt.interactPromptPos[0] - Constants.InteractPrompt.interactPromptSize[0] / 2, Constants.InteractPrompt.interactPromptPos[1] + Constants.InteractPrompt.interactPromptSize[1] / 2, Constants.InteractPrompt.interactPromptSize[0], Constants.InteractPrompt.interactPromptSize[1]);
         p.add(interactPrompt);
 
@@ -100,33 +127,17 @@ public class GameGUI extends JComponent{
         slotsGUI.setVisible(isSlots);
 
             //text
-            slotsText.setOpaque(false);
-            slotsText.setBackground(Color.pink);
-            slotsText.setFont(Constants.slotsFont);
-            slotsText.setBounds(0,270,730,50);
-            slotsText.setText("Press Space to Begin");
-            slotsText.setHorizontalAlignment(SwingConstants.CENTER);
-            slotsText.setVisible(true);
-            slotsGUI.add(slotsText);
+            slotsText = new JLabel();
 
-            //exit text
-            slotsExitText.setOpaque(false);
-            slotsExitText.setBackground(Color.pink);
-            slotsExitText.setFont(Constants.hudFont);
-            slotsExitText.setBounds(0,50,730,50);
-            slotsExitText.setText("Press escape to exit");
-            slotsExitText.setHorizontalAlignment(SwingConstants.CENTER);
-            slotsExitText.setVisible(true);
-            slotsGUI.add(slotsExitText);
-
-            // HUD balance
-            hudBalance.setOpaque(false);
-            hudBalance.setBackground(Color.pink);
-            hudBalance.setFont(Constants.hudFont);
-            hudBalance.setBounds(480, 40, 350, 50);
-            hudBalance.setText("Balance: $" + Machine.dollarsdf.format(Constants.playerStartingBalance));
-            hudBalance.setHorizontalAlignment(SwingConstants.RIGHT);
-            p.add(hudBalance);
+                slotsText.setOpaque(false);
+                slotsText.setBackground(Color.pink);
+                slotsText.setFont(Constants.slotsFont);
+                slotsText.setBounds(0,270,730,50);
+                slotsText.setText("Press Space to Begin");
+                slotsText.setHorizontalAlignment(SwingConstants.CENTER);
+                slotsText.setVisible(true);
+                slotsGUI.add(slotsText);
+            
 
             //reels
             LeftReel.setOpaque(false);
@@ -155,33 +166,13 @@ public class GameGUI extends JComponent{
         rouletteGUI.setOpaque(false);
         rouletteGUI.setBackground(Color.lightGray);
         p.add(rouletteGUI, JLayeredPane.DRAG_LAYER);
-        rouletteGUI.setVisible(false);
-        
-        //text
-        rouletteText.setOpaque(false);
-        rouletteText.setBackground(Color.pink);
-        rouletteText.setFont(Constants.hudFont);
-        rouletteText.setBounds(0,580,880,50);
-        rouletteText.setText("Please interact in terminal to play roulette");
-        rouletteText.setHorizontalAlignment(SwingConstants.CENTER);
-        rouletteText.setVisible(true);
-        rouletteGUI.add(rouletteText);
+        rouletteGUI.setVisible(isSlots);
 
-        //exit text
-        rouletteExitText.setOpaque(false);
-        rouletteExitText.setBackground(Color.pink);
-        rouletteExitText.setFont(Constants.hudFont);
-        rouletteExitText.setBounds(0,50,880,50);
-        rouletteExitText.setText("Press escape to exit");
-        rouletteExitText.setHorizontalAlignment(SwingConstants.CENTER);
-        rouletteExitText.setVisible(true);
-        rouletteGUI.add(rouletteExitText);
-
-        backgroundRoulette.setOpaque(false);
-        backgroundRoulette.setBackground(Color.blue);
-        backgroundRoulette.setBounds(0,0,880,880);
-        backgroundRoulette.setIcon(backgroundRouletteIcon);
-        rouletteGUI.add(backgroundRoulette);
+            backgroundRoulette.setOpaque(false);
+            backgroundRoulette.setBackground(Color.blue);
+            backgroundRoulette.setBounds(0,0,880,880);
+            backgroundRoulette.setIcon(backgroundRouletteIcon);
+            rouletteGUI.add(backgroundRoulette);
 
         //player
         player.setOpaque(false);

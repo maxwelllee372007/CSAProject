@@ -33,6 +33,7 @@ public class Constants {
     public static final String reelEnd1 = imageFolder + "reelEnd1.png";
     public static final String reelEnd2 = imageFolder + "reelEnd2.png";
     public static final String reelEnd3 = imageFolder + "reelEnd3.png";
+    public static final String startScreenImage = imageFolder + "SSIcon.png";
 
     public static final File pixelFontFile = new File(currentDirectory + "\\jnativehook\\src\\main\\java\\com\\github\\aakm\\VCR_OSD_MONO_1.001.ttf");
     public static Font pixelFont = new Font(null);

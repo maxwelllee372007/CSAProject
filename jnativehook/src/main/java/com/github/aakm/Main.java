@@ -3,6 +3,8 @@ package com.github.aakm;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import javax.swing.text.JTextComponent.KeyBinding;
+
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
@@ -47,6 +49,15 @@ public class Main {
         int i = 0;
         double absoluteStartTime = System.currentTimeMillis();
         System.out.println("absolute start time: " + absoluteStartTime);
+        while (!keyListener.getKeys()[KeyBindings.interactKey]) {
+            try{
+                Thread.sleep(null);
+            }
+            catch(Exception e){
+
+            }
+        }
+        GameGUI.startScreen.setVisible(false);
         while (!(keyListener.getKeys()[KeyBindings.escapeKey] && keyListener.getKeys()[KeyBindings.controlKey])) { // MAIN LOOP is exited by pressing control + escape
             double startTime = System.currentTimeMillis();
             // System.out.println("run main loop" + i);
