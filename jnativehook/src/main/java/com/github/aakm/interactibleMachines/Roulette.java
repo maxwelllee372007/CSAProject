@@ -1,6 +1,8 @@
 package com.github.aakm.interactibleMachines;
 
 
+
+
 import com.github.aakm.Constants.KeyBindings;
 import com.github.aakm.Player;
 import com.github.aakm.keyboardTracker.KeyListener;
@@ -8,52 +10,59 @@ import com.github.aakm.obstacles.Box;
 import com.github.aakm.obstacles.InteractionBox;
 import com.github.gameGUI.GameGUI;
 
+
 import java.util.Scanner;
+
 
 import org.jnativehook.keyboard.NativeKeyEvent;
 
-public class Roulette extends Machine
+
+public class Roulette extends  Machine
 {
     private int displayFrame = 0;
-    public Roulette(Box hitBox, InteractionBox interactionBox) 
+    public Roulette(Box hitBox, InteractionBox interactionBox)
     {
         super(hitBox, interactionBox);
     }
-    public boolean getInteractible(Player player) 
+    public boolean getInteractible(Player player)
     {
         return super.getInteractible(player);
     }
-    public Box getCollisionBox() 
+    public Box getCollisionBox()
     {
         return super.getCollisionBox();
     }
     @Override
     public void interact(Player player, KeyListener keyListener) {
         // TODO: add interrupt functionality
-        welcomePlayer(keyListener);
-        while (keyListener.getKeys()[KeyBindings.interactKey] || keyListener.getKeys()[KeyBindings.confirmKey]) {
-            if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+        this.welcomePlayer(keyListener);
+        while(keyListener.getKeys()[KeyBindings.interactKey] || keyListener.getKeys()[KeyBindings.confirmKey])
+        {
+            if(keyListener.getKeys()[KeyBindings.escapeKey])
+            {
+                System.out.println("Player has escaped the game.");
+                return;            
+            }
+            RouletteBet bet = this.collectBets(player, keyListener);
+            if(keyListener.getKeys()[KeyBindings.escapeKey])
+            {
                 System.out.println("Player has escaped the game.");
                 return;
             }
-            RouletteBet bet = collectBets(player, keyListener);
-            if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+            this.playRoulette(keyListener, player, bet);
+            if(keyListener.getKeys()[KeyBindings.escapeKey])
+            {
                 System.out.println("Player has escaped the game.");
                 return;
             }
-            playRoulette(keyListener, player, bet);
-            if (keyListener.getKeys()[KeyBindings.escapeKey]) {
-                System.out.println("Player has escaped the game.");
-                return;
-            }
-            concludeGame(player, keyListener);
+            this.concludeGame(player, keyListener);
         }
         System.out.println("exited roulette game");
     }
     private void welcomePlayer(KeyListener keyListener) {
         GameGUI.rouletteGUI.setVisible(true);
         System.out.println("Welcome to the roulette machine!");
-        System.out.println("Press '" + NativeKeyEvent.getKeyText(KeyBindings.interactKey) + "' to begin."); 
+        System.out.println("Press '" + NativeKeyEvent.getKeyText(KeyBindings.interactKey) + "' to begin.");
         while (keyListener.getKeys()[KeyBindings.interactKey]) {
             // System.out.println("waiting for player to release interact key");
             try {
@@ -61,7 +70,7 @@ public class Roulette extends Machine
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            
+           
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
                 System.out.println("Player has escaped the game.");
                 return;
@@ -74,7 +83,7 @@ public class Roulette extends Machine
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            
+           
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
                 System.out.println("Player has escaped the game.");
                 return;
@@ -82,15 +91,16 @@ public class Roulette extends Machine
         }
     }
     private RouletteBet collectBets(Player player, KeyListener keyListener) {
-        RouletteBet bet = RouletteBet.Empty();
+        //RouletteBet bet = RouletteBet.Empty();
         //Bet Evaluator Tests
-        bet   = RouletteBet.CreateStraightUpBet(12.5, 15);
+        //bet   = RouletteBet.CreateStraightUpBet(12.5, 15);
         //bet   = RouletteBet.CreateBlackOrRedBet(8.75,true);
         //bet   = RouletteBet.CreateHighOrLowBet(5.25, true);
         //bet   = RouletteBet.CreateOddOrEvenBet(15.60, true);
         //bet   = RouletteBet.CreateDozensBet(22.75, RouletteDozens.Middle);
-
-        confirmBetAmount(bet, keyListener);
+       
+        RouletteBet bet = RouletteBet.InputBetFromKeyboard();
+        this.confirmBetAmount(bet, keyListener);
         if (keyListener.getKeys()[KeyBindings.escapeKey]) {
             System.out.println("Player has escaped the game.");
             return RouletteBet.Empty();
@@ -114,27 +124,37 @@ public class Roulette extends Machine
         }
         // TODO: add GUI display of bet amount
     }
-    private void playRoulette(KeyListener keyListener, Player player, RouletteBet bet) { 
+    private void playRoulette(KeyListener keyListener, Player player, RouletteBet bet) {
         double waitTime = Math.random() * 1000.0 + 2000.0; // random wait time between 2 and 3 seconds
         double totalTime = waitTime + 700.0; // total time to spin the wheel
         double startTime = System.currentTimeMillis();
         RouletteSpinResult result = new RouletteSpinResult();
-        while (System.currentTimeMillis() - startTime < totalTime) {
-
-            if (System.currentTimeMillis() - startTime < waitTime) {
-                spinWheel();
-            } else if (System.currentTimeMillis() - startTime < totalTime) {
-                displaySpinningWheeelFinal(player, bet, result);
-            } else {
-                System.out.println("slots timing error");
+        while(System.currentTimeMillis() - startTime < totalTime)
+        {
+            if(System.currentTimeMillis() - startTime < waitTime)
+            {
+                this.spinWheel();
+            }
+            else if(System.currentTimeMillis() - startTime < totalTime)
+            {
+                this.displaySpinningWheeelFinal(player, bet, result);
+                return;
+            }
+            else
+            {
+                System.out.println("Roulette Wheel timing error");
             }            
-            if (keyListener.getKeys()[KeyBindings.escapeKey]) {
+            if(keyListener.getKeys()[KeyBindings.escapeKey])
+            {
                 System.out.println("Player has escaped the game.");
                 return;
             }
-            try {
+            try
+            {
                 Thread.sleep(100);
-            } catch (InterruptedException e) {
+            }
+            catch(InterruptedException e)
+            {
                 e.printStackTrace();
             }            
         }
@@ -154,16 +174,15 @@ public class Roulette extends Machine
         }
     }
     private void displaySpinningWheeelFinal(Player player, RouletteBet bet, RouletteSpinResult result) {
-        // TODO: add display wheel spinner
         RouletteBetEvaluator evaluator = new RouletteBetEvaluator();
         evaluator.evaluate(player, bet, result);
-        System.out.println("The roulette wheel is " + result);
+        //System.out.println("The roulette wheel is " + result.GetValue());
     }
     private void concludeGame(Player player, KeyListener keyListener) {
         double startTime = System.currentTimeMillis();
         System.out.println("play again? (press '" + NativeKeyEvent.getKeyText(KeyBindings.confirmKey) + "' to play again)" + " (press '" + NativeKeyEvent.getKeyText(KeyBindings.escapeKey) + "' to exit)");
         while (!keyListener.getKeys()[KeyBindings.confirmKey] && System.currentTimeMillis() - startTime < 5000) {
-            
+           
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
                 System.out.println("Player has escaped the game.");
                 return;

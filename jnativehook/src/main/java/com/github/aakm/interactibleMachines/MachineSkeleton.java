@@ -2,7 +2,11 @@ package com.github.aakm.interactibleMachines;
 
 
 
+
+
+
 import org.jnativehook.keyboard.NativeKeyEvent;
+
 
 import com.github.aakm.Player;
 import com.github.aakm.Constants.KeyBindings;
@@ -10,7 +14,9 @@ import com.github.aakm.keyboardTracker.KeyListener;
 import com.github.aakm.obstacles.Box;
 import com.github.aakm.obstacles.InteractionBox;
 
+
 public class MachineSkeleton extends Machine{
+
 
     public MachineSkeleton(Box hitBox, InteractionBox interactionBox) {
         super(hitBox, interactionBox);
@@ -21,6 +27,7 @@ public class MachineSkeleton extends Machine{
     public Box getCollisionBox() {
         return super.getCollisionBox();
     }
+
 
     @Override
     public void interact(Player player, KeyListener keyListener) {
@@ -33,7 +40,7 @@ public class MachineSkeleton extends Machine{
     }
     private void welcomePlayer(KeyListener keyListener) {
         System.out.println("Welcome to the roulette table!");
-        System.out.println("Press '" + NativeKeyEvent.getKeyText(KeyBindings.interactKey) + "' to begin."); 
+        System.out.println("Press '" + NativeKeyEvent.getKeyText(KeyBindings.interactKey) + "' to begin.");
         while (keyListener.getKeys()[KeyBindings.interactKey]) {
             System.out.println("waiting for player to release interact key");
             try {
@@ -129,7 +136,7 @@ public class MachineSkeleton extends Machine{
                 System.out.println("No color selected.");
         }
     }
-    private void spinWheel() { 
+    private void spinWheel() {
         double waitTime = Math.random() * 1000.0 + 2000.0; // random wait time between 2 and 3 seconds
         double startTime = System.currentTimeMillis();
         while (System.currentTimeMillis() - startTime < waitTime) {
@@ -149,9 +156,9 @@ public class MachineSkeleton extends Machine{
         System.out.println("The wheel has stopped spinning.");
         displayBalance(player.getBalance());
 
+
     }
     private void displayBalance(double balance) {
         System.out.println("Your balance is: " + balance);
     }
 }
- 

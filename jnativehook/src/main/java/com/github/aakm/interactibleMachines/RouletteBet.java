@@ -1,6 +1,8 @@
 package com.github.aakm.interactibleMachines;
 
+
 import org.jnativehook.keyboard.NativeKeyEvent;
+
 
 import com.github.aakm.Constants.KeyBindings;
 import com.github.aakm.Player;
@@ -8,8 +10,10 @@ import com.github.aakm.keyboardTracker.KeyListener;
 import java.util.Scanner;
 
 
-public class RouletteBet 
-{ 
+
+
+public class RouletteBet
+{
     public static RouletteBet Empty()
     {
         RouletteBet bet = new RouletteBet();
@@ -18,10 +22,11 @@ public class RouletteBet
     public static RouletteBet InputBetFromKeyboard()
     {
         Scanner scanner = new Scanner(System.in);
-
+       
         System.out.print("Enter bet amount: ");
         double amount = scanner.nextDouble();
         scanner.nextLine(); // consume newline
+
 
         System.out.print("Enter a number to select a bet type 1) Straight Up, 2) High Low, 3) Odd Even, 4)Color, 5) Dozens Number ");
         Integer betType = scanner.nextInt();
@@ -88,10 +93,11 @@ public class RouletteBet
     public static RouletteBet InputOddOrEvenBet(Scanner scanner, double amount)
     {        
         System.out.println("Player has selected a Odd Or Even Bet!");
-        System.out.println("Please input an O for Odds or any other letter for Evens!");
+        System.out.println("Please input an O for Odds or any other letter for Even!");
         String value = scanner.next();
         if(value.trim().compareToIgnoreCase("o") == 0)
         {
+            System.out.println("Invalid bet! Please input an O for Odds or any other letter for Even!");
             return RouletteBet.CreateOddOrEvenBet(amount, true);
         }
         return RouletteBet.CreateOddOrEvenBet(amount, false);
@@ -106,16 +112,15 @@ public class RouletteBet
     }
     public static RouletteBet InputBlackOrRedBet(Scanner scanner, double amount)
     {
-        //TODO:Convert to even odd bet
         System.out.println("Player has selected a colored Bet!");
-        System.out.println("Please input the value to bet for your Straight Up Wager between 1-36!");
-        Integer value = scanner.nextInt();
-        if(value < 1 || value > 36)
+        System.out.println("Please input an B for Black or any other letter for Red!");
+        String value = scanner.next();
+        if(value.trim().compareToIgnoreCase("b") == 0)
         {
-            System.out.println("Invalid bet! Please select a number between 1-36!");
-            return new RouletteBet();
+            System.out.println("Invalid bet! Please input an B for Black or any other letter for Red!");
+            return RouletteBet.CreateOddOrEvenBet(amount, true);
         }
-        return RouletteBet.CreateBlackOrRedBet(amount, true);
+        return RouletteBet.CreateBlackOrRedBet(amount, false);
     }
     public static RouletteBet CreateBlackOrRedBet(double amount, boolean isBlack)
     {
@@ -127,15 +132,13 @@ public class RouletteBet
     }
     public static RouletteBet InputDozensBet(Scanner scanner, double amount)
     {
-        //TODO:Convert to even odd bet
-        System.out.println("Player has seltected a dozens Bet!");
-        System.out.println("Please input the value to bet for your dozens Wager '1' being 1-12, '2' being 13-24, and '3' being 25-36!");
+        System.out.println("Player has selected a dozens Bet!");
+        System.out.println("Please input the value to bet for your dozens Wager '1' being 1-12, '2' being 13-24, or any other number for 25-36!");
         Integer value = scanner.nextInt();
-        if(value < 1 || value > 36)
-        {
-            System.out.println("Invalid bet! Please select the value to bet for your dozens Wager '1' being 1-12, '2' being 13-24, and '3' being 25-36!");
-            return new RouletteBet();
-        }
+        if(value == 1)
+            return RouletteBet.CreateDozensBet(amount, RouletteDozens.Low);
+        if(value == 2)
+            return RouletteBet.CreateDozensBet(amount, RouletteDozens.Middle);
         return RouletteBet.CreateDozensBet(amount, RouletteDozens.High);
     }
     public static RouletteBet CreateDozensBet(double amount, RouletteDozens dozens)
@@ -161,7 +164,7 @@ public class RouletteBet
     public int getValue()
     {
         return this.Value;
-    } 
+    }
     private RouletteDozens dozens = RouletteDozens.notSet;
     public RouletteDozens getDozens()
     {
@@ -183,3 +186,5 @@ public class RouletteBet
         return this.isBlack;        
     }
 }
+
+

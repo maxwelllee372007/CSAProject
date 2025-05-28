@@ -108,6 +108,18 @@ public class Slots extends Machine{
         }
         // TODO: add GUI display of bet amount
     }
+    /** 
+     * returns a rigged number between 0 and 2, inclusive
+     */
+    private int getRandomResult() {
+        int ret = (int)(Math.random() * 5); 
+        if (ret == 3 || ret == 4) {
+            ret = 2; // 4 and 5 are treated as 2
+        } else if (ret == 1 || ret == 2) {
+            ret = 1; // 2 and 3 are treated as 1
+        }
+        return ret; // returns a random number between 0 and 2, inclusive
+    }
     private void playSlots(KeyListener keyListener, Player player) { 
         double waitTimeLeft = Math.random() * 500.0 + 1000.0; // random wait time between 2 and 3 seconds
         double waitTimeMiddle = Math.random() * 250.0 + 1000.0; 
@@ -120,7 +132,7 @@ public class Slots extends Machine{
         double startTimeThird = startTime;
         int numSpacePressed = 0;
         int numSpaceReleased = 0;
-        int[] results = {(int)(Math.random() * 3), (int)(Math.random() * 3), (int)(Math.random() * 3)}; // 0, 0, 0 is win; identical is also win; values are 0-5, inclusive
+        int[] results = {getRandomResult(), getRandomResult(), getRandomResult()}; // 0, 0, 0 is win; identical is also win; values are 0-2, inclusive
 
         
         while (System.currentTimeMillis() - startTime < maxTime) {
@@ -168,8 +180,8 @@ public class Slots extends Machine{
         }
         System.out.println("Game has ended");
         if (results[0] == 0 && results[1] == 0 && results[2] == 0) {
-            System.out.println("Jackpot! +$" + dollarsdf.format(10.0));
-            player.adjustBalance(10.0);
+            System.out.println("Jackpot! +$" + dollarsdf.format(50.0));
+            player.adjustBalance(50.0);
         } else if (results[0] == results[1] && results[1] == results[2]) {
             System.out.println("You win! +$" + dollarsdf.format(3.0));
             player.adjustBalance(3.0);

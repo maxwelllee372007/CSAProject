@@ -1,12 +1,15 @@
 package com.github.aakm;
 
+import java.awt.Font;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import org.jnativehook.NativeHookException;
+
 import com.github.aakm.interactibleMachines.Machine;
-import com.github.aakm.interactibleMachines.MachineSkeleton;
 import com.github.aakm.interactibleMachines.Roulette;
 import com.github.aakm.interactibleMachines.Slots;
 import com.github.aakm.obstacles.Boundary;
@@ -30,6 +33,18 @@ public class Constants {
     public static final String reelEnd1 = imageFolder + "reelEnd1.png";
     public static final String reelEnd2 = imageFolder + "reelEnd2.png";
     public static final String reelEnd3 = imageFolder + "reelEnd3.png";
+
+    public static final File pixelFontFile = new File(currentDirectory + "\\jnativehook\\src\\main\\java\\com\\github\\aakm\\VCR_OSD_MONO_1.001.ttf");
+    public static Font pixelFont = new Font(null);
+    static{
+    try{
+        pixelFont = Font.createFont(Font.TRUETYPE_FONT, pixelFontFile);
+    }
+    catch(Exception e){
+        System.out.println("no font for u");
+    }
+    }
+    public static final Font slotsFont = pixelFont.deriveFont(24f);
 
     public class KeyBindings {
         public static final int[] playerMovementKeys = {57421, 57419, 57416, 57424}; // right, left, up, down arrow keys

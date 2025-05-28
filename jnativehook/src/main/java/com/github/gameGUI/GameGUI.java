@@ -36,6 +36,9 @@ public class GameGUI extends JComponent{
     public static JLabel RightReel= new JLabel();
     public static JLabel backgroundSlots= new JLabel();
     public static JLabel backgroundRoulette= new JLabel();
+    public static JLabel[] slotsText = new JLabel[4];
+    public static JLabel hudBalance = new JLabel();
+    
 
 
     private boolean facingLeft = false;
@@ -92,6 +95,35 @@ public class GameGUI extends JComponent{
         slotsGUI.setBackground(Color.lightGray);
         p.add(slotsGUI, JLayeredPane.DRAG_LAYER);
         slotsGUI.setVisible(isSlots);
+
+            //text
+            slotsText[0] = new JLabel();
+            slotsText[1] = new JLabel();
+            slotsText[2] = new JLabel();
+            slotsText[3] = new JLabel();
+            String[] slotsStrings = {"Press Space to Begin", "Press enter to Spin (-$1.00)", "You Lose!", "You Win!"};
+
+            for (int i = 0; i < 4; i++) {
+                slotsText[i].setOpaque(true);
+                slotsText[i].setBackground(Color.pink);
+                slotsText[i].setFont(Constants.slotsFont);
+                slotsText[i].setBounds(50,50,780,50);
+                slotsText[i].setText(slotsStrings[i]);
+                slotsText[i].setHorizontalAlignment(SwingConstants.CENTER);
+                slotsGUI.add(slotsText[i]);
+            }
+
+            // HUD balance
+            hudBalance.setOpaque(false);
+            hudBalance.setBackground(Color.pink);
+            hudBalance.setFont(Constants.slotsFont);
+            hudBalance.setBounds(680, 40, 150, 50);
+            hudBalance.setText("$" + Machine.dollarsdf.format(Constants.playerStartingBalance));
+            hudBalance.setHorizontalAlignment(SwingConstants.RIGHT);
+            p.add(hudBalance);
+            
+
+            
 
             //reels
             LeftReel.setOpaque(false);
