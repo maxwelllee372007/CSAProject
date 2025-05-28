@@ -38,6 +38,8 @@ public class GameGUI extends JComponent{
     public static JLabel backgroundRoulette= new JLabel();
     public static JLabel slotsText = new JLabel();
     public static JLabel slotsExitText = new JLabel();
+    public static JLabel rouletteText = new JLabel();
+    public static JLabel rouletteExitText = new JLabel();
     public static JLabel hudBalance = new JLabel();
     
 
@@ -153,13 +155,33 @@ public class GameGUI extends JComponent{
         rouletteGUI.setOpaque(false);
         rouletteGUI.setBackground(Color.lightGray);
         p.add(rouletteGUI, JLayeredPane.DRAG_LAYER);
-        rouletteGUI.setVisible(isSlots);
+        rouletteGUI.setVisible(false);
+        
+        //text
+        rouletteText.setOpaque(false);
+        rouletteText.setBackground(Color.pink);
+        rouletteText.setFont(Constants.hudFont);
+        rouletteText.setBounds(0,580,880,50);
+        rouletteText.setText("Please interact in terminal to play roulette");
+        rouletteText.setHorizontalAlignment(SwingConstants.CENTER);
+        rouletteText.setVisible(true);
+        rouletteGUI.add(rouletteText);
 
-            backgroundRoulette.setOpaque(false);
-            backgroundRoulette.setBackground(Color.blue);
-            backgroundRoulette.setBounds(0,0,880,880);
-            backgroundRoulette.setIcon(backgroundRouletteIcon);
-            rouletteGUI.add(backgroundRoulette);
+        //exit text
+        rouletteExitText.setOpaque(false);
+        rouletteExitText.setBackground(Color.pink);
+        rouletteExitText.setFont(Constants.hudFont);
+        rouletteExitText.setBounds(0,50,880,50);
+        rouletteExitText.setText("Press escape to exit");
+        rouletteExitText.setHorizontalAlignment(SwingConstants.CENTER);
+        rouletteExitText.setVisible(true);
+        rouletteGUI.add(rouletteExitText);
+
+        backgroundRoulette.setOpaque(false);
+        backgroundRoulette.setBackground(Color.blue);
+        backgroundRoulette.setBounds(0,0,880,880);
+        backgroundRoulette.setIcon(backgroundRouletteIcon);
+        rouletteGUI.add(backgroundRoulette);
 
         //player
         player.setOpaque(false);

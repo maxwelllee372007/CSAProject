@@ -91,14 +91,6 @@ public class Roulette extends  Machine
         }
     }
     private RouletteBet collectBets(Player player, KeyListener keyListener) {
-        //RouletteBet bet = RouletteBet.Empty();
-        //Bet Evaluator Tests
-        //bet   = RouletteBet.CreateStraightUpBet(12.5, 15);
-        //bet   = RouletteBet.CreateBlackOrRedBet(8.75,true);
-        //bet   = RouletteBet.CreateHighOrLowBet(5.25, true);
-        //bet   = RouletteBet.CreateOddOrEvenBet(15.60, true);
-        //bet   = RouletteBet.CreateDozensBet(22.75, RouletteDozens.Middle);
-       
         RouletteBet bet = RouletteBet.InputBetFromKeyboard();
         this.confirmBetAmount(bet, keyListener);
         if (keyListener.getKeys()[KeyBindings.escapeKey]) {

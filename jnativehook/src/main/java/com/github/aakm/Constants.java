@@ -74,7 +74,7 @@ public class Constants {
     public static final double playerSpeed = 0.8; // speed of the player's movement; in meters per second
     public static final double playerStepFrequency = 0.4; // amount of time to animate a full cycle of player stepping; in seconds
 
-    public static final double[] playerStartingPos = {0.0, 0.0}; // X, Y starting position of player; in meters
+    public static final double[] playerStartingPos = {-0.8, 0.8}; // X, Y starting position of player; in meters
     public static final double playerRadius = 0.1; // radial width of player's hitbox and interaction box; in meters
 
     public static final double collisionResolutionIncrement = 0.0025; // increment that program will use to attempt to "unstuck" player from wall; in meters
