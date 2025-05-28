@@ -4,6 +4,7 @@ package com.github.aakm.interactibleMachines;
 
 
 import com.github.aakm.Constants.KeyBindings;
+import com.github.aakm.Constants;
 import com.github.aakm.Player;
 import com.github.aakm.keyboardTracker.KeyListener;
 import com.github.aakm.obstacles.Box;
@@ -13,6 +14,7 @@ import com.github.gameGUI.GameGUI;
 
 import java.util.Scanner;
 
+import javax.swing.ImageIcon;
 
 import org.jnativehook.keyboard.NativeKeyEvent;
 
@@ -158,6 +160,7 @@ public class Roulette extends  Machine
     private void spinWheel() {
         // TODO: add display wheel spinner
         System.out.println("Spinning the left wheel at display frame " + displayFrame + "...");
+        GameGUI.backgroundRoulette.setIcon(new ImageIcon(Constants.imageFolder + "roulettePopUpSpin" + displayFrame + ".png"));
         //red and black alternatating then show value
         if (displayFrame == 2) {
             displayFrame = 0;
