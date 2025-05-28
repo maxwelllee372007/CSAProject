@@ -4,6 +4,8 @@
 
 Create a top-down rpg pokemon-style virtual casino, where your playable character can walk around and interact with individual machines, with different mini-games. Easily scalable as new minigames can be added as time allows.
 
+NOTE: requires Java 21; you will need to install Java 21 if you do not have it, or the code will not compile. 
+
 ## GUI Elements:
 Player - 3 frame animation
 Generic room
