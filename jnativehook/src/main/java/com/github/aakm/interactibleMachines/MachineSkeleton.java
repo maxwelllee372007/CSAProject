@@ -23,14 +23,22 @@ public class MachineSkeleton extends Machine{
     }
 
     @Override
+    /**
+     * Interacts with the machine. This method implements a simple interaction flow for a roulette game.
+     * @param player The player interacting with the machine.
+     * @param keyListener The KeyListener to track key events during interaction.
+     */
     public void interact(Player player, KeyListener keyListener) {
-        // TODO: add interrupt functionality
         welcomePlayer(keyListener);
         collectBets(player, keyListener);
         chooseSelection(player, keyListener);
         spinWheel();
         concludeGame(player);
     }
+    /**
+     * Welcomes the player to the machine and waits for them to press the interact key.
+     * @param keyListener The KeyListener to track key events.
+     */
     private void welcomePlayer(KeyListener keyListener) {
         System.out.println("Welcome to the roulette table!");
         System.out.println("Press '" + NativeKeyEvent.getKeyText(KeyBindings.interactKey) + "' to begin."); 
@@ -51,6 +59,11 @@ public class MachineSkeleton extends Machine{
             }
         }
     }
+    /**
+     * Collects bets from the player until they confirm their bet.
+     * @param player The player placing the bet.
+     * @param keyListener The KeyListener to track key events during betting.
+     */
     private void collectBets(Player player, KeyListener keyListener) {
         double betAmount = 0.0;
         boolean[] previousKeys = keyListener.getKeys();
@@ -78,14 +91,27 @@ public class MachineSkeleton extends Machine{
         confirmBetAmount(betAmount);
         player.adjustBalance(-betAmount);
     }
+    /**
+     * Displays the current bet amount to the player.
+     * @param betAmount The amount of the bet to display.
+     */
     private void displayBetAmount(double betAmount) {
         System.out.println("Bet amount: " + betAmount);
         // TODO: add GUI display of bet amount
     }
+    /**
+     * Confirms the bet amount with the player.
+     * @param betAmount The amount of the bet to confirm.
+     */
     private void confirmBetAmount(double betAmount) {
         System.out.println("Selected bet amount: " + betAmount);
         // TODO: add GUI display of bet amount
     }
+    /**
+     * Prompts the player to choose a selection (Red, Black, or Green) and waits for confirmation.
+     * @param player The player making the selection.
+     * @param keyListener The KeyListener to track key events during selection.
+     */
     private void chooseSelection(Player player, KeyListener keyListener) {
         System.out.println("Choose a selection: ");
         System.out.println(NativeKeyEvent.getKeyText(KeyBindings.redKey) + ": Red");
@@ -111,6 +137,10 @@ public class MachineSkeleton extends Machine{
             }
         }
     }
+    /**
+     * Displays the selected color to the player and prompts for confirmation.
+     * @param selection The player's selection (1 for Red, 2 for Black, 3 for Green).
+     */
     private void displaySelection(int selection) {
         switch (selection) {
             case 1:
@@ -129,6 +159,9 @@ public class MachineSkeleton extends Machine{
                 System.out.println("No color selected.");
         }
     }
+    /**
+     * Simulates spinning the roulette wheel for a random duration between 2 and 3 seconds.
+     */
     private void spinWheel() { 
         double waitTime = Math.random() * 1000.0 + 2000.0; // random wait time between 2 and 3 seconds
         double startTime = System.currentTimeMillis();
@@ -141,15 +174,27 @@ public class MachineSkeleton extends Machine{
             }
         }
     }
+    /**
+     * Displays the spinning wheel animation.
+     * This method simulates the wheel spinning by printing a message to the console.
+     */
     private void displayWheelSpinner() {
         // TODO: add display wheel spinner
         System.out.println("Spinning the wheel...");
     }
+    /**
+     * Concludes the game by displaying the final balance of the player.
+     * @param player The player whose balance is displayed.
+     */
     private void concludeGame(Player player) {
         System.out.println("The wheel has stopped spinning.");
         displayBalance(player.getBalance());
 
     }
+    /**
+     * Displays the player's balance.
+     * @param balance The current balance of the player.
+     */
     private void displayBalance(double balance) {
         System.out.println("Your balance is: " + balance);
     }

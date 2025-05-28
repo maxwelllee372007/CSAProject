@@ -29,7 +29,6 @@ public class Roulette extends Machine
     }
     @Override
     public void interact(Player player, KeyListener keyListener) {
-        // TODO: add interrupt functionality
         welcomePlayer(keyListener);
         while (keyListener.getKeys()[KeyBindings.interactKey] || keyListener.getKeys()[KeyBindings.confirmKey]) {
             if (keyListener.getKeys()[KeyBindings.escapeKey]) {
