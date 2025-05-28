@@ -6,6 +6,10 @@ Create a top-down rpg pokemon-style virtual casino, where your playable characte
 
 NOTE: requires Java 21; you will need to install Java 21 if you do not have it, or the code will not compile. 
 
+## Documents: 
+[Drive folder with proposal, sprints, and video demonstration](https://drive.google.com/drive/u/4/folders/1tXOxHwtzwmyM3owkFnTSu2gdqgTAo-Gv)
+[AP CSA Final Sprints - Arush, Komron, Maxwell, Aaditya](https://docs.google.com/spreadsheets/d/19JoTXzAoMQJRPFE5i3C_DQpquk25m3sQzjOXDzMlXcg/edit?gid=0#gid=0)
+
 ## GUI Elements:
 Player - 3 frame animation
 Generic room
@@ -25,12 +29,7 @@ World Class:
  - Moving player based on user input
  - Game Areas
 
-## Sprint Task List:
-[AP CSA Final Sprints - Arush, Komron, Maxwell, Aaditya](https://docs.google.com/spreadsheets/d/19JoTXzAoMQJRPFE5i3C_DQpquk25m3sQzjOXDzMlXcg/edit?gid=0#gid=0)
-
-
 # Phase 2 Proposal: 
-
 Class Hierarchy: 
 Main.java
  - KeyboardListener.java - listens for keyboard inputs and updates Keyboard.java correspondingly
